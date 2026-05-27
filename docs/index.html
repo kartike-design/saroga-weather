@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saroga Woods — Live Weather</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #fafaf7;
+    color: #2c2c2a;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .widget {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 0 24px 0;
+  }
+
+  /* Header */
+  .header {
+    background: #2d4a2d;
+    color: #f0ede4;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .header-left { display: flex; align-items: center; gap: 10px; }
+  .header-title { font-size: 15px; font-weight: normal; letter-spacing: 0.03em; }
+  .pws-badge {
+    background: #4a7c4a;
+    color: #d4edda;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    font-family: 'Georgia', serif;
+  }
+  .live-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: #7fc97f;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .header-updated {
+    font-size: 11px;
+    color: #a8c5a8;
+    font-family: 'Georgia', serif;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #6b7c6b;
+    text-transform: uppercase;
+    padding: 16px 20px 8px;
+    font-family: 'Georgia', serif;
+  }
+
+  /* Current conditions */
+  .current-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    border-bottom: 1px solid #e8e4dc;
+  }
+  .temp-block {
+    padding: 16px 24px 16px 20px;
+    border-right: 1px solid #e8e4dc;
+  }
+  .temp-main {
+    font-size: 52px;
+    font-weight: normal;
+    line-height: 1;
+    color: #2d4a2d;
+    font-family: 'Georgia', serif;
+  }
+  .temp-unit { font-size: 26px; color: #6b7c6b; }
+  .feels-like { font-size: 13px; color: #6b7c6b; margin-top: 4px; }
+  .minmax-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+  }
+  .minmax-chip {
+    background: #f0ede4;
+    border-radius: 6px;
+    padding: 5px 12px;
+    text-align: center;
+  }
+  .minmax-chip .lbl { font-size: 10px; color: #6b7c6b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .minmax-chip .val { font-size: 16px; color: #2d4a2d; font-family: 'Georgia', serif; }
+
+  .conditions-block {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    align-content: center;
+  }
+  .cond-pill {
+    background: #f0ede4;
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cond-pill .lbl { font-size: 12px; color: #6b7c6b; }
+  .cond-pill .val { font-size: 14px; color: #2c2c2a; font-weight: normal; }
+
+  /* Forecast */
+  .forecast-row {
+    display: flex;
+    gap: 6px;
+    padding: 4px 20px 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .forecast-row::-webkit-scrollbar { height: 4px; }
+  .forecast-row::-webkit-scrollbar-thumb { background: #c8c4bc; border-radius: 2px; }
+  .fc-card {
+    background: #f0ede4;
+    border-radius: 8px;
+    padding: 10px 10px;
+    text-align: center;
+    min-width: 72px;
+    flex-shrink: 0;
+    border: 1px solid #e0dcd4;
+  }
+  .fc-card.today { background: #2d4a2d; border-color: #2d4a2d; }
+  .fc-card.today .fc-day,
+  .fc-card.today .fc-hi,
+  .fc-card.today .fc-lo,
+  .fc-card.today .fc-rain { color: #d4edda; }
+  .fc-day { font-size: 11px; color: #6b7c6b; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .fc-icon { font-size: 22px; margin: 4px 0; line-height: 1; }
+  .fc-hi { font-size: 15px; color: #2c2c2a; font-family: 'Georgia', serif; }
+  .fc-lo { font-size: 12px; color: #6b7c6b; margin-top: 1px; }
+  .fc-rain { font-size: 10px; color: #7a9c7a; margin-top: 3px; }
+
+  /* History */
+  .history-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 4px 20px 4px;
+  }
+  .hist-card {
+    background: #f0ede4;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1px solid #e0dcd4;
+  }
+  .hist-year {
+    font-size: 11px;
+    color: #6b7c6b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .hist-temp {
+    font-size: 22px;
+    color: #2d4a2d;
+    font-family: 'Georgia', serif;
+    line-height: 1;
+  }
+  .hist-sub { font-size: 12px; color: #6b7c6b; margin-top: 4px; }
+
+  /* Footer */
+  .footer {
+    font-size: 11px;
+    color: #a8a89c;
+    text-align: center;
+    padding: 14px 20px 0;
+    font-family: 'Georgia', serif;
+  }
+  .footer a { color: #6b7c6b; text-decoration: none; }
+
+  /* Error state */
+  .error-msg {
+    padding: 20px;
+    color: #8b6a6a;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .current-grid { grid-template-columns: 1fr; }
+    .temp-block { border-right: none; border-bottom: 1px solid #e8e4dc; }
+    .conditions-block { grid-template-columns: 1fr 1fr; }
+    .history-grid { grid-template-columns: 1fr 1fr; }
+    .temp-main { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="widget">
+
+  <div class="header">
+    <div class="header-left">
+      <span class="header-title">Saroga Woods · Weather</span>
+      <span class="pws-badge"><span class="live-dot"></span>Live · Personal Station</span>
+    </div>
+    <span class="header-updated" id="updated">Loading…</span>
+  </div>
+
+  <div id="main-content">
+    <div class="error-msg">Loading weather data…</div>
+  </div>
+
+  <div class="footer">
+    Data from personal weather station IKUMHA3 at 8,000 ft, Saroga, Himachal Pradesh ·
+    <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3" target="_blank">Full history →</a>
+  </div>
+
+</div>
+
+<script>
+const WMO = {
+  0:'Clear sky', 1:'Mainly clear', 2:'Partly cloudy', 3:'Overcast',
+  45:'Foggy', 48:'Icy fog',
+  51:'Light drizzle', 53:'Drizzle', 55:'Heavy drizzle',
+  61:'Light rain', 63:'Rain', 65:'Heavy rain',
+  71:'Light snow', 73:'Snow', 75:'Heavy snow', 77:'Snow grains',
+  80:'Rain showers', 81:'Rain showers', 82:'Violent showers',
+  85:'Snow showers', 86:'Heavy snow showers',
+  95:'Thunderstorm', 96:'Thunderstorm & hail', 99:'Thunderstorm & hail'
+};
+
+const WMO_ICON = {
+  0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+  45:'🌫️', 48:'🌫️',
+  51:'🌦️', 53:'🌦️', 55:'🌧️',
+  61:'🌧️', 63:'🌧️', 65:'🌧️',
+  71:'🌨️', 73:'❄️', 75:'❄️', 77:'❄️',
+  80:'🌦️', 81:'🌧️', 82:'⛈️',
+  85:'🌨️', 86:'🌨️',
+  95:'⛈️', 96:'⛈️', 99:'⛈️'
+};
+
+function windLabel(deg) {
+  if (deg == null) return '';
+  const dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+  return dirs[Math.round(deg / 22.5) % 16];
+}
+
+function fmt(val, unit, decimals=0) {
+  if (val == null) return '—';
+  return Number(val).toFixed(decimals) + unit;
+}
+
+function dayLabel(dateStr, index) {
+  if (index === 0) return 'TODAY';
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { weekday: 'short' }).toUpperCase();
+}
+
+function formatUpdated(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const now = new Date();
+  const diffMin = Math.round((now - d) / 60000);
+  if (diffMin < 2) return 'Updated just now';
+  if (diffMin < 60) return `Updated ${diffMin} min ago`;
+  return 'Updated ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+
+function render(data) {
+  const c = data.current || {};
+  const forecast = data.forecast || [];
+  const h1 = data.history_1y;
+  const h2 = data.history_2y;
+
+  document.getElementById('updated').textContent = formatUpdated(c.updated || data.generated);
+
+  let html = '';
+
+  // --- Current conditions ---
+  html += `<div class="section-label">Current conditions</div>`;
+  html += `<div class="current-grid">`;
+
+  html += `<div class="temp-block">`;
+  html += `<div class="temp-main">${c.temp != null ? Math.round(c.temp) : '—'}<span class="temp-unit">°C</span></div>`;
+  if (c.feels_like != null) {
+    html += `<div class="feels-like">Feels like ${Math.round(c.feels_like)}°C</div>`;
+  }
+  html += `<div class="minmax-row">`;
+  html += `<div class="minmax-chip"><div class="lbl">Today low</div><div class="val">${c.today_low != null ? Math.round(c.today_low)+'°' : '—'}</div></div>`;
+  html += `<div class="minmax-chip"><div class="lbl">Today high</div><div class="val">${c.today_high != null ? Math.round(c.today_high)+'°' : '—'}</div></div>`;
+  html += `</div>`;
+  html += `</div>`;
+
+  html += `<div class="conditions-block">`;
+  html += `<div class="cond-pill"><span class="lbl">Humidity</span><span class="val">${fmt(c.humidity, '%')}</span></div>`;
+  html += `<div class="cond-pill"><span class="lbl">Wind</span><span class="val">${c.wind_kph != null ? Math.round(c.wind_kph)+' km/h' : '—'}${c.wind_dir_label ? ' '+c.wind_dir_label : ''}</span></div>`;
+  html += `<div class="cond-pill"><span class="lbl">Rain today</span><span class="val">${fmt(c.precip_today, ' mm', 1)}</span></div>`;
+  if (c.condition) {
+    html += `<div class="cond-pill"><span class="lbl">Conditions</span><span class="val">${c.condition}</span></div>`;
+  }
+  html += `</div>`;
+  html += `</div>`;
+
+  // --- 7-day forecast ---
+  if (forecast.length) {
+    html += `<div class="section-label">7-day forecast</div>`;
+    html += `<div class="forecast-row">`;
+    forecast.forEach((day, i) => {
+      const icon = WMO_ICON[day.code] || '🌡️';
+      const desc = WMO[day.code] || '';
+      const rainStr = day.precip > 0.2 ? fmt(day.precip, ' mm', 1) : '';
+      html += `<div class="fc-card${i===0?' today':''}">`;
+      html += `<div class="fc-day">${dayLabel(day.date, i)}</div>`;
+      html += `<div class="fc-icon" title="${desc}">${icon}</div>`;
+      html += `<div class="fc-hi">${Math.round(day.high)}°</div>`;
+      html += `<div class="fc-lo">${Math.round(day.low)}°</div>`;
+      if (rainStr) html += `<div class="fc-rain">${rainStr}</div>`;
