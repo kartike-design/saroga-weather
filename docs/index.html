@@ -6,352 +6,267 @@
 <title>Saroga Woods — Live Weather</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     font-family: 'Georgia', serif;
     background: #fafaf7;
     color: #2c2c2a;
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.4;
   }
-
-  .widget {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 0 24px 0;
-  }
-
   .header {
     background: #2d4a2d;
     color: #f0ede4;
-    padding: 14px 20px;
+    padding: 9px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
   }
-  .header-left { display: flex; align-items: center; gap: 10px; }
-  .header-title { font-size: 15px; font-weight: normal; letter-spacing: 0.03em; }
+  .header-left { display: flex; align-items: center; gap: 8px; }
+  .header-title { font-size: 13px; font-weight: normal; letter-spacing: 0.03em; }
   .pws-badge {
     background: #4a7c4a;
     color: #d4edda;
-    font-size: 11px;
-    padding: 3px 9px;
+    font-size: 10px;
+    padding: 2px 8px;
     border-radius: 20px;
     letter-spacing: 0.04em;
-    font-family: 'Georgia', serif;
   }
   .live-dot {
     display: inline-block;
-    width: 7px; height: 7px;
+    width: 6px; height: 6px;
     background: #7fc97f;
     border-radius: 50%;
-    margin-right: 5px;
+    margin-right: 4px;
     animation: pulse 2s infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-  .header-updated {
-    font-size: 11px;
-    color: #a8c5a8;
-    font-family: 'Georgia', serif;
-  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .header-updated { font-size: 10px; color: #a8c5a8; }
 
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: #6b7c6b;
-    text-transform: uppercase;
-    padding: 16px 20px 8px;
-    font-family: 'Georgia', serif;
-  }
-
-  .current-grid {
+  .top-row {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 10px 14px 8px;
     border-bottom: 1px solid #e8e4dc;
-  }
-  .temp-block {
-    padding: 16px 24px 16px 20px;
-    border-right: 1px solid #e8e4dc;
+    gap: 12px;
   }
   .temp-main {
-    font-size: 52px;
+    font-size: 42px;
     font-weight: normal;
     line-height: 1;
     color: #2d4a2d;
-    font-family: 'Georgia', serif;
   }
-  .temp-unit { font-size: 26px; color: #6b7c6b; }
-  .feels-like { font-size: 13px; color: #6b7c6b; margin-top: 4px; }
-  .minmax-row {
-    display: flex;
-    gap: 16px;
-    margin-top: 10px;
-  }
-  .minmax-chip {
+  .temp-unit { font-size: 20px; color: #6b7c6b; }
+  .feels { font-size: 11px; color: #6b7c6b; margin-top: 2px; }
+  .minmax { display: flex; gap: 8px; }
+  .mm-chip {
     background: #f0ede4;
-    border-radius: 6px;
-    padding: 5px 12px;
+    border-radius: 5px;
+    padding: 4px 9px;
     text-align: center;
   }
-  .minmax-chip .lbl { font-size: 10px; color: #6b7c6b; text-transform: uppercase; letter-spacing: 0.05em; }
-  .minmax-chip .val { font-size: 16px; color: #2d4a2d; font-family: 'Georgia', serif; }
-
-  .conditions-block {
-    padding: 16px 20px;
+  .mm-chip .lbl { font-size: 9px; color: #6b7c6b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .mm-chip .val { font-size: 14px; color: #2d4a2d; }
+  .cond-pills {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    align-content: center;
+    gap: 5px;
   }
-  .cond-pill {
+  .cp {
     background: #f0ede4;
-    border-radius: 6px;
-    padding: 8px 12px;
+    border-radius: 5px;
+    padding: 5px 9px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 6px;
   }
-  .cond-pill .lbl { font-size: 12px; color: #6b7c6b; }
-  .cond-pill .val { font-size: 14px; color: #2c2c2a; font-weight: normal; }
+  .cp .lbl { font-size: 10px; color: #6b7c6b; white-space: nowrap; }
+  .cp .val { font-size: 12px; color: #2c2c2a; }
 
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    color: #6b7c6b;
+    text-transform: uppercase;
+    padding: 8px 14px 5px;
+  }
   .forecast-row {
     display: flex;
-    gap: 6px;
-    padding: 4px 20px 4px;
+    gap: 5px;
+    padding: 0 14px 8px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .forecast-row::-webkit-scrollbar { height: 4px; }
+  .forecast-row::-webkit-scrollbar { height: 3px; }
   .forecast-row::-webkit-scrollbar-thumb { background: #c8c4bc; border-radius: 2px; }
-  .fc-card {
+  .fc {
     background: #f0ede4;
-    border-radius: 8px;
-    padding: 10px 10px;
+    border-radius: 6px;
+    padding: 7px 8px;
     text-align: center;
-    min-width: 72px;
+    min-width: 58px;
     flex-shrink: 0;
     border: 1px solid #e0dcd4;
   }
-  .fc-card.today { background: #2d4a2d; border-color: #2d4a2d; }
-  .fc-card.today .fc-day,
-  .fc-card.today .fc-hi,
-  .fc-card.today .fc-lo,
-  .fc-card.today .fc-rain { color: #d4edda; }
-  .fc-day { font-size: 11px; color: #6b7c6b; letter-spacing: 0.04em; margin-bottom: 4px; }
-  .fc-icon { font-size: 22px; margin: 4px 0; line-height: 1; }
-  .fc-hi { font-size: 15px; color: #2c2c2a; font-family: 'Georgia', serif; }
-  .fc-lo { font-size: 12px; color: #6b7c6b; margin-top: 1px; }
-  .fc-rain { font-size: 10px; color: #7a9c7a; margin-top: 3px; }
+  .fc.today { background: #2d4a2d; border-color: #2d4a2d; }
+  .fc.today .fc-day, .fc.today .fc-hi,
+  .fc.today .fc-lo, .fc.today .fc-rain { color: #d4edda; }
+  .fc-day { font-size: 10px; color: #6b7c6b; letter-spacing: 0.03em; margin-bottom: 3px; }
+  .fc-icon { font-size: 18px; margin: 2px 0; line-height: 1; }
+  .fc-hi { font-size: 13px; color: #2c2c2a; }
+  .fc-lo { font-size: 11px; color: #6b7c6b; }
+  .fc-rain { font-size: 9px; color: #7a9c7a; margin-top: 2px; }
 
-  .history-grid {
+  .hist-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 4px 20px 4px;
+    gap: 8px;
+    padding: 0 14px 10px;
   }
-  .hist-card {
+  .hc {
     background: #f0ede4;
-    border-radius: 8px;
-    padding: 12px 14px;
+    border-radius: 6px;
+    padding: 8px 10px;
     border: 1px solid #e0dcd4;
   }
-  .hist-year {
-    font-size: 11px;
-    color: #6b7c6b;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 6px;
-  }
-  .hist-temp {
-    font-size: 22px;
-    color: #2d4a2d;
-    font-family: 'Georgia', serif;
-    line-height: 1;
-  }
-  .hist-sub { font-size: 12px; color: #6b7c6b; margin-top: 4px; }
+  .hc-yr { font-size: 10px; color: #6b7c6b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+  .hc-temp { font-size: 18px; color: #2d4a2d; line-height: 1; }
+  .hc-sub { font-size: 11px; color: #6b7c6b; margin-top: 2px; }
 
   .footer {
-    font-size: 11px;
-    color: #a8a89c;
+    font-size: 10px;
+    color: #b0ad9c;
     text-align: center;
-    padding: 14px 20px 0;
-    font-family: 'Georgia', serif;
+    padding: 4px 14px 8px;
   }
   .footer a { color: #6b7c6b; text-decoration: none; }
+  .error-msg { padding: 16px; color: #8b6a6a; font-size: 12px; text-align: center; }
 
-  .error-msg {
-    padding: 20px;
-    color: #8b6a6a;
-    font-size: 13px;
-    text-align: center;
-  }
-
-  @media (max-width: 480px) {
-    .current-grid { grid-template-columns: 1fr; }
-    .temp-block { border-right: none; border-bottom: 1px solid #e8e4dc; }
-    .conditions-block { grid-template-columns: 1fr 1fr; }
-    .history-grid { grid-template-columns: 1fr 1fr; }
-    .temp-main { font-size: 44px; }
+  @media (max-width: 400px) {
+    .top-row { grid-template-columns: auto 1fr; }
+    .minmax { display: none; }
+    .cond-pills { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-<div class="widget">
 
-  <div class="header">
-    <div class="header-left">
-      <span class="header-title">Saroga Woods · Weather</span>
-      <span class="pws-badge"><span class="live-dot"></span>Live · Personal Station</span>
-    </div>
-    <span class="header-updated" id="updated">Loading…</span>
+<div class="header">
+  <div class="header-left">
+    <span class="header-title">Saroga Woods · Weather</span>
+    <span class="pws-badge"><span class="live-dot"></span>Live · Personal Station</span>
   </div>
+  <span class="header-updated" id="updated">Loading…</span>
+</div>
 
-  <div id="main-content">
-    <div class="error-msg">Loading weather data…</div>
-  </div>
+<div id="main-content">
+  <div class="error-msg">Loading weather data…</div>
+</div>
 
-  <div class="footer">
-    Data from personal weather station IKUMHA3 at 8,000 ft, Saroga, Himachal Pradesh ·
-    <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3" target="_blank">Full history →</a>
-  </div>
-
+<div class="footer">
+  Personal weather station IKUMHA3 · Saroga, 8,000 ft ·
+  <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3" target="_blank">Full history →</a>
 </div>
 
 <script>
-const WMO = {
-  0:'Clear sky', 1:'Mainly clear', 2:'Partly cloudy', 3:'Overcast',
-  45:'Foggy', 48:'Icy fog',
-  51:'Light drizzle', 53:'Drizzle', 55:'Heavy drizzle',
-  61:'Light rain', 63:'Rain', 65:'Heavy rain',
-  71:'Light snow', 73:'Snow', 75:'Heavy snow', 77:'Snow grains',
-  80:'Rain showers', 81:'Rain showers', 82:'Violent showers',
-  85:'Snow showers', 86:'Heavy snow showers',
-  95:'Thunderstorm', 96:'Thunderstorm & hail', 99:'Thunderstorm & hail'
-};
-
 const WMO_ICON = {
-  0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
-  45:'🌫️', 48:'🌫️',
-  51:'🌦️', 53:'🌦️', 55:'🌧️',
-  61:'🌧️', 63:'🌧️', 65:'🌧️',
-  71:'🌨️', 73:'❄️', 75:'❄️', 77:'❄️',
-  80:'🌦️', 81:'🌧️', 82:'⛈️',
-  85:'🌨️', 86:'🌨️',
-  95:'⛈️', 96:'⛈️', 99:'⛈️'
+  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',
+  51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',
+  71:'🌨️',73:'❄️',75:'❄️',77:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',
+  85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'
+};
+const WMO = {
+  0:'Clear',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',
+  45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
+  61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',
+  75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Showers',82:'Heavy showers',
+  85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'
 };
 
-function fmt(val, unit, decimals=0) {
-  if (val == null) return '—';
-  return Number(val).toFixed(decimals) + unit;
+function fmt(v,u,d=0){ return v==null?'—':Number(v).toFixed(d)+u; }
+
+function dayLabel(ds,i){
+  if(i===0) return 'TODAY';
+  const d=new Date(ds+'T00:00:00');
+  return d.toLocaleDateString('en-GB',{weekday:'short'}).toUpperCase();
 }
 
-function dayLabel(dateStr, index) {
-  if (index === 0) return 'TODAY';
-  const d = new Date(dateStr + 'T00:00:00');
-  return d.toLocaleDateString('en-GB', { weekday: 'short' }).toUpperCase();
+function formatUpdated(iso){
+  if(!iso) return '';
+  const d=new Date(iso), now=new Date();
+  const m=Math.round((now-d)/60000);
+  if(m<2) return 'Just now';
+  if(m<60) return m+' min ago';
+  return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
 }
 
-function formatUpdated(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  const now = new Date();
-  const diffMin = Math.round((now - d) / 60000);
-  if (diffMin < 2) return 'Updated just now';
-  if (diffMin < 60) return `Updated ${diffMin} min ago`;
-  return 'Updated ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-}
+function render(data){
+  const c=data.current||{}, fc=data.forecast||[], h1=data.history_1y, h2=data.history_2y;
+  document.getElementById('updated').textContent=formatUpdated(c.updated||data.generated);
+  let html='';
 
-function render(data) {
-  const c = data.current || {};
-  const forecast = data.forecast || [];
-  const h1 = data.history_1y;
-  const h2 = data.history_2y;
+  html+=`<div class="top-row">`;
+  html+=`<div><div class="temp-main">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
+  if(c.feels_like!=null) html+=`<div class="feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
+  html+=`</div>`;
+  html+=`<div class="cond-pills">`;
+  html+=`<div class="cp"><span class="lbl">Humidity</span><span class="val">${fmt(c.humidity,'%')}</span></div>`;
+  html+=`<div class="cp"><span class="lbl">Wind</span><span class="val">${c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—'}${c.wind_dir_label?' '+c.wind_dir_label:''}</span></div>`;
+  html+=`<div class="cp"><span class="lbl">Rain today</span><span class="val">${fmt(c.precip_today,' mm',1)}</span></div>`;
+  html+=`</div>`;
+  html+=`<div class="minmax">`;
+  html+=`<div class="mm-chip"><div class="lbl">Low</div><div class="val">${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</div></div>`;
+  html+=`<div class="mm-chip"><div class="lbl">High</div><div class="val">${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</div></div>`;
+  html+=`</div>`;
+  html+=`</div>`;
 
-  document.getElementById('updated').textContent = formatUpdated(c.updated || data.generated);
-
-  let html = '';
-
-  html += `<div class="section-label">Current conditions</div>`;
-  html += `<div class="current-grid">`;
-
-  html += `<div class="temp-block">`;
-  html += `<div class="temp-main">${c.temp != null ? Math.round(c.temp) : '—'}<span class="temp-unit">°C</span></div>`;
-  if (c.feels_like != null) {
-    html += `<div class="feels-like">Feels like ${Math.round(c.feels_like)}°C</div>`;
-  }
-  html += `<div class="minmax-row">`;
-  html += `<div class="minmax-chip"><div class="lbl">Today low</div><div class="val">${c.today_low != null ? Math.round(c.today_low)+'°' : '—'}</div></div>`;
-  html += `<div class="minmax-chip"><div class="lbl">Today high</div><div class="val">${c.today_high != null ? Math.round(c.today_high)+'°' : '—'}</div></div>`;
-  html += `</div>`;
-  html += `</div>`;
-
-  html += `<div class="conditions-block">`;
-  html += `<div class="cond-pill"><span class="lbl">Humidity</span><span class="val">${fmt(c.humidity, '%')}</span></div>`;
-  html += `<div class="cond-pill"><span class="lbl">Wind</span><span class="val">${c.wind_kph != null ? Math.round(c.wind_kph)+' km/h' : '—'}${c.wind_dir_label ? ' '+c.wind_dir_label : ''}</span></div>`;
-  html += `<div class="cond-pill"><span class="lbl">Rain today</span><span class="val">${fmt(c.precip_today, ' mm', 1)}</span></div>`;
-  if (c.condition) {
-    html += `<div class="cond-pill"><span class="lbl">Conditions</span><span class="val">${c.condition}</span></div>`;
-  }
-  html += `</div>`;
-  html += `</div>`;
-
-  if (forecast.length) {
-    html += `<div class="section-label">7-day forecast</div>`;
-    html += `<div class="forecast-row">`;
-    forecast.forEach((day, i) => {
-      const icon = WMO_ICON[day.code] || '🌡️';
-      const desc = WMO[day.code] || '';
-      const rainStr = day.precip > 0.2 ? fmt(day.precip, ' mm', 1) : '';
-      html += `<div class="fc-card${i===0?' today':''}">`;
-      html += `<div class="fc-day">${dayLabel(day.date, i)}</div>`;
-      html += `<div class="fc-icon" title="${desc}">${icon}</div>`;
-      html += `<div class="fc-hi">${Math.round(day.high)}°</div>`;
-      html += `<div class="fc-lo">${Math.round(day.low)}°</div>`;
-      if (rainStr) html += `<div class="fc-rain">${rainStr}</div>`;
-      html += `</div>`;
+  if(fc.length){
+    html+=`<div class="section-label">7-day forecast</div><div class="forecast-row">`;
+    fc.forEach((day,i)=>{
+      const icon=WMO_ICON[day.code]||'🌡️';
+      const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
+      html+=`<div class="fc${i===0?' today':''}">`;
+      html+=`<div class="fc-day">${dayLabel(day.date,i)}</div>`;
+      html+=`<div class="fc-icon" title="${WMO[day.code]||''}">${icon}</div>`;
+      html+=`<div class="fc-hi">${Math.round(day.high)}°</div>`;
+      html+=`<div class="fc-lo">${Math.round(day.low)}°</div>`;
+      if(rain) html+=`<div class="fc-rain">${rain}</div>`;
+      html+=`</div>`;
     });
-    html += `</div>`;
+    html+=`</div>`;
   }
 
-  if (h1 || h2) {
-    html += `<div class="section-label">Same week in past years</div>`;
-    html += `<div class="history-grid">`;
-    [h1, h2].forEach(h => {
-      if (!h) return;
-      html += `<div class="hist-card">`;
-      html += `<div class="hist-year">${h.year}</div>`;
-      html += `<div class="hist-temp">${h.temp_avg != null ? h.temp_avg+'°C' : '—'} <span style="font-size:13px;color:#6b7c6b;">avg</span></div>`;
-      html += `<div class="hist-sub">High ${h.temp_high != null ? h.temp_high+'°' : '—'} · Low ${h.temp_low != null ? h.temp_low+'°' : '—'}</div>`;
-      html += `<div class="hist-sub">${h.precip != null ? h.precip+' mm rain' : ''}</div>`;
-      html += `</div>`;
+  if(h1||h2){
+    html+=`<div class="section-label">Same week in past years</div><div class="hist-row">`;
+    [h1,h2].forEach(h=>{
+      if(!h) return;
+      html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
+      html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg+'°C':'—'} <span style="font-size:11px;color:#6b7c6b;">avg</span></div>`;
+      html+=`<div class="hc-sub">High ${h.temp_high!=null?h.temp_high+'°':'—'} · Low ${h.temp_low!=null?h.temp_low+'°':'—'}</div>`;
+      html+=`<div class="hc-sub">${h.precip!=null?h.precip+' mm rain':''}</div></div>`;
     });
-    html += `</div>`;
+    html+=`</div>`;
   }
 
-  document.getElementById('main-content').innerHTML = html;
+  document.getElementById('main-content').innerHTML=html;
 }
 
-async function load() {
-  try {
-    const r = await fetch('https://kartike-design.github.io/saroga-weather/weather.json?t=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
-    render(data);
-  } catch(e) {
-    document.getElementById('main-content').innerHTML =
+async function load(){
+  try{
+    const r=await fetch('https://kartike-design.github.io/saroga-weather/weather.json?t='+Date.now());
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    render(await r.json());
+  } catch(e){
+    document.getElementById('main-content').innerHTML=
       `<div class="error-msg">Weather data temporarily unavailable. <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
-    document.getElementById('updated').textContent = '';
+    document.getElementById('updated').textContent='';
   }
 }
-
 load();
-setInterval(load, 600000);
+setInterval(load,600000);
 </script>
 </body>
 </html>
