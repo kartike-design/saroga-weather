@@ -1,0 +1,71 @@
+{
+  "current": {
+    "temp": 19,
+    "feels_like": 19,
+    "humidity": 38,
+    "wind_kph": 0,
+    "wind_dir": 342,
+    "pressure": 1009.82,
+    "precip_today": 0.0,
+    "uv": null,
+    "condition": "",
+    "updated": "2026-05-28 01:21:32",
+    "wind_dir_label": "NNW",
+    "today_low": null,
+    "today_high": null
+  },
+  "forecast": [
+    {
+      "date": "2026-05-28",
+      "code": 51,
+      "high": 28.6,
+      "low": 16.7,
+      "precip": 0.8
+    },
+    {
+      "date": "2026-05-29",
+      "code": 55,
+      "high": 26.2,
+      "low": 14.7,
+      "precip": 2.8
+    },
+    {
+      "date": "2026-05-30",
+      "code": 53,
+      "high": 22.8,
+      "low": 14.3,
+      "precip": 2.6
+    },
+    {
+      "date": "2026-05-31",
+      "code": 51,
+      "high": 24.5,
+      "low": 14.6,
+      "precip": 1.5
+    },
+    {
+      "date": "2026-06-01",
+      "code": 53,
+      "high": 27.5,
+      "low": 15.4,
+      "precip": 2.1
+    },
+    {
+      "date": "2026-06-02",
+      "code": 51,
+      "high": 27.1,
+      "low": 16.2,
+      "precip": 1.5
+    },
+    {
+      "date": "2026-06-03",
+      "code": 51,
+      "high": 26.9,
+      "low": 16.3,
+      "precip": 0.6
+    }
+  ],
+  "history_1y": null,
+  "history_2y": null,
+  "generated": "2026-05-27T19:52:20.656184+00:00"
+}
