@@ -13,6 +13,7 @@
     font-size: 13px;
     line-height: 1.4;
   }
+
   .header {
     background: #2d4a2d;
     color: #f0ede4;
@@ -24,12 +25,7 @@
     gap: 6px;
   }
   .header-left { display: flex; align-items: center; gap: 8px; }
-  .header-title {
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: 0.04em;
-    font-style: italic;
-  }
+  .header-title { font-size: 14px; font-weight: normal; letter-spacing: 0.04em; font-style: italic; }
   .pws-badge {
     background: #3d6b3d;
     color: #c8e6c8;
@@ -48,68 +44,78 @@
     animation: pulse 2s infinite;
   }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .header-updated { font-size: 10px; color: #a8c5a8; font-style: normal; }
+  .header-updated { font-size: 10px; color: #a8c5a8; }
+
   .stale-warning {
     background: #5a3a1a;
     color: #f0d9b5;
     font-size: 10px;
     text-align: center;
-    padding: 4px 14px;
+    padding: 5px 14px;
     display: none;
   }
 
-  .top-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    padding: 12px 16px 10px;
+  /* Current conditions block */
+  .current {
+    padding: 14px 16px 12px;
     border-bottom: 1px solid #e8e4dc;
-    gap: 12px;
+  }
+  .current-top {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 12px;
   }
   .temp-main {
-    font-size: 44px;
+    font-size: 56px;
     font-weight: normal;
     line-height: 1;
     color: #2d4a2d;
   }
-  .temp-unit { font-size: 20px; color: #7a8a7a; }
-  .feels { font-size: 11px; color: #7a8a7a; margin-top: 3px; font-style: italic; }
-  .minmax { display: flex; gap: 8px; }
-  .mm-chip {
-    background: #f5f2eb;
-    border: 1px solid #e2ddd4;
-    border-radius: 5px;
-    padding: 5px 10px;
-    text-align: center;
-  }
-  .mm-chip .lbl { font-size: 9px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.06em; }
-  .mm-chip .val { font-size: 15px; color: #2d4a2d; }
-  .cond-pills {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-  }
-  .cp {
-    background: #f5f2eb;
-    border: 1px solid #e2ddd4;
-    border-radius: 5px;
-    padding: 5px 10px;
+  .temp-unit { font-size: 22px; color: #7a8a7a; vertical-align: super; }
+  .temp-meta { padding-bottom: 4px; }
+  .feels { font-size: 12px; color: #7a8a7a; font-style: italic; }
+  .minmax-inline {
     display: flex;
-    justify-content: space-between;
+    gap: 4px;
+    margin-top: 5px;
     align-items: center;
+  }
+  .minmax-inline .arrow-down { color: #4a8a8a; font-size: 13px; }
+  .minmax-inline .arrow-up { color: #8a4a4a; font-size: 13px; }
+  .minmax-inline .mv { font-size: 14px; color: #2d4a2d; }
+  .minmax-inline .ml { font-size: 10px; color: #8a9a8a; margin-right: 2px; }
+  .minmax-sep { color: #c8c4bc; margin: 0 4px; }
+
+  /* Stat chips row */
+  .stat-chips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 6px;
   }
-  .cp .lbl { font-size: 10px; color: #8a9a8a; white-space: nowrap; }
-  .cp .val { font-size: 12px; color: #3a3a3a; }
+  .chip {
+    background: #f5f2eb;
+    border: 1px solid #e2ddd4;
+    border-radius: 6px;
+    padding: 7px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .chip-lbl { font-size: 9px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.07em; }
+  .chip-val { font-size: 14px; color: #2d4a2d; }
+  .chip-sub { font-size: 10px; color: #8a9a8a; }
 
+  /* Section label */
   .section-label {
     font-size: 10px;
     letter-spacing: 0.08em;
     color: #8a9a8a;
     text-transform: uppercase;
-    padding: 9px 16px 5px;
-    font-style: normal;
+    padding: 10px 16px 5px;
   }
+
+  /* Forecast */
   .forecast-row {
     display: flex;
     gap: 5px;
@@ -122,9 +128,10 @@
   .fc {
     background: #f5f2eb;
     border-radius: 6px;
-    padding: 7px 8px;
+    padding: 8px 8px 6px;
     text-align: center;
-    min-width: 58px;
+    min-width: 60px;
+    flex: 1;
     flex-shrink: 0;
     border: 1px solid #e2ddd4;
   }
@@ -132,11 +139,12 @@
   .fc.today .fc-day,.fc.today .fc-hi,
   .fc.today .fc-lo,.fc.today .fc-rain { color: #c8e6c8; }
   .fc-day { font-size: 10px; color: #8a9a8a; letter-spacing: 0.03em; margin-bottom: 3px; }
-  .fc-icon { font-size: 18px; margin: 2px 0; line-height: 1; }
-  .fc-hi { font-size: 13px; color: #3a3a3a; }
-  .fc-lo { font-size: 11px; color: #8a9a8a; }
+  .fc-icon { font-size: 18px; margin: 3px 0; line-height: 1; }
+  .fc-hi { font-size: 13px; color: #3a3a3a; font-weight: normal; }
+  .fc-lo { font-size: 11px; color: #8a9a8a; margin-top: 1px; }
   .fc-rain { font-size: 9px; color: #6a9a6a; margin-top: 2px; }
 
+  /* History */
   .hist-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -146,29 +154,27 @@
   .hc {
     background: #f5f2eb;
     border-radius: 6px;
-    padding: 9px 11px;
+    padding: 9px 12px;
     border: 1px solid #e2ddd4;
   }
-  .hc-yr { font-size: 10px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
-  .hc-temp { font-size: 19px; color: #2d4a2d; line-height: 1; }
+  .hc-yr { font-size: 10px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .hc-temp { font-size: 20px; color: #2d4a2d; line-height: 1; }
   .hc-sub { font-size: 11px; color: #8a9a8a; margin-top: 3px; }
 
   .footer {
     font-size: 10px;
     color: #b0ad9c;
     text-align: center;
-    padding: 2px 14px 10px;
+    padding: 8px 14px 10px;
     border-top: 1px solid #e8e4dc;
-    padding-top: 8px;
   }
   .footer a { color: #5a7a5a; text-decoration: none; }
   .footer a:hover { text-decoration: underline; }
   .error-msg { padding: 16px; color: #8b6a6a; font-size: 12px; text-align: center; }
 
-  @media (max-width: 400px) {
-    .top-row { grid-template-columns: auto 1fr; }
-    .minmax { display: none; }
-    .cond-pills { grid-template-columns: 1fr; }
+  @media (max-width: 380px) {
+    .stat-chips { grid-template-columns: repeat(3, 1fr); }
+    .temp-main { font-size: 44px; }
   }
 </style>
 </head>
@@ -182,7 +188,7 @@
   <span class="header-updated" id="updated">Loading…</span>
 </div>
 <div class="stale-warning" id="stale-warning">
-  ⚠ Station data may be delayed — showing last recorded reading
+  ⚠ Station offline — showing last recorded reading
 </div>
 
 <div id="main-content">
@@ -230,36 +236,41 @@ function formatUpdated(iso){
 
 function checkStale(iso){
   if(!iso) return;
-  const d=new Date(iso), now=new Date();
-  const m=Math.round((now-d)/60000);
-  if(m>30){
-    document.getElementById('stale-warning').style.display='block';
-  }
+  const mins=Math.round((new Date()-new Date(iso))/60000);
+  if(mins>30) document.getElementById('stale-warning').style.display='block';
 }
 
 function render(data){
   const c=data.current||{}, fc=data.forecast||[], h1=data.history_1y, h2=data.history_2y;
-  const timeRef = c.updated||data.generated;
+  const timeRef=c.updated||data.generated;
   document.getElementById('updated').textContent=formatUpdated(timeRef);
   checkStale(timeRef);
 
   let html='';
 
-  html+=`<div class="top-row">`;
-  html+=`<div><div class="temp-main">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
+  /* ---- Current conditions ---- */
+  html+=`<div class="current">`;
+  html+=`<div class="current-top">`;
+  html+=`<div class="temp-main">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
+  html+=`<div class="temp-meta">`;
   if(c.feels_like!=null) html+=`<div class="feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
+  html+=`<div class="minmax-inline">`;
+  html+=`<span class="ml">Low</span><span class="mv">${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</span>`;
+  html+=`<span class="minmax-sep">·</span>`;
+  html+=`<span class="ml">High</span><span class="mv">${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</span>`;
   html+=`</div>`;
-  html+=`<div class="cond-pills">`;
-  html+=`<div class="cp"><span class="lbl">Humidity</span><span class="val">${fmt(c.humidity,'%')}</span></div>`;
-  html+=`<div class="cp"><span class="lbl">Wind</span><span class="val">${c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—'}${c.wind_dir_label?' '+c.wind_dir_label:''}</span></div>`;
-  html+=`<div class="cp"><span class="lbl">Rain today</span><span class="val">${fmt(c.precip_today,' mm',1)}</span></div>`;
-  html+=`</div>`;
-  html+=`<div class="minmax">`;
-  html+=`<div class="mm-chip"><div class="lbl">Low</div><div class="val">${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</div></div>`;
-  html+=`<div class="mm-chip"><div class="lbl">High</div><div class="val">${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</div></div>`;
+  html+=`</div></div>`;
+
+  html+=`<div class="stat-chips">`;
+  html+=`<div class="chip"><span class="chip-lbl">Humidity</span><span class="chip-val">${fmt(c.humidity,'%')}</span></div>`;
+  const windStr=c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—';
+  const windDir=c.wind_dir_label||'';
+  html+=`<div class="chip"><span class="chip-lbl">Wind</span><span class="chip-val">${windStr}</span>${windDir?`<span class="chip-sub">${windDir}</span>`:''}</div>`;
+  html+=`<div class="chip"><span class="chip-lbl">Rain today</span><span class="chip-val">${fmt(c.precip_today,' mm',1)}</span></div>`;
   html+=`</div>`;
   html+=`</div>`;
 
+  /* ---- 7-day forecast ---- */
   if(fc.length){
     html+=`<div class="section-label">7-day forecast</div><div class="forecast-row">`;
     fc.forEach((day,i)=>{
@@ -275,6 +286,7 @@ function render(data){
     html+=`</div>`;
   }
 
+  /* ---- Historical ---- */
   if(h1||h2){
     html+=`<div class="section-label">Same week in past years</div><div class="hist-row">`;
     [h1,h2].forEach(h=>{
@@ -282,7 +294,8 @@ function render(data){
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
       html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg+'°C':'—'} <span style="font-size:11px;color:#8a9a8a;">avg</span></div>`;
       html+=`<div class="hc-sub">High ${h.temp_high!=null?h.temp_high+'°':'—'} · Low ${h.temp_low!=null?h.temp_low+'°':'—'}</div>`;
-      html+=`<div class="hc-sub">${h.precip!=null?h.precip+' mm rain':''}</div></div>`;
+      if(h.precip!=null) html+=`<div class="hc-sub">${h.precip} mm rain</div>`;
+      html+=`</div>`;
     });
     html+=`</div>`;
   }
