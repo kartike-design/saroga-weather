@@ -5,177 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Saroga Woods — Live Weather</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Georgia', serif;
-    background: #ffffff;
-    color: #3a3a3a;
-    font-size: 13px;
-    line-height: 1.4;
-  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Georgia',serif;background:#fff;color:#3a3a3a;font-size:13px;line-height:1.4;}
+  .header{background:#2d4a2d;color:#f0ede4;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+  .header-left{display:flex;align-items:center;gap:8px;}
+  .header-title{font-size:14px;font-weight:normal;letter-spacing:0.04em;font-style:italic;}
+  .pws-badge{background:#3d6b3d;color:#c8e6c8;font-size:10px;padding:2px 9px;border-radius:20px;letter-spacing:0.05em;font-style:normal;}
+  .live-dot{display:inline-block;width:6px;height:6px;background:#7fc97f;border-radius:50%;margin-right:4px;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  .header-updated{font-size:10px;color:#a8c5a8;}
+  .stale-warning{background:#5a3a1a;color:#f0d9b5;font-size:10px;text-align:center;padding:5px 14px;display:none;}
 
-  .header {
-    background: #2d4a2d;
-    color: #f0ede4;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .header-left { display: flex; align-items: center; gap: 8px; }
-  .header-title { font-size: 14px; font-weight: normal; letter-spacing: 0.04em; font-style: italic; }
-  .pws-badge {
-    background: #3d6b3d;
-    color: #c8e6c8;
-    font-size: 10px;
-    padding: 2px 9px;
-    border-radius: 20px;
-    letter-spacing: 0.05em;
-    font-style: normal;
-  }
-  .live-dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    background: #7fc97f;
-    border-radius: 50%;
-    margin-right: 4px;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .header-updated { font-size: 10px; color: #a8c5a8; }
+  .current{padding:14px 16px 12px;border-bottom:1px solid #e8e4dc;}
+  .current-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px;}
+  .temp-main{font-size:56px;font-weight:normal;line-height:1;color:#2d4a2d;}
+  .temp-unit{font-size:22px;color:#7a8a7a;}
+  .temp-meta{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:6px;gap:4px;}
+  .feels{font-size:12px;color:#7a8a7a;font-style:italic;}
+  .minmax-inline{display:flex;align-items:center;gap:6px;}
+  .mm-item{display:flex;flex-direction:column;align-items:center;background:#f5f2eb;border:1px solid #e2ddd4;border-radius:5px;padding:4px 10px;}
+  .mm-lbl{font-size:9px;color:#8a9a8a;text-transform:uppercase;letter-spacing:0.06em;}
+  .mm-val{font-size:15px;color:#2d4a2d;}
 
-  .stale-warning {
-    background: #5a3a1a;
-    color: #f0d9b5;
-    font-size: 10px;
-    text-align: center;
-    padding: 5px 14px;
-    display: none;
-  }
+  .stat-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+  .chip{background:#f5f2eb;border:1px solid #e2ddd4;border-radius:6px;padding:8px 10px;display:flex;flex-direction:column;gap:3px;}
+  .chip-lbl{font-size:9px;color:#8a9a8a;text-transform:uppercase;letter-spacing:0.07em;}
+  .chip-val{font-size:15px;color:#2d4a2d;}
+  .chip-sub{font-size:10px;color:#8a9a8a;}
 
-  /* Current conditions block */
-  .current {
-    padding: 14px 16px 12px;
-    border-bottom: 1px solid #e8e4dc;
-  }
-  .current-top {
-    display: flex;
-    align-items: flex-end;
-    gap: 14px;
-    margin-bottom: 12px;
-  }
-  .temp-main {
-    font-size: 56px;
-    font-weight: normal;
-    line-height: 1;
-    color: #2d4a2d;
-  }
-  .temp-unit { font-size: 22px; color: #7a8a7a; vertical-align: super; }
-  .temp-meta { padding-bottom: 4px; }
-  .feels { font-size: 12px; color: #7a8a7a; font-style: italic; }
-  .minmax-inline {
-    display: flex;
-    gap: 4px;
-    margin-top: 5px;
-    align-items: center;
-  }
-  .minmax-inline .arrow-down { color: #4a8a8a; font-size: 13px; }
-  .minmax-inline .arrow-up { color: #8a4a4a; font-size: 13px; }
-  .minmax-inline .mv { font-size: 14px; color: #2d4a2d; }
-  .minmax-inline .ml { font-size: 10px; color: #8a9a8a; margin-right: 2px; }
-  .minmax-sep { color: #c8c4bc; margin: 0 4px; }
+  .section-label{font-size:10px;letter-spacing:0.08em;color:#8a9a8a;text-transform:uppercase;padding:10px 16px 5px;}
 
-  /* Stat chips row */
-  .stat-chips {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-  }
-  .chip {
-    background: #f5f2eb;
-    border: 1px solid #e2ddd4;
-    border-radius: 6px;
-    padding: 7px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .chip-lbl { font-size: 9px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.07em; }
-  .chip-val { font-size: 14px; color: #2d4a2d; }
-  .chip-sub { font-size: 10px; color: #8a9a8a; }
+  .forecast-row{display:flex;gap:5px;padding:0 16px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .forecast-row::-webkit-scrollbar{height:3px;}
+  .forecast-row::-webkit-scrollbar-thumb{background:#c8c4bc;border-radius:2px;}
+  .fc{background:#f5f2eb;border-radius:6px;padding:8px 6px 6px;text-align:center;min-width:56px;flex:1;flex-shrink:0;border:1px solid #e2ddd4;}
+  .fc.today{background:#2d4a2d;border-color:#2d4a2d;}
+  .fc.today .fc-day,.fc.today .fc-hi,.fc.today .fc-lo,.fc.today .fc-rain{color:#c8e6c8;}
+  .fc-day{font-size:10px;color:#8a9a8a;letter-spacing:0.03em;margin-bottom:3px;}
+  .fc-icon{font-size:18px;margin:3px 0;line-height:1;}
+  .fc-hi{font-size:13px;color:#3a3a3a;}
+  .fc-lo{font-size:11px;color:#8a9a8a;margin-top:1px;}
+  .fc-rain{font-size:9px;color:#6a9a6a;margin-top:2px;}
 
-  /* Section label */
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: #8a9a8a;
-    text-transform: uppercase;
-    padding: 10px 16px 5px;
-  }
+  .hist-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 12px;}
+  .hc{background:#f5f2eb;border-radius:6px;padding:9px 12px;border:1px solid #e2ddd4;}
+  .hc-yr{font-size:10px;color:#8a9a8a;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;}
+  .hc-temp{font-size:20px;color:#2d4a2d;line-height:1;}
+  .hc-sub{font-size:11px;color:#8a9a8a;margin-top:3px;}
 
-  /* Forecast */
-  .forecast-row {
-    display: flex;
-    gap: 5px;
-    padding: 0 16px 10px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .forecast-row::-webkit-scrollbar { height: 3px; }
-  .forecast-row::-webkit-scrollbar-thumb { background: #c8c4bc; border-radius: 2px; }
-  .fc {
-    background: #f5f2eb;
-    border-radius: 6px;
-    padding: 8px 8px 6px;
-    text-align: center;
-    min-width: 60px;
-    flex: 1;
-    flex-shrink: 0;
-    border: 1px solid #e2ddd4;
-  }
-  .fc.today { background: #2d4a2d; border-color: #2d4a2d; }
-  .fc.today .fc-day,.fc.today .fc-hi,
-  .fc.today .fc-lo,.fc.today .fc-rain { color: #c8e6c8; }
-  .fc-day { font-size: 10px; color: #8a9a8a; letter-spacing: 0.03em; margin-bottom: 3px; }
-  .fc-icon { font-size: 18px; margin: 3px 0; line-height: 1; }
-  .fc-hi { font-size: 13px; color: #3a3a3a; font-weight: normal; }
-  .fc-lo { font-size: 11px; color: #8a9a8a; margin-top: 1px; }
-  .fc-rain { font-size: 9px; color: #6a9a6a; margin-top: 2px; }
-
-  /* History */
-  .hist-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding: 0 16px 12px;
-  }
-  .hc {
-    background: #f5f2eb;
-    border-radius: 6px;
-    padding: 9px 12px;
-    border: 1px solid #e2ddd4;
-  }
-  .hc-yr { font-size: 10px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-  .hc-temp { font-size: 20px; color: #2d4a2d; line-height: 1; }
-  .hc-sub { font-size: 11px; color: #8a9a8a; margin-top: 3px; }
-
-  .footer {
-    font-size: 10px;
-    color: #b0ad9c;
-    text-align: center;
-    padding: 8px 14px 10px;
-    border-top: 1px solid #e8e4dc;
-  }
-  .footer a { color: #5a7a5a; text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
-  .error-msg { padding: 16px; color: #8b6a6a; font-size: 12px; text-align: center; }
-
-  @media (max-width: 380px) {
-    .stat-chips { grid-template-columns: repeat(3, 1fr); }
-    .temp-main { font-size: 44px; }
-  }
+  .footer{font-size:10px;color:#b0ad9c;text-align:center;padding:8px 14px 10px;border-top:1px solid #e8e4dc;}
+  .footer a{color:#5a7a5a;text-decoration:none;}
+  .error-msg{padding:16px;color:#8b6a6a;font-size:12px;text-align:center;}
 </style>
 </head>
 <body>
@@ -187,13 +67,9 @@
   </div>
   <span class="header-updated" id="updated">Loading…</span>
 </div>
-<div class="stale-warning" id="stale-warning">
-  ⚠ Station offline — showing last recorded reading
-</div>
+<div class="stale-warning" id="stale-warning">⚠ Station offline — showing last recorded reading</div>
 
-<div id="main-content">
-  <div class="error-msg">Loading weather data…</div>
-</div>
+<div id="main-content"><div class="error-msg">Loading weather data…</div></div>
 
 <div class="footer">
   Personal weather station IKUMHA3 · Saroga, Himachal Pradesh · 8,000 ft ·
@@ -201,76 +77,62 @@
 </div>
 
 <script>
-const WMO_ICON = {
-  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',
-  51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',
-  71:'🌨️',73:'❄️',75:'❄️',77:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',
-  85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'
-};
-const WMO = {
-  0:'Clear',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',
-  45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
-  61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',
-  75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Showers',82:'Heavy showers',
-  85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'
-};
+const WMO_ICON={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'❄️',75:'❄️',77:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
+const WMO={0:'Clear',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Showers',82:'Heavy showers',85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'};
 
-function fmt(v,u,d=0){ return v==null?'—':Number(v).toFixed(d)+u; }
+let lastDataTime = null;
+
+function fmt(v,u,d=0){return v==null?'—':Number(v).toFixed(d)+u;}
 
 function dayLabel(ds,i){
-  if(i===0) return 'TODAY';
+  if(i===0)return'TODAY';
   const d=new Date(ds+'T00:00:00');
   return d.toLocaleDateString('en-GB',{weekday:'short'}).toUpperCase();
 }
 
-function formatUpdated(iso){
-  if(!iso) return '';
-  const d=new Date(iso), now=new Date();
-  const m=Math.round((now-d)/60000);
-  if(m<2) return 'Just now';
-  if(m<60) return m+' min ago';
+function formatAge(iso){
+  if(!iso)return'';
+  const m=Math.round((new Date()-new Date(iso))/60000);
+  if(m<2)return'Just now';
+  if(m<60)return m+' min ago';
   const h=Math.floor(m/60);
-  if(h<24) return h+'h ago';
+  if(h<24)return h+'h ago';
   return Math.floor(h/24)+'d ago';
 }
 
-function checkStale(iso){
-  if(!iso) return;
-  const mins=Math.round((new Date()-new Date(iso))/60000);
-  if(mins>30) document.getElementById('stale-warning').style.display='block';
+function tickClock(){
+  if(lastDataTime){
+    document.getElementById('updated').textContent=formatAge(lastDataTime);
+    const mins=Math.round((new Date()-new Date(lastDataTime))/60000);
+    document.getElementById('stale-warning').style.display=mins>30?'block':'none';
+  }
 }
 
 function render(data){
-  const c=data.current||{}, fc=data.forecast||[], h1=data.history_1y, h2=data.history_2y;
-  const timeRef=c.updated||data.generated;
-  document.getElementById('updated').textContent=formatUpdated(timeRef);
-  checkStale(timeRef);
+  const c=data.current||{},fc=data.forecast||[],h1=data.history_1y,h2=data.history_2y;
+  lastDataTime=c.updated||data.generated;
+  tickClock();
 
   let html='';
 
-  /* ---- Current conditions ---- */
+  /* Current */
   html+=`<div class="current">`;
   html+=`<div class="current-top">`;
   html+=`<div class="temp-main">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
   html+=`<div class="temp-meta">`;
-  if(c.feels_like!=null) html+=`<div class="feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
+  if(c.feels_like!=null)html+=`<div class="feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
   html+=`<div class="minmax-inline">`;
-  html+=`<span class="ml">Low</span><span class="mv">${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</span>`;
-  html+=`<span class="minmax-sep">·</span>`;
-  html+=`<span class="ml">High</span><span class="mv">${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</span>`;
-  html+=`</div>`;
-  html+=`</div></div>`;
+  html+=`<div class="mm-item"><span class="mm-lbl">Low</span><span class="mm-val">${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</span></div>`;
+  html+=`<div class="mm-item"><span class="mm-lbl">High</span><span class="mm-val">${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</span></div>`;
+  html+=`</div></div></div>`;
 
   html+=`<div class="stat-chips">`;
   html+=`<div class="chip"><span class="chip-lbl">Humidity</span><span class="chip-val">${fmt(c.humidity,'%')}</span></div>`;
-  const windStr=c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—';
-  const windDir=c.wind_dir_label||'';
-  html+=`<div class="chip"><span class="chip-lbl">Wind</span><span class="chip-val">${windStr}</span>${windDir?`<span class="chip-sub">${windDir}</span>`:''}</div>`;
+  html+=`<div class="chip"><span class="chip-lbl">Wind</span><span class="chip-val">${c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—'}</span>${c.wind_dir_label?`<span class="chip-sub">${c.wind_dir_label}</span>`:''}</div>`;
   html+=`<div class="chip"><span class="chip-lbl">Rain today</span><span class="chip-val">${fmt(c.precip_today,' mm',1)}</span></div>`;
-  html+=`</div>`;
-  html+=`</div>`;
+  html+=`</div></div>`;
 
-  /* ---- 7-day forecast ---- */
+  /* Forecast */
   if(fc.length){
     html+=`<div class="section-label">7-day forecast</div><div class="forecast-row">`;
     fc.forEach((day,i)=>{
@@ -280,21 +142,21 @@ function render(data){
       html+=`<div class="fc-icon" title="${WMO[day.code]||''}">${WMO_ICON[day.code]||'🌡️'}</div>`;
       html+=`<div class="fc-hi">${Math.round(day.high)}°</div>`;
       html+=`<div class="fc-lo">${Math.round(day.low)}°</div>`;
-      if(rain) html+=`<div class="fc-rain">${rain}</div>`;
+      if(rain)html+=`<div class="fc-rain">${rain}</div>`;
       html+=`</div>`;
     });
     html+=`</div>`;
   }
 
-  /* ---- Historical ---- */
+  /* History */
   if(h1||h2){
     html+=`<div class="section-label">Same week in past years</div><div class="hist-row">`;
     [h1,h2].forEach(h=>{
-      if(!h) return;
+      if(!h)return;
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
       html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg+'°C':'—'} <span style="font-size:11px;color:#8a9a8a;">avg</span></div>`;
       html+=`<div class="hc-sub">High ${h.temp_high!=null?h.temp_high+'°':'—'} · Low ${h.temp_low!=null?h.temp_low+'°':'—'}</div>`;
-      if(h.precip!=null) html+=`<div class="hc-sub">${h.precip} mm rain</div>`;
+      if(h.precip!=null)html+=`<div class="hc-sub">${h.precip} mm rain</div>`;
       html+=`</div>`;
     });
     html+=`</div>`;
@@ -306,16 +168,17 @@ function render(data){
 async function load(){
   try{
     const r=await fetch('https://kartike-design.github.io/saroga-weather/weather.json?t='+Date.now());
-    if(!r.ok) throw new Error('HTTP '+r.status);
+    if(!r.ok)throw new Error('HTTP '+r.status);
     render(await r.json());
-  } catch(e){
-    document.getElementById('main-content').innerHTML=
-      `<div class="error-msg">Weather data temporarily unavailable · <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
+  }catch(e){
+    document.getElementById('main-content').innerHTML=`<div class="error-msg">Weather data temporarily unavailable · <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
     document.getElementById('updated').textContent='';
   }
 }
+
 load();
-setInterval(load,600000);
+setInterval(load, 600000);
+setInterval(tickClock, 60000);
 </script>
 </body>
 </html>
