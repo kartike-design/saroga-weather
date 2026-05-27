@@ -8,15 +8,15 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Georgia', serif;
-    background: #fafaf7;
-    color: #2c2c2a;
+    background: #ffffff;
+    color: #3a3a3a;
     font-size: 13px;
     line-height: 1.4;
   }
   .header {
     background: #2d4a2d;
     color: #f0ede4;
-    padding: 9px 14px;
+    padding: 10px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,14 +24,20 @@
     gap: 6px;
   }
   .header-left { display: flex; align-items: center; gap: 8px; }
-  .header-title { font-size: 13px; font-weight: normal; letter-spacing: 0.03em; }
-  .pws-badge {
-    background: #4a7c4a;
-    color: #d4edda;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 20px;
+  .header-title {
+    font-size: 14px;
+    font-weight: normal;
     letter-spacing: 0.04em;
+    font-style: italic;
+  }
+  .pws-badge {
+    background: #3d6b3d;
+    color: #c8e6c8;
+    font-size: 10px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-style: normal;
   }
   .live-dot {
     display: inline-block;
@@ -42,107 +48,121 @@
     animation: pulse 2s infinite;
   }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .header-updated { font-size: 10px; color: #a8c5a8; }
+  .header-updated { font-size: 10px; color: #a8c5a8; font-style: normal; }
+  .stale-warning {
+    background: #5a3a1a;
+    color: #f0d9b5;
+    font-size: 10px;
+    text-align: center;
+    padding: 4px 14px;
+    display: none;
+  }
 
   .top-row {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    padding: 10px 14px 8px;
+    padding: 12px 16px 10px;
     border-bottom: 1px solid #e8e4dc;
     gap: 12px;
   }
   .temp-main {
-    font-size: 42px;
+    font-size: 44px;
     font-weight: normal;
     line-height: 1;
     color: #2d4a2d;
   }
-  .temp-unit { font-size: 20px; color: #6b7c6b; }
-  .feels { font-size: 11px; color: #6b7c6b; margin-top: 2px; }
+  .temp-unit { font-size: 20px; color: #7a8a7a; }
+  .feels { font-size: 11px; color: #7a8a7a; margin-top: 3px; font-style: italic; }
   .minmax { display: flex; gap: 8px; }
   .mm-chip {
-    background: #f0ede4;
+    background: #f5f2eb;
+    border: 1px solid #e2ddd4;
     border-radius: 5px;
-    padding: 4px 9px;
+    padding: 5px 10px;
     text-align: center;
   }
-  .mm-chip .lbl { font-size: 9px; color: #6b7c6b; text-transform: uppercase; letter-spacing: 0.05em; }
-  .mm-chip .val { font-size: 14px; color: #2d4a2d; }
+  .mm-chip .lbl { font-size: 9px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.06em; }
+  .mm-chip .val { font-size: 15px; color: #2d4a2d; }
   .cond-pills {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5px;
   }
   .cp {
-    background: #f0ede4;
+    background: #f5f2eb;
+    border: 1px solid #e2ddd4;
     border-radius: 5px;
-    padding: 5px 9px;
+    padding: 5px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 6px;
   }
-  .cp .lbl { font-size: 10px; color: #6b7c6b; white-space: nowrap; }
-  .cp .val { font-size: 12px; color: #2c2c2a; }
+  .cp .lbl { font-size: 10px; color: #8a9a8a; white-space: nowrap; }
+  .cp .val { font-size: 12px; color: #3a3a3a; }
 
   .section-label {
     font-size: 10px;
-    letter-spacing: 0.07em;
-    color: #6b7c6b;
+    letter-spacing: 0.08em;
+    color: #8a9a8a;
     text-transform: uppercase;
-    padding: 8px 14px 5px;
+    padding: 9px 16px 5px;
+    font-style: normal;
   }
   .forecast-row {
     display: flex;
     gap: 5px;
-    padding: 0 14px 8px;
+    padding: 0 16px 10px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
   .forecast-row::-webkit-scrollbar { height: 3px; }
   .forecast-row::-webkit-scrollbar-thumb { background: #c8c4bc; border-radius: 2px; }
   .fc {
-    background: #f0ede4;
+    background: #f5f2eb;
     border-radius: 6px;
     padding: 7px 8px;
     text-align: center;
     min-width: 58px;
     flex-shrink: 0;
-    border: 1px solid #e0dcd4;
+    border: 1px solid #e2ddd4;
   }
   .fc.today { background: #2d4a2d; border-color: #2d4a2d; }
-  .fc.today .fc-day, .fc.today .fc-hi,
-  .fc.today .fc-lo, .fc.today .fc-rain { color: #d4edda; }
-  .fc-day { font-size: 10px; color: #6b7c6b; letter-spacing: 0.03em; margin-bottom: 3px; }
+  .fc.today .fc-day,.fc.today .fc-hi,
+  .fc.today .fc-lo,.fc.today .fc-rain { color: #c8e6c8; }
+  .fc-day { font-size: 10px; color: #8a9a8a; letter-spacing: 0.03em; margin-bottom: 3px; }
   .fc-icon { font-size: 18px; margin: 2px 0; line-height: 1; }
-  .fc-hi { font-size: 13px; color: #2c2c2a; }
-  .fc-lo { font-size: 11px; color: #6b7c6b; }
-  .fc-rain { font-size: 9px; color: #7a9c7a; margin-top: 2px; }
+  .fc-hi { font-size: 13px; color: #3a3a3a; }
+  .fc-lo { font-size: 11px; color: #8a9a8a; }
+  .fc-rain { font-size: 9px; color: #6a9a6a; margin-top: 2px; }
 
   .hist-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    padding: 0 14px 10px;
+    padding: 0 16px 12px;
   }
   .hc {
-    background: #f0ede4;
+    background: #f5f2eb;
     border-radius: 6px;
-    padding: 8px 10px;
-    border: 1px solid #e0dcd4;
+    padding: 9px 11px;
+    border: 1px solid #e2ddd4;
   }
-  .hc-yr { font-size: 10px; color: #6b7c6b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
-  .hc-temp { font-size: 18px; color: #2d4a2d; line-height: 1; }
-  .hc-sub { font-size: 11px; color: #6b7c6b; margin-top: 2px; }
+  .hc-yr { font-size: 10px; color: #8a9a8a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+  .hc-temp { font-size: 19px; color: #2d4a2d; line-height: 1; }
+  .hc-sub { font-size: 11px; color: #8a9a8a; margin-top: 3px; }
 
   .footer {
     font-size: 10px;
     color: #b0ad9c;
     text-align: center;
-    padding: 4px 14px 8px;
+    padding: 2px 14px 10px;
+    border-top: 1px solid #e8e4dc;
+    padding-top: 8px;
   }
-  .footer a { color: #6b7c6b; text-decoration: none; }
+  .footer a { color: #5a7a5a; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
   .error-msg { padding: 16px; color: #8b6a6a; font-size: 12px; text-align: center; }
 
   @media (max-width: 400px) {
@@ -161,13 +181,16 @@
   </div>
   <span class="header-updated" id="updated">Loading…</span>
 </div>
+<div class="stale-warning" id="stale-warning">
+  ⚠ Station data may be delayed — showing last recorded reading
+</div>
 
 <div id="main-content">
   <div class="error-msg">Loading weather data…</div>
 </div>
 
 <div class="footer">
-  Personal weather station IKUMHA3 · Saroga, 8,000 ft ·
+  Personal weather station IKUMHA3 · Saroga, Himachal Pradesh · 8,000 ft ·
   <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3" target="_blank">Full history →</a>
 </div>
 
@@ -200,12 +223,26 @@ function formatUpdated(iso){
   const m=Math.round((now-d)/60000);
   if(m<2) return 'Just now';
   if(m<60) return m+' min ago';
-  return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  const h=Math.floor(m/60);
+  if(h<24) return h+'h ago';
+  return Math.floor(h/24)+'d ago';
+}
+
+function checkStale(iso){
+  if(!iso) return;
+  const d=new Date(iso), now=new Date();
+  const m=Math.round((now-d)/60000);
+  if(m>30){
+    document.getElementById('stale-warning').style.display='block';
+  }
 }
 
 function render(data){
   const c=data.current||{}, fc=data.forecast||[], h1=data.history_1y, h2=data.history_2y;
-  document.getElementById('updated').textContent=formatUpdated(c.updated||data.generated);
+  const timeRef = c.updated||data.generated;
+  document.getElementById('updated').textContent=formatUpdated(timeRef);
+  checkStale(timeRef);
+
   let html='';
 
   html+=`<div class="top-row">`;
@@ -226,11 +263,10 @@ function render(data){
   if(fc.length){
     html+=`<div class="section-label">7-day forecast</div><div class="forecast-row">`;
     fc.forEach((day,i)=>{
-      const icon=WMO_ICON[day.code]||'🌡️';
       const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
       html+=`<div class="fc${i===0?' today':''}">`;
       html+=`<div class="fc-day">${dayLabel(day.date,i)}</div>`;
-      html+=`<div class="fc-icon" title="${WMO[day.code]||''}">${icon}</div>`;
+      html+=`<div class="fc-icon" title="${WMO[day.code]||''}">${WMO_ICON[day.code]||'🌡️'}</div>`;
       html+=`<div class="fc-hi">${Math.round(day.high)}°</div>`;
       html+=`<div class="fc-lo">${Math.round(day.low)}°</div>`;
       if(rain) html+=`<div class="fc-rain">${rain}</div>`;
@@ -244,7 +280,7 @@ function render(data){
     [h1,h2].forEach(h=>{
       if(!h) return;
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
-      html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg+'°C':'—'} <span style="font-size:11px;color:#6b7c6b;">avg</span></div>`;
+      html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg+'°C':'—'} <span style="font-size:11px;color:#8a9a8a;">avg</span></div>`;
       html+=`<div class="hc-sub">High ${h.temp_high!=null?h.temp_high+'°':'—'} · Low ${h.temp_low!=null?h.temp_low+'°':'—'}</div>`;
       html+=`<div class="hc-sub">${h.precip!=null?h.precip+' mm rain':''}</div></div>`;
     });
@@ -261,7 +297,7 @@ async function load(){
     render(await r.json());
   } catch(e){
     document.getElementById('main-content').innerHTML=
-      `<div class="error-msg">Weather data temporarily unavailable. <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
+      `<div class="error-msg">Weather data temporarily unavailable · <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
     document.getElementById('updated').textContent='';
   }
 }
