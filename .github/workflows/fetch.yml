@@ -1,39 +1,52 @@
-name: Fetch weather data
+import os
+import json
+import base64
+import urllib.request
+import urllib.error
 
-on:
-  schedule:
-    - cron: '*/10 * * * *'
-  workflow_dispatch:
+TOKEN = os.environ["GH_TOKEN"]
+REPO  = os.environ["GH_REPO"]
+PATH  = "docs/weather.json"
+BRANCH = "data"
 
-permissions:
-  contents: write
+with open(PATH, "rb") as f:
+    content = base64.b64encode(f.read()).decode()
 
-jobs:
-  fetch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out data branch
-        uses: actions/checkout@v4
-        with:
-          ref: data
-          fetch-depth: 1
+api_url = f"https://api.github.com/repos/{REPO}/contents/{PATH}"
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+# Get current SHA of the file on data branch (needed for update)
+req = urllib.request.Request(
+    f"{api_url}?ref={BRANCH}",
+    headers={
+        "Authorization": f"Bearer {TOKEN}",
+        "Accept": "application/vnd.github+json"
+    }
+)
+try:
+    with urllib.request.urlopen(req) as r:
+        sha = json.loads(r.read())["sha"]
+except urllib.error.HTTPError:
+    sha = None
 
-      - name: Run fetch script
-        run: python scripts/fetch_weather.py
+# Write file to data branch via API
+payload = json.dumps({
+    "message": "Update weather data",
+    "content": content,
+    "branch": BRANCH,
+    **({"sha": sha} if sha else {})
+}).encode()
 
-      - name: Commit weather.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/weather.json
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-          git commit -m "Update weather data"
-          git push origin data
+write_req = urllib.request.Request(
+    api_url,
+    data=payload,
+    method="PUT",
+    headers={
+        "Authorization": f"Bearer {TOKEN}",
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+    }
+)
+
+with urllib.request.urlopen(write_req) as r:
+    result = json.loads(r.read())
+    print(f"Done — wrote {PATH} to branch {BRANCH}, commit {result['commit']['sha'][:7]}")
