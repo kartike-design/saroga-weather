@@ -1,67 +1,67 @@
 {
   "current": {
-    "temp": 13,
-    "feels_like": 13,
-    "humidity": 81,
+    "temp": 12,
+    "feels_like": 12,
+    "humidity": 75,
     "wind_kph": 0,
-    "wind_dir": 204,
-    "pressure": 1009.14,
+    "wind_dir": 222,
+    "pressure": 1009.82,
     "precip_today": 1.02,
     "uv": null,
     "condition": "",
-    "updated": "2026-05-30 17:26:32",
-    "wind_dir_label": "SSW",
+    "updated": "2026-05-30 21:24:32",
+    "wind_dir_label": "SW",
     "today_low": 13.2,
-    "today_high": 22.6
+    "today_high": 19.4
   },
   "forecast": [
     {
       "date": "2026-05-30",
       "code": 61,
-      "high": 22.6,
+      "high": 19.4,
       "low": 13.2,
-      "precip": 4.7
+      "precip": 6.5
     },
     {
       "date": "2026-05-31",
-      "code": 53,
-      "high": 23.1,
-      "low": 13.3,
-      "precip": 2.5
+      "code": 80,
+      "high": 24.1,
+      "low": 14.2,
+      "precip": 6.0
     },
     {
       "date": "2026-06-01",
-      "code": 53,
-      "high": 25.6,
-      "low": 14.9,
-      "precip": 2.0
+      "code": 51,
+      "high": 25.8,
+      "low": 14.5,
+      "precip": 1.2
     },
     {
       "date": "2026-06-02",
       "code": 51,
-      "high": 26.7,
-      "low": 15.3,
-      "precip": 0.9
+      "high": 26.6,
+      "low": 14.6,
+      "precip": 0.6
     },
     {
       "date": "2026-06-03",
-      "code": 55,
-      "high": 26.5,
-      "low": 15.7,
-      "precip": 3.6
+      "code": 53,
+      "high": 24.8,
+      "low": 15.6,
+      "precip": 3.3
     },
     {
       "date": "2026-06-04",
       "code": 51,
-      "high": 27.2,
-      "low": 15.9,
+      "high": 27.3,
+      "low": 15.7,
       "precip": 0.3
     },
     {
       "date": "2026-06-05",
       "code": 51,
       "high": 26.2,
-      "low": 16.0,
+      "low": 16.6,
       "precip": 0.6
     }
   ],
@@ -79,5 +79,5 @@
     "temp_low": 18.3,
     "precip": 0.0
   },
-  "generated": "2026-05-30T11:58:29.249082+00:00"
+  "generated": "2026-05-30T15:55:44.654715+00:00"
 }
