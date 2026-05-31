@@ -1,76 +1,76 @@
 {
   "current": {
-    "temp": 11,
-    "feels_like": 11,
-    "humidity": 75,
+    "temp": 17,
+    "feels_like": 17,
+    "humidity": 71,
     "wind_kph": 3,
-    "wind_dir": 208,
-    "pressure": 1010.5,
-    "precip_today": 1.02,
+    "wind_dir": 211,
+    "pressure": 1011.18,
+    "precip_today": 3.56,
     "uv": null,
     "condition": "",
-    "updated": "2026-05-31 05:14:32",
+    "updated": "2026-05-31 15:27:32",
     "wind_dir_label": "SSW",
-    "today_low": 14.7,
-    "today_high": 24.1
+    "today_low": 14.5,
+    "today_high": 21.8
   },
   "forecast": [
     {
       "date": "2026-05-31",
-      "code": 51,
-      "high": 24.1,
-      "low": 14.7,
-      "precip": 0.9
+      "code": 55,
+      "high": 21.8,
+      "low": 14.5,
+      "precip": 5.4
     },
     {
       "date": "2026-06-01",
-      "code": 81,
-      "high": 25.6,
-      "low": 14.8,
-      "precip": 5.1
+      "code": 53,
+      "high": 24.7,
+      "low": 15.2,
+      "precip": 2.2
     },
     {
       "date": "2026-06-02",
-      "code": 55,
-      "high": 26.8,
-      "low": 15.3,
-      "precip": 2.5
+      "code": 53,
+      "high": 26.0,
+      "low": 14.1,
+      "precip": 1.7
     },
     {
       "date": "2026-06-03",
-      "code": 81,
-      "high": 27.2,
-      "low": 15.8,
-      "precip": 10.5
+      "code": 61,
+      "high": 26.4,
+      "low": 16.2,
+      "precip": 3.9
     },
     {
       "date": "2026-06-04",
-      "code": 2,
-      "high": 27.9,
-      "low": 15.6,
-      "precip": 0.0
+      "code": 51,
+      "high": 27.5,
+      "low": 16.4,
+      "precip": 0.3
     },
     {
       "date": "2026-06-05",
       "code": 51,
-      "high": 25.4,
-      "low": 15.7,
-      "precip": 1.8
+      "high": 26.7,
+      "low": 15.8,
+      "precip": 1.5
     },
     {
       "date": "2026-06-06",
-      "code": 2,
+      "code": 51,
       "high": 28.0,
-      "low": 15.0,
-      "precip": 0.0
+      "low": 15.1,
+      "precip": 0.6
     }
   ],
   "history_1y": {
     "year": 2025,
-    "temp_avg": 20.3,
+    "temp_avg": 19.6,
     "temp_high": 29.1,
-    "temp_low": 12.9,
-    "precip": 4.8
+    "temp_low": 11.9,
+    "precip": 12.1
   },
   "history_2y": {
     "year": 2024,
@@ -79,5 +79,5 @@
     "temp_low": 18.3,
     "precip": 0.0
   },
-  "generated": "2026-05-30T23:45:01.456765+00:00"
+  "generated": "2026-05-31T09:58:32.532524+00:00"
 }
