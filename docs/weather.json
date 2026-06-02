@@ -1,16 +1,16 @@
 {
   "current": {
-    "temp": 13,
-    "feels_like": 13,
+    "temp": 12,
+    "feels_like": 12,
     "humidity": 70,
-    "wind_kph": 0,
-    "wind_dir": 173,
-    "pressure": 1012.87,
+    "wind_kph": 1,
+    "wind_dir": 165,
+    "pressure": 1011.51,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-02 00:57:32",
-    "wind_dir_label": "S",
+    "updated": "2026-06-02 05:28:32",
+    "wind_dir_label": "SSE",
     "today_low": 15.3,
     "today_high": 26.5
   },
@@ -67,17 +67,17 @@
   ],
   "history_1y": {
     "year": 2025,
-    "temp_avg": 18.7,
-    "temp_high": 29.1,
-    "temp_low": 11.6,
-    "precip": 18.9
+    "temp_avg": 18.1,
+    "temp_high": 27.6,
+    "temp_low": 11.5,
+    "precip": 18.8
   },
   "history_2y": {
     "year": 2024,
-    "temp_avg": 25.1,
-    "temp_high": 33.1,
-    "temp_low": 18.3,
-    "precip": 1.6
+    "temp_avg": 24.7,
+    "temp_high": 32.6,
+    "temp_low": 17.5,
+    "precip": 4.1
   },
-  "generated": "2026-06-01T19:29:18.241950+00:00"
+  "generated": "2026-06-02T00:00:27.275878+00:00"
 }
