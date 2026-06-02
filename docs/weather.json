@@ -1,68 +1,68 @@
 {
   "current": {
-    "temp": 12,
-    "feels_like": 12,
-    "humidity": 70,
-    "wind_kph": 1,
-    "wind_dir": 165,
-    "pressure": 1011.51,
+    "temp": 17,
+    "feels_like": 17,
+    "humidity": 68,
+    "wind_kph": 9,
+    "wind_dir": 327,
+    "pressure": 1009.48,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-02 05:28:32",
-    "wind_dir_label": "SSE",
+    "updated": "2026-06-02 18:28:33",
+    "wind_dir_label": "NNW",
     "today_low": 15.3,
-    "today_high": 26.5
+    "today_high": 25.5
   },
   "forecast": [
     {
       "date": "2026-06-02",
-      "code": 53,
-      "high": 26.5,
+      "code": 81,
+      "high": 25.5,
       "low": 15.3,
-      "precip": 2.3
+      "precip": 7.5
     },
     {
       "date": "2026-06-03",
-      "code": 80,
-      "high": 26.6,
-      "low": 15.8,
-      "precip": 4.6
+      "code": 61,
+      "high": 26.8,
+      "low": 15.4,
+      "precip": 2.2
     },
     {
       "date": "2026-06-04",
-      "code": 53,
-      "high": 27.8,
+      "code": 80,
+      "high": 26.6,
       "low": 15.6,
-      "precip": 0.8
+      "precip": 4.1
     },
     {
       "date": "2026-06-05",
-      "code": 51,
-      "high": 27.3,
-      "low": 15.9,
-      "precip": 1.9
+      "code": 61,
+      "high": 26.3,
+      "low": 14.8,
+      "precip": 4.0
     },
     {
       "date": "2026-06-06",
       "code": 51,
-      "high": 27.7,
+      "high": 25.9,
       "low": 15.3,
-      "precip": 0.9
+      "precip": 0.3
     },
     {
       "date": "2026-06-07",
-      "code": 1,
-      "high": 28.5,
-      "low": 15.3,
-      "precip": 0.0
+      "code": 51,
+      "high": 27.9,
+      "low": 15.2,
+      "precip": 0.3
     },
     {
       "date": "2026-06-08",
-      "code": 0,
-      "high": 29.5,
-      "low": 15.4,
-      "precip": 0.0
+      "code": 51,
+      "high": 29.0,
+      "low": 15.6,
+      "precip": 0.6
     }
   ],
   "history_1y": {
@@ -79,5 +79,5 @@
     "temp_low": 17.5,
     "precip": 4.1
   },
-  "generated": "2026-06-02T00:00:27.275878+00:00"
+  "generated": "2026-06-02T13:01:50.677610+00:00"
 }
