@@ -1,20 +1,70 @@
 {
   "current": {
-    "temp": 10,
-    "feels_like": 10,
-    "humidity": 83,
-    "wind_kph": 3,
-    "wind_dir": 238,
-    "pressure": 1008.47,
-    "precip_today": 26.92,
+    "temp": 11,
+    "feels_like": 11,
+    "humidity": 78,
+    "wind_kph": 0,
+    "wind_dir": 146,
+    "pressure": 1007.45,
+    "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-04 16:55:32",
-    "wind_dir_label": "WSW",
-    "today_low": null,
-    "today_high": null
+    "updated": "2026-06-05 01:06:32",
+    "wind_dir_label": "SE",
+    "today_low": 15.9,
+    "today_high": 26.7
   },
-  "forecast_error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)>",
+  "forecast": [
+    {
+      "date": "2026-06-05",
+      "code": 61,
+      "high": 26.7,
+      "low": 15.9,
+      "precip": 3.7
+    },
+    {
+      "date": "2026-06-06",
+      "code": 51,
+      "high": 28.2,
+      "low": 15.5,
+      "precip": 0.5
+    },
+    {
+      "date": "2026-06-07",
+      "code": 51,
+      "high": 28.4,
+      "low": 15.7,
+      "precip": 0.2
+    },
+    {
+      "date": "2026-06-08",
+      "code": 51,
+      "high": 28.6,
+      "low": 16.5,
+      "precip": 0.3
+    },
+    {
+      "date": "2026-06-09",
+      "code": 1,
+      "high": 30.1,
+      "low": 16.9,
+      "precip": 0.0
+    },
+    {
+      "date": "2026-06-10",
+      "code": 51,
+      "high": 30.4,
+      "low": 17.7,
+      "precip": 0.6
+    },
+    {
+      "date": "2026-06-11",
+      "code": 51,
+      "high": 30.3,
+      "low": 17.9,
+      "precip": 0.6
+    }
+  ],
   "history_1y": {
     "year": 2025,
     "temp_avg": 18.3,
@@ -29,5 +79,5 @@
     "temp_low": 17.0,
     "precip": 4.1
   },
-  "generated": "2026-06-04T11:26:34.146237+00:00"
+  "generated": "2026-06-04T19:37:08.830728+00:00"
 }
