@@ -1,67 +1,67 @@
 {
   "current": {
-    "temp": 18,
-    "feels_like": 18,
-    "humidity": 58,
-    "wind_kph": 6,
-    "wind_dir": 279,
-    "pressure": 1007.45,
+    "temp": 13,
+    "feels_like": 13,
+    "humidity": 80,
+    "wind_kph": 5,
+    "wind_dir": 312,
+    "pressure": 1009.14,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-05 17:22:32",
-    "wind_dir_label": "W",
-    "today_low": 15.0,
-    "today_high": 24.6
+    "updated": "2026-06-05 23:54:32",
+    "wind_dir_label": "NW",
+    "today_low": 14.2,
+    "today_high": 25.1
   },
   "forecast": [
     {
       "date": "2026-06-05",
-      "code": 53,
-      "high": 24.6,
-      "low": 15.0,
-      "precip": 3.3
+      "code": 61,
+      "high": 25.1,
+      "low": 14.2,
+      "precip": 4.8
     },
     {
       "date": "2026-06-06",
       "code": 51,
-      "high": 27.8,
-      "low": 14.8,
-      "precip": 0.2
+      "high": 27.2,
+      "low": 14.2,
+      "precip": 0.5
     },
     {
       "date": "2026-06-07",
-      "code": 51,
-      "high": 28.1,
+      "code": 53,
+      "high": 27.9,
       "low": 15.5,
-      "precip": 0.8
+      "precip": 1.2
     },
     {
       "date": "2026-06-08",
       "code": 51,
-      "high": 28.7,
-      "low": 16.4,
-      "precip": 0.3
+      "high": 28.3,
+      "low": 16.3,
+      "precip": 1.0
     },
     {
       "date": "2026-06-09",
       "code": 1,
-      "high": 30.2,
-      "low": 16.6,
+      "high": 30.0,
+      "low": 17.1,
       "precip": 0.0
     },
     {
       "date": "2026-06-10",
       "code": 51,
-      "high": 30.3,
-      "low": 17.5,
-      "precip": 0.9
+      "high": 30.4,
+      "low": 17.2,
+      "precip": 0.6
     },
     {
       "date": "2026-06-11",
       "code": 51,
       "high": 30.2,
-      "low": 17.9,
+      "low": 18.4,
       "precip": 0.6
     }
   ],
@@ -79,5 +79,5 @@
     "temp_low": 17.0,
     "precip": 4.1
   },
-  "generated": "2026-06-05T11:53:06.058521+00:00"
+  "generated": "2026-06-05T18:31:34.925021+00:00"
 }
