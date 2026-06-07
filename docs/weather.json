@@ -1,68 +1,68 @@
 {
   "current": {
-    "temp": 18,
-    "feels_like": 18,
-    "humidity": 53,
-    "wind_kph": 10,
-    "wind_dir": 14,
-    "pressure": 1009.14,
-    "precip_today": 1.27,
+    "temp": 15,
+    "feels_like": 15,
+    "humidity": 62,
+    "wind_kph": 0,
+    "wind_dir": 210,
+    "pressure": 1008.13,
+    "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-07 20:38:32",
-    "wind_dir_label": "NNE",
-    "today_low": 15.5,
-    "today_high": 27.6
+    "updated": "2026-06-08 01:29:32",
+    "wind_dir_label": "SSW",
+    "today_low": 16.5,
+    "today_high": 28.3
   },
   "forecast": [
     {
-      "date": "2026-06-07",
-      "code": 53,
-      "high": 27.6,
-      "low": 15.5,
-      "precip": 1.3
-    },
-    {
       "date": "2026-06-08",
       "code": 51,
-      "high": 28.2,
-      "low": 15.8,
-      "precip": 0.4
+      "high": 28.3,
+      "low": 16.5,
+      "precip": 1.0
     },
     {
       "date": "2026-06-09",
-      "code": 51,
-      "high": 29.3,
-      "low": 16.7,
-      "precip": 0.2
+      "code": 1,
+      "high": 29.7,
+      "low": 16.6,
+      "precip": 0.0
     },
     {
       "date": "2026-06-10",
-      "code": 1,
-      "high": 30.2,
-      "low": 17.2,
-      "precip": 0.0
+      "code": 51,
+      "high": 30.5,
+      "low": 17.4,
+      "precip": 0.2
     },
     {
       "date": "2026-06-11",
       "code": 51,
-      "high": 29.4,
-      "low": 18.2,
-      "precip": 1.2
+      "high": 29.3,
+      "low": 18.5,
+      "precip": 1.4
     },
     {
       "date": "2026-06-12",
-      "code": 53,
-      "high": 26.7,
+      "code": 51,
+      "high": 25.3,
       "low": 17.7,
-      "precip": 3.3
+      "precip": 2.4
     },
     {
       "date": "2026-06-13",
+      "code": 80,
+      "high": 27.1,
+      "low": 16.5,
+      "precip": 6.6
+    },
+    {
+      "date": "2026-06-14",
       "code": 51,
-      "high": 26.8,
-      "low": 16.8,
-      "precip": 1.8
+      "high": 27.5,
+      "low": 15.1,
+      "precip": 0.6
     }
   ],
   "history_1y": {
@@ -79,5 +79,5 @@
     "temp_low": 17.0,
     "precip": 4.1
   },
-  "generated": "2026-06-07T15:09:37.984245+00:00"
+  "generated": "2026-06-07T20:01:51.469428+00:00"
 }
