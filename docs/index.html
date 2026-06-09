@@ -204,9 +204,10 @@ function render(data){
 
 async function load(){
   try{
-    const r=await fetch('https://raw.githubusercontent.com/kartike-design/saroga-weather/data/docs/weather.json?t='+Date.now());
+    const r=await fetch('https://api.github.com/repos/kartike-design/saroga-weather/contents/docs/weather.json?ref=data&t='+Date.now());
     if(!r.ok)throw new Error('HTTP '+r.status);
-    render(await r.json());
+    const meta=await r.json();
+    render(JSON.parse(atob(meta.content)));
   }catch(e){
     document.getElementById('main-content').innerHTML=
       `<div class="error-msg">Weather data temporarily unavailable · <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
