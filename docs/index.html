@@ -16,7 +16,6 @@
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
   .header-updated{font-size:10px;color:#a8c5a8;}
 
-  /* Layout */
   .body-grid{display:grid;grid-template-columns:1fr;gap:0;}
   @media(min-width:560px){
     .body-grid{grid-template-columns:1fr 1fr;}
@@ -24,7 +23,6 @@
     .footer{grid-column:1/-1;}
   }
 
-  /* Current */
   .current-section{padding:16px 18px 14px;border-bottom:1px solid #eceae4;}
   @media(min-width:560px){.current-section{border-bottom:none;border-right:1px solid #eceae4;}}
 
@@ -45,7 +43,6 @@
   .stat-val{font-size:15px;font-weight:600;color:#1a2e1a;}
   .stat-sub{font-size:10px;color:#8a9a8a;margin-top:1px;}
 
-  /* Forecast */
   .forecast-section{padding:16px 18px 14px;border-bottom:1px solid #eceae4;}
   .section-label{font-size:10px;letter-spacing:0.08em;color:#8a9a8a;text-transform:uppercase;margin-bottom:8px;font-weight:500;}
   .fc-list{display:flex;flex-direction:column;gap:5px;}
@@ -61,7 +58,6 @@
   .fc-hilo .sep{color:#c0c8c0;margin:0 3px;}
   .fc-rain{font-size:10px;color:#4a8a6a;margin-top:1px;}
 
-  /* History */
   .history-section{padding:14px 18px 16px;border-bottom:1px solid #eceae4;}
   .hist-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
   .hc{background:#f7f5f0;border-radius:7px;padding:10px 13px;border:1px solid #eceae4;}
@@ -150,15 +146,13 @@ function tickClock(){
 
 function render(data){
   const c=data.current||{}, fc=data.forecast||[], h1=data.history_1y, h2=data.history_2y;
-  lastDataTime=c.updated||data.generated;
+  lastDataTime=data.generated;
   tickClock();
   document.getElementById('footer').style.display='block';
 
   const todayCode=fc.length?fc[0].code:null;
-
   let html='';
 
-  /* ── Current ── */
   html+=`<div class="current-section">`;
   html+=`<div class="temp-row">`;
   html+=`<div class="wx-icon-large">${icon(todayCode,64)}</div>`;
@@ -168,17 +162,14 @@ function render(data){
   html+=`<div class="hilo">`;
   html+=`<div class="hilo-item"><span class="arrow hi-arrow">↑</span>${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</div>`;
   html+=`<div class="hilo-item"><span class="arrow lo-arrow">↓</span>${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</div>`;
-  html+=`</div>`;
-  html+=`</div></div>`;
+  html+=`</div></div></div>`;
 
   html+=`<div class="stat-grid">`;
   html+=`<div class="stat"><div class="stat-lbl">Humidity</div><div class="stat-val">${fmt(c.humidity,'%')}</div></div>`;
   html+=`<div class="stat"><div class="stat-lbl">Wind</div><div class="stat-val">${c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—'}</div>${c.wind_dir_label?`<div class="stat-sub">${c.wind_dir_label}</div>`:''}</div>`;
   html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
-  html+=`</div>`;
-  html+=`</div>`;
+  html+=`</div></div>`;
 
-  /* ── Forecast ── */
   html+=`<div class="forecast-section">`;
   html+=`<div class="section-label">7-day forecast</div>`;
   html+=`<div class="fc-list">`;
@@ -193,7 +184,6 @@ function render(data){
   });
   html+=`</div></div>`;
 
-  /* ── History ── */
   if(h1||h2){
     html+=`<div class="history-section">`;
     html+=`<div class="section-label">Same week in past years</div>`;
@@ -214,7 +204,7 @@ function render(data){
 
 async function load(){
   try{
-    const r=await fetch('https://kartike-design.github.io/saroga-weather/weather.json?t='+Date.now());
+    const r=await fetch('https://raw.githubusercontent.com/kartike-design/saroga-weather/data/docs/weather.json?t='+Date.now());
     if(!r.ok)throw new Error('HTTP '+r.status);
     render(await r.json());
   }catch(e){
