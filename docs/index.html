@@ -48,7 +48,7 @@
   .fc-list{display:flex;flex-direction:column;gap:5px;}
   .fc-row{display:grid;grid-template-columns:36px 32px 1fr auto;align-items:center;gap:8px;padding:5px 8px;background:#f7f5f0;border-radius:7px;border:1px solid #eceae4;}
   .fc-row.today{background:#2d4a2d;border-color:#2d4a2d;}
-  .fc-row.today .fc-day,.fc-row.today .fc-hilo{color:#c8e6c8;}
+  .fc-row.today .fc-day,.fc-row.today .fc-hilo,.fc-row.today .fc-desc{color:#c8e6c8;}
   .fc-day{font-size:11px;font-weight:500;color:#5a6a5a;letter-spacing:0.04em;}
   .fc-icon img{width:30px;height:30px;display:block;}
   .fc-desc{font-size:11px;color:#6a7a6a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -94,48 +94,47 @@
 <script>
 const CDN='https://cdn.jsdelivr.net/gh/basmilius/weather-icons@dev/production/fill/svg/';
 
-const WMO_ICON={
-  0:'clear-day',1:'partly-cloudy-day',2:'partly-cloudy-day',3:'overcast',
-  45:'fog',48:'fog',
-  51:'drizzle',53:'drizzle',55:'drizzle',
-  61:'rain',63:'rain',65:'rain',
-  71:'snow',73:'snow',75:'snow',77:'snow',
-  80:'rain',81:'rain',82:'thunderstorms-rain',
-  85:'snow',86:'snow',
-  95:'thunderstorms',96:'thunderstorms',99:'thunderstorms'
+// Map WU icon codes to Meteocons names
+const WU_ICON={
+  0:'clear-day',1:'clear-day',2:'clear-day',
+  3:'partly-cloudy-day',4:'partly-cloudy-day',
+  5:'haze',6:'partly-cloudy-day',
+  7:'cloudy',8:'cloudy',9:'overcast',10:'overcast',11:'fog',
+  12:'drizzle',13:'rain',14:'rain',
+  15:'snow',16:'snow',17:'snow',
+  18:'rain',19:'thunderstorms-rain',
+  20:'snow',21:'snow',22:'snow',23:'snow',24:'snow',25:'snow',
+  26:'rain',27:'thunderstorms-rain',28:'thunderstorms-rain',
+  29:'thunderstorms-rain',30:'thunderstorms-rain',
+  31:'clear-night',32:'clear-night',
+  33:'partly-cloudy-night',34:'partly-cloudy-night',
+  35:'partly-cloudy-night',36:'clear-day',
+  37:'thunderstorms-day',38:'thunderstorms-day',
+  39:'rain',40:'rain',41:'snow',42:'snow',
+  43:'snow',44:'not-available',
+  45:'thunderstorms-day',46:'rain',47:'snow'
 };
 
-const WMO_DESC={
-  0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',
-  45:'Foggy',48:'Icy fog',
-  51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
-  61:'Light rain',63:'Rain',65:'Heavy rain',
-  71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',
-  80:'Rain showers',81:'Rain showers',82:'Violent showers',
-  85:'Snow showers',86:'Heavy snow showers',
-  95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'
-};
-
-function icon(code,size=30){
-  const name=WMO_ICON[code]||'not-available';
-  return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="${WMO_DESC[code]||''}" onerror="this.style.display='none'">`;
+function icon(wu_code, size=30){
+  const name = WU_ICON[wu_code] || 'not-available';
+  return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="" onerror="this.style.display='none'">`;
 }
 
 function fmt(v,u,d=0){return v==null?'—':Number(v).toFixed(d)+u;}
 
-function dayLabel(ds,i){
-  if(i===0)return'TODAY';
-  const d=new Date(ds+'T00:00:00');
-  return d.toLocaleDateString('en-GB',{weekday:'short'}).toUpperCase();
+function shortDow(dow, i){
+  if(i===0) return 'TODAY';
+  if(!dow) return '';
+  return dow.substring(0,3).toUpperCase();
 }
 
 function formatAge(iso){
-  if(!iso)return'';
+  if(!iso) return '';
   const m=Math.round((new Date()-new Date(iso))/60000);
-  if(m<2)return'Just now';
-  if(m<60)return m+' min ago';
+  if(m<2) return 'Just now';
+  if(m<60) return m+' min ago';
   const h=Math.floor(m/60);
-  if(h<24)return h+'h ago';
+  if(h<24) return h+'h ago';
   return Math.floor(h/24)+'d ago';
 }
 
@@ -150,12 +149,13 @@ function render(data){
   tickClock();
   document.getElementById('footer').style.display='block';
 
-  const todayCode=fc.length?fc[0].code:null;
+  const todayIcon = fc.length ? fc[0].icon_wu : null;
   let html='';
 
+  /* ── Current ── */
   html+=`<div class="current-section">`;
   html+=`<div class="temp-row">`;
-  html+=`<div class="wx-icon-large">${icon(todayCode,64)}</div>`;
+  html+=`<div class="wx-icon-large">${icon(todayIcon, 64)}</div>`;
   html+=`<div>`;
   html+=`<div class="temp-big">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
   if(c.feels_like!=null) html+=`<div class="temp-feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
@@ -170,26 +170,33 @@ function render(data){
   html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
   html+=`</div></div>`;
 
-  html+=`<div class="forecast-section">`;
-  html+=`<div class="section-label">7-day forecast</div>`;
-  html+=`<div class="fc-list">`;
-  fc.forEach((day,i)=>{
-    const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
-    html+=`<div class="fc-row${i===0?' today':''}">`;
-    html+=`<div class="fc-day">${dayLabel(day.date,i)}</div>`;
-    html+=`<div class="fc-icon">${icon(day.code,30)}</div>`;
-    html+=`<div><div class="fc-desc">${WMO_DESC[day.code]||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
-    html+=`<div class="fc-hilo"><span class="hi">↑${Math.round(day.high)}°</span><span class="sep">·</span><span class="lo">↓${Math.round(day.low)}°</span></div>`;
-    html+=`</div>`;
-  });
-  html+=`</div></div>`;
+  /* ── Forecast ── */
+  if(fc.length){
+    html+=`<div class="forecast-section">`;
+    html+=`<div class="section-label">7-day forecast</div>`;
+    html+=`<div class="fc-list">`;
+    fc.forEach((day,i)=>{
+      const rain = day.precip>0.2 ? fmt(day.precip,' mm',1) : '';
+      html+=`<div class="fc-row${i===0?' today':''}">`;
+      html+=`<div class="fc-day">${shortDow(day.dow, i)}</div>`;
+      html+=`<div class="fc-icon">${icon(day.icon_wu, 30)}</div>`;
+      html+=`<div><div class="fc-desc">${day.desc||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
+      html+=`<div class="fc-hilo">`;
+      html+=`<span class="hi">↑${day.high!=null?Math.round(day.high)+'°':'—'}</span>`;
+      html+=`<span class="sep">·</span>`;
+      html+=`<span class="lo">↓${day.low!=null?Math.round(day.low)+'°':'—'}</span>`;
+      html+=`</div></div>`;
+    });
+    html+=`</div></div>`;
+  }
 
+  /* ── History ── */
   if(h1||h2){
     html+=`<div class="history-section">`;
     html+=`<div class="section-label">Same week in past years</div>`;
     html+=`<div class="hist-grid">`;
     [h1,h2].forEach(h=>{
-      if(!h)return;
+      if(!h) return;
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
       html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg:'—'}<span class="hc-avg">°C avg</span></div>`;
       html+=`<div class="hc-sub">↑${h.temp_high!=null?h.temp_high+'°':'—'} · ↓${h.temp_low!=null?h.temp_low+'°':'—'}</div>`;
@@ -205,7 +212,7 @@ function render(data){
 async function load(){
   try{
     const r=await fetch('https://api.github.com/repos/kartike-design/saroga-weather/contents/docs/weather.json?ref=data&t='+Date.now());
-    if(!r.ok)throw new Error('HTTP '+r.status);
+    if(!r.ok) throw new Error('HTTP '+r.status);
     const meta=await r.json();
     render(JSON.parse(atob(meta.content)));
   }catch(e){
