@@ -43,26 +43,20 @@ def wu_current():
     }
 
 def wu_today_minmax():
-    # v2 daily summary endpoint - correct for PWS contributors
     url = (
         f"https://api.weather.com/v2/pws/dailysummary/7day"
         f"?stationId={STATION_ID}&format=json&units=m&apiKey={API_KEY}"
     )
     try:
         data = fetch(url)
-        print(f"Daily summary keys: {list(data.keys())}")
         summaries = data.get("summaries", [])
         if not summaries:
-            print("No summaries returned")
             return None, None
-        # Most recent entry is today
         today_str = datetime.now(timezone(timedelta(hours=5, minutes=30))).strftime("%Y-%m-%d")
         for s in summaries:
             if s.get("obsTimeLocal", "").startswith(today_str):
                 m = s.get("metric", {})
-                print(f"Today summary: {m}")
                 return m.get("tempLow"), m.get("tempHigh")
-        # Fall back to last entry
         m = summaries[-1].get("metric", {})
         return m.get("tempLow"), m.get("tempHigh")
     except Exception as e:
@@ -70,14 +64,11 @@ def wu_today_minmax():
         return None, None
 
 def wu_forecast():
-    # 5day is what PWS contributor keys have access to
     url = (
         f"https://api.weather.com/v3/wx/forecast/daily/5day"
         f"?geocode={LAT},{LON}&format=json&units=m&language=en-IN&apiKey={API_KEY}"
     )
     data = fetch(url)
-    print(f"WU forecast keys: {list(data.keys())}")
-
     highs   = data.get("temperatureMax") or data.get("calendarDayTemperatureMax") or []
     lows    = data.get("temperatureMin") or data.get("calendarDayTemperatureMin") or []
     dow     = data.get("dayOfWeek", [])
@@ -87,12 +78,6 @@ def wu_forecast():
     dp      = daypart[0] if daypart else {}
     icons   = dp.get("iconCode") or []
     phrases = dp.get("wxPhraseLong") or dp.get("wxPhraseShort") or []
-
-    print(f"WU highs: {highs}")
-    print(f"WU lows:  {lows}")
-    print(f"WU icons (first 8): {icons[:8]}")
-    print(f"WU phrases (first 4): {phrases[:4]}")
-
     days = []
     for i in range(min(5, len(highs))):
         date_str  = valid[i][:10] if valid and i < len(valid) else ""
@@ -111,34 +96,36 @@ def wu_forecast():
         })
     return days
 
-def open_meteo_history_week(year_offset):
-    today  = datetime.now(timezone.utc)
+def wu_history_week(year_offset):
+    today  = datetime.now(timezone(timedelta(hours=5, minutes=30)))
     target = today.replace(year=today.year - year_offset)
-    start  = (target - timedelta(days=3)).strftime("%Y-%m-%d")
-    end    = (target + timedelta(days=3)).strftime("%Y-%m-%d")
+    start  = (target - timedelta(days=3)).strftime("%Y%m%d")
+    end    = (target + timedelta(days=3)).strftime("%Y%m%d")
     url = (
-        f"https://archive-api.open-meteo.com/v1/archive"
-        f"?latitude={LAT}&longitude={LON}"
-        f"&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum"
-        f"&timezone=Asia%2FKolkata"
-        f"&start_date={start}&end_date={end}"
+        f"https://api.weather.com/v2/pws/history/daily"
+        f"?stationId={STATION_ID}&format=json&units=m&apiKey={API_KEY}"
+        f"&startDate={start}&endDate={end}"
     )
     try:
-        data    = fetch(url)
-        d       = data["daily"]
-        means   = [v for v in d["temperature_2m_mean"] if v is not None]
-        highs   = [v for v in d["temperature_2m_max"]  if v is not None]
-        lows    = [v for v in d["temperature_2m_min"]  if v is not None]
-        precips = [v for v in d["precipitation_sum"]   if v is not None]
+        data = fetch(url)
+        print(f"PWS history {year_offset}y keys: {list(data.keys())}")
+        obs = data.get("observations", [])
+        print(f"PWS history {year_offset}y entries: {len(obs)}")
+        if not obs:
+            return None
+        temps_high = [o["metric"]["tempHigh"]    for o in obs if o.get("metric", {}).get("tempHigh")    is not None]
+        temps_low  = [o["metric"]["tempLow"]     for o in obs if o.get("metric", {}).get("tempLow")     is not None]
+        temps_avg  = [o["metric"]["tempAvg"]     for o in obs if o.get("metric", {}).get("tempAvg")     is not None]
+        precips    = [o["metric"]["precipTotal"] for o in obs if o.get("metric", {}).get("precipTotal") is not None]
         return {
             "year":      today.year - year_offset,
-            "temp_avg":  round(sum(means)/len(means), 1) if means  else None,
-            "temp_high": round(max(highs), 1)            if highs  else None,
-            "temp_low":  round(min(lows), 1)             if lows   else None,
-            "precip":    round(sum(precips), 1)          if precips else None
+            "temp_avg":  round(sum(temps_avg)/len(temps_avg), 1) if temps_avg  else None,
+            "temp_high": round(max(temps_high), 1)               if temps_high else None,
+            "temp_low":  round(min(temps_low), 1)                if temps_low  else None,
+            "precip":    round(sum(precips), 1)                  if precips    else None
         }
     except Exception as e:
-        print(f"History {year_offset}y error: {e}")
+        print(f"PWS history {year_offset}y error: {e}")
         return None
 
 def main():
@@ -165,10 +152,10 @@ def main():
         result["forecast_error"] = str(e)
         result["forecast"] = []
 
-    result["history_1y"] = open_meteo_history_week(1)
+    result["history_1y"] = wu_history_week(1)
     print(f"History 1y: {result['history_1y']}")
 
-    result["history_2y"] = open_meteo_history_week(2)
+    result["history_2y"] = wu_history_week(2)
     print(f"History 2y: {result['history_2y']}")
 
     result["generated"] = datetime.now(timezone.utc).isoformat()
