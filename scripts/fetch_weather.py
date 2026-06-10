@@ -4,11 +4,11 @@ import json
 import os
 from datetime import datetime, timedelta, timezone
 
-API_KEY   = "c481811673aa4a0c81811673aa9a0ccd"
+API_KEY    = "c481811673aa4a0c81811673aa9a0ccd"
 STATION_ID = "IKUMHA3"
-LAT       = 31.3167
-LON       = 77.1833
-OUT_FILE  = "docs/weather.json"
+LAT        = 31.3167
+LON        = 77.1833
+OUT_FILE   = "docs/weather.json"
 
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "SarogaWeather/1.0"})
@@ -66,33 +66,41 @@ def wu_forecast():
         f"?geocode={LAT},{LON}&format=json&units=m&language=en-IN&apiKey={API_KEY}"
     )
     data = fetch(url)
-    days = []
-    cal  = data.get("calendarDayTemperatureMax", [])
-    cal_min = data.get("calendarDayTemperatureMin", [])
-    codes   = data.get("daypart", [{}])[0].get("wxPhraseLong") or []
-    icons   = data.get("daypart", [{}])[0].get("iconCode") or []
-    precip  = data.get("qpf", [])
-    dow     = data.get("dayOfWeek", [])
-    valid   = data.get("validTimeUtc", [])
 
-    for i in range(min(7, len(cal))):
-        # Map WU icon codes to WMO-style codes for our icon set
-        wu_icon = icons[i*2] if icons and i*2 < len(icons) else None
+    # Print top-level keys so we can see the structure
+    print(f"WU forecast keys: {list(data.keys())}")
+
+    days        = []
+    highs       = data.get("temperatureMax") or data.get("calendarDayTemperatureMax", [])
+    lows        = data.get("temperatureMin") or data.get("calendarDayTemperatureMin", [])
+    dow         = data.get("dayOfWeek", [])
+    valid       = data.get("validTimeLocal", [])
+    precip      = data.get("qpf", [])
+    daypart     = data.get("daypart", [{}])
+    dp          = daypart[0] if daypart else {}
+    icons       = dp.get("iconCode", [])
+    phrases     = dp.get("wxPhraseLong") or dp.get("wxPhraseShort", [])
+
+    print(f"WU highs: {highs[:3]}, lows: {lows[:3]}, dow: {dow[:3]}")
+    print(f"WU icons: {icons[:6]}, phrases: {phrases[:3] if phrases else 'none'}")
+
+    for i in range(min(7, len(highs))):
+        date_str = valid[i][:10] if valid and i < len(valid) else ""
+        dow_str  = dow[i] if dow and i < len(dow) else ""
+        # daypart has 2 entries per day (day/night), use index i*2 for daytime
+        icon_idx  = i * 2
+        icon_code = icons[icon_idx] if icons and icon_idx < len(icons) else None
+        phrase    = phrases[icon_idx] if phrases and icon_idx < len(phrases) else ""
         days.append({
-            "date":    _date_from_epoch(valid[i] if valid and i < len(valid) else None),
-            "dow":     dow[i] if dow and i < len(dow) else "",
-            "high":    cal[i],
-            "low":     cal_min[i] if cal_min and i < len(cal_min) else None,
-            "desc":    codes[i*2] if codes and i*2 < len(codes) else "",
-            "icon_wu": wu_icon,
+            "date":    date_str,
+            "dow":     dow_str,
+            "high":    highs[i],
+            "low":     lows[i],
+            "desc":    phrase or "",
+            "icon_wu": icon_code,
             "precip":  precip[i] if precip and i < len(precip) else 0
         })
     return days
-
-def _date_from_epoch(epoch):
-    if not epoch:
-        return ""
-    return datetime.fromtimestamp(epoch, tz=timezone.utc).strftime("%Y-%m-%d")
 
 def open_meteo_history_week(year_offset):
     today  = datetime.now(timezone.utc)
@@ -144,8 +152,9 @@ def main():
         result["forecast"] = wu_forecast()
         print(f"Forecast: {len(result['forecast'])} days from WU")
     except Exception as e:
-        print(f"Forecast error: {e}")
+        print(f"WU Forecast error: {e}")
         result["forecast_error"] = str(e)
+        result["forecast"] = []
 
     result["history_1y"] = open_meteo_history_week(1)
     print(f"History 1y: {result['history_1y']}")
