@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>Saroga Woods — Live Weather</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -94,6 +95,8 @@
 
 <script>
 const CDN='https://cdn.jsdelivr.net/gh/basmilius/weather-icons@dev/production/fill/svg/';
+const PAGES_URL='https://kartike-design.github.io/saroga-weather/weather.json';
+const API_URL='https://api.github.com/repos/kartike-design/saroga-weather/contents/docs/weather.json?ref=data';
 
 const WU_ICON={
   0:'clear-day',1:'clear-day',2:'clear-day',
@@ -115,26 +118,19 @@ const WU_ICON={
   45:'thunderstorms-day',46:'rain',47:'snow'
 };
 
-function icon(wu_code, size=30){
-  const name = WU_ICON[wu_code] || 'not-available';
+function icon(wu_code,size=30){
+  const name=WU_ICON[wu_code]||'not-available';
   return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="" onerror="this.style.display='none'">`;
 }
-
 function fmt(v,u,d=0){return v==null?'—':Number(v).toFixed(d)+u;}
-
-function shortDow(dow, i){
-  if(i===0) return 'TODAY';
-  if(!dow) return '';
-  return dow.substring(0,3).toUpperCase();
-}
-
+function shortDow(dow,i){if(i===0)return'TODAY';if(!dow)return'';return dow.substring(0,3).toUpperCase();}
 function formatAge(iso){
-  if(!iso) return '';
+  if(!iso)return'';
   const m=Math.round((new Date()-new Date(iso))/60000);
-  if(m<2) return 'Just now';
-  if(m<60) return m+' min ago';
+  if(m<2)return'Just now';
+  if(m<60)return m+' min ago';
   const h=Math.floor(m/60);
-  if(h<24) return h+'h ago';
+  if(h<24)return h+'h ago';
   return Math.floor(h/24)+'d ago';
 }
 
@@ -144,46 +140,39 @@ function tickClock(){
 }
 
 function render(data){
-  const c=data.current||{}, fc=data.forecast||[], h1=data.history_1y, h2=data.history_2y;
+  const c=data.current||{},fc=data.forecast||[],h1=data.history_1y,h2=data.history_2y;
   lastDataTime=data.generated;
   tickClock();
   document.getElementById('footer').style.display='block';
-
-  const todayIcon = fc.length ? fc[0].icon_wu : null;
+  const todayIcon=fc.length?fc[0].icon_wu:null;
   let html='';
 
-  /* ── Current ── */
   html+=`<div class="current-section">`;
   html+=`<div class="temp-row">`;
-  html+=`<div class="wx-icon-large">${icon(todayIcon, 64)}</div>`;
+  html+=`<div class="wx-icon-large">${icon(todayIcon,64)}</div>`;
   html+=`<div>`;
   html+=`<div class="temp-big">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
-  if(c.feels_like!=null) html+=`<div class="temp-feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
+  if(c.feels_like!=null)html+=`<div class="temp-feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
   html+=`<div class="hilo-lbl">Recorded today</div>`;
   html+=`<div class="hilo">`;
   html+=`<div class="hilo-item"><span class="arrow hi-arrow">↑</span>${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</div>`;
   html+=`<div class="hilo-item"><span class="arrow lo-arrow">↓</span>${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</div>`;
   html+=`</div></div></div>`;
-
   html+=`<div class="stat-grid">`;
   html+=`<div class="stat"><div class="stat-lbl">Humidity</div><div class="stat-val">${fmt(c.humidity,'%')}</div></div>`;
   html+=`<div class="stat"><div class="stat-lbl">Wind</div><div class="stat-val">${c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—'}</div>${c.wind_dir_label?`<div class="stat-sub">${c.wind_dir_label}</div>`:''}</div>`;
   html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
   html+=`</div></div>`;
 
-  /* ── Forecast ── */
   if(fc.length){
-    html+=`<div class="forecast-section">`;
-    html+=`<div class="section-label">5-day forecast</div>`;
-    html+=`<div class="fc-list">`;
+    html+=`<div class="forecast-section"><div class="section-label">5-day forecast</div><div class="fc-list">`;
     fc.forEach((day,i)=>{
       const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
-      // For today use PWS recorded high/low, for future days use WU forecast
-      const dispHigh = (i===0 && c.today_high!=null) ? Math.round(c.today_high) : (day.high!=null?Math.round(day.high):'—');
-      const dispLow  = (i===0 && c.today_low!=null)  ? Math.round(c.today_low)  : (day.low!=null?Math.round(day.low):'—');
+      const dispHigh=(i===0&&c.today_high!=null)?Math.round(c.today_high):(day.high!=null?Math.round(day.high):'—');
+      const dispLow=(i===0&&c.today_low!=null)?Math.round(c.today_low):(day.low!=null?Math.round(day.low):'—');
       html+=`<div class="fc-row${i===0?' today':''}">`;
-      html+=`<div class="fc-day">${shortDow(day.dow, i)}</div>`;
-      html+=`<div class="fc-icon">${icon(day.icon_wu, 30)}</div>`;
+      html+=`<div class="fc-day">${shortDow(day.dow,i)}</div>`;
+      html+=`<div class="fc-icon">${icon(day.icon_wu,30)}</div>`;
       html+=`<div><div class="fc-desc">${day.desc||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
       html+=`<div class="fc-hilo"><span class="hi">↑${dispHigh}°</span><span class="sep">·</span><span class="lo">↓${dispLow}°</span></div>`;
       html+=`</div>`;
@@ -191,17 +180,14 @@ function render(data){
     html+=`</div></div>`;
   }
 
-  /* ── History ── */
   if(h1||h2){
-    html+=`<div class="history-section">`;
-    html+=`<div class="section-label">Same week in past years</div>`;
-    html+=`<div class="hist-grid">`;
+    html+=`<div class="history-section"><div class="section-label">Same week in past years</div><div class="hist-grid">`;
     [h1,h2].forEach(h=>{
-      if(!h) return;
+      if(!h)return;
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
       html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg:'—'}<span class="hc-avg">°C avg</span></div>`;
       html+=`<div class="hc-sub">↑${h.temp_high!=null?h.temp_high+'°':'—'} · ↓${h.temp_low!=null?h.temp_low+'°':'—'}</div>`;
-      if(h.precip!=null) html+=`<div class="hc-rain">💧 ${h.precip} mm total</div>`;
+      if(h.precip!=null)html+=`<div class="hc-rain">💧 ${h.precip} mm total</div>`;
       html+=`</div>`;
     });
     html+=`</div></div>`;
@@ -210,13 +196,37 @@ function render(data){
   document.getElementById('main-content').innerHTML=html;
 }
 
+async function fetchData(){
+  const t=Date.now();
+  // Try Pages URL first — fast, no rate limit
+  // If Pages data is stale (>20 min), fall back to GitHub API
+  try {
+    const r=await fetch(`${PAGES_URL}?t=${t}`,{cache:'no-store'});
+    if(r.ok){
+      const data=await r.json();
+      const ageMin=Math.round((new Date()-new Date(data.generated))/60000);
+      if(ageMin<=20) return data;
+      // Pages is stale, try API
+    }
+  } catch(e){}
+
+  // Fallback: GitHub API (live but rate limited)
+  try {
+    const r=await fetch(`${API_URL}&t=${t}`);
+    if(r.ok){
+      const meta=await r.json();
+      return JSON.parse(atob(meta.content));
+    }
+  } catch(e){}
+
+  return null;
+}
+
 async function load(){
-  try{
-    const r=await fetch('https://api.github.com/repos/kartike-design/saroga-weather/contents/docs/weather.json?ref=data&t='+Date.now());
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const meta=await r.json();
-    render(JSON.parse(atob(meta.content)));
-  }catch(e){
+  const data=await fetchData();
+  if(data){
+    render(data);
+  } else {
     document.getElementById('main-content').innerHTML=
       `<div class="error-msg">Weather data temporarily unavailable · <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
     document.getElementById('updated').textContent='';
