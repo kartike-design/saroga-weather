@@ -1,16 +1,16 @@
 {
   "current": {
-    "temp": 23,
-    "feels_like": 23,
-    "humidity": 43,
-    "wind_kph": 34,
-    "wind_dir": 301,
-    "pressure": 1007.11,
+    "temp": 22,
+    "feels_like": 22,
+    "humidity": 51,
+    "wind_kph": 18,
+    "wind_dir": 248,
+    "pressure": 1006.43,
     "precip_today": 0.51,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-10 14:52:35",
-    "wind_dir_label": "WNW",
+    "updated": "2026-06-10 18:12:33",
+    "wind_dir_label": "WSW",
     "today_low": 14,
     "today_high": 25
   },
@@ -18,35 +18,35 @@
     {
       "date": "2026-06-10",
       "dow": "Wednesday",
-      "high": 32,
-      "low": 17,
-      "desc": "Partly Cloudy",
-      "icon_wu": 30,
-      "precip": 0.7
+      "high": 31,
+      "low": 16,
+      "desc": "",
+      "icon_wu": null,
+      "precip": 2.2
     },
     {
       "date": "2026-06-11",
       "dow": "Thursday",
-      "high": 28,
-      "low": 17,
-      "desc": "Mostly Sunny",
-      "icon_wu": 34,
-      "precip": 9.4
+      "high": 27,
+      "low": 16,
+      "desc": "PM T-Storms",
+      "icon_wu": 38,
+      "precip": 8.0
     },
     {
       "date": "2026-06-12",
       "dow": "Friday",
-      "high": 24,
-      "low": 16,
+      "high": 21,
+      "low": 15,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 2.5
+      "precip": 3.3
     },
     {
       "date": "2026-06-13",
       "dow": "Saturday",
-      "high": 24,
-      "low": 15,
+      "high": 23,
+      "low": 14,
       "desc": "Scattered T-Storms",
       "icon_wu": 38,
       "precip": 0
@@ -54,10 +54,10 @@
     {
       "date": "2026-06-14",
       "dow": "Sunday",
-      "high": 26,
-      "low": 15,
-      "desc": "Isolated T-Storms",
-      "icon_wu": 37,
+      "high": 25,
+      "low": 14,
+      "desc": "PM T-Storms",
+      "icon_wu": 38,
       "precip": 0
     }
   ],
@@ -75,5 +75,5 @@
     "temp_low": 15,
     "precip": 0.0
   },
-  "generated": "2026-06-10T09:23:01.312634+00:00"
+  "generated": "2026-06-10T12:42:52.295470+00:00"
 }
