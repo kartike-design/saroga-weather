@@ -3,68 +3,19 @@
     "temp": 17,
     "feels_like": 17,
     "humidity": 67,
-    "wind_kph": 2,
-    "wind_dir": 196,
-    "pressure": 1007.79,
+    "wind_kph": 0,
+    "wind_dir": 217,
+    "pressure": 1008.13,
     "precip_today": 0.51,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-10 08:41:33",
-    "wind_dir_label": "SSW",
-    "today_low": 17.5,
-    "today_high": 29.9
+    "updated": "2026-06-10 08:42:33",
+    "wind_dir_label": "SW",
+    "today_low": null,
+    "today_high": null
   },
-  "forecast": [
-    {
-      "date": "2026-06-10",
-      "code": 51,
-      "high": 29.9,
-      "low": 17.5,
-      "precip": 0.1
-    },
-    {
-      "date": "2026-06-11",
-      "code": 51,
-      "high": 29.5,
-      "low": 18.3,
-      "precip": 1.0
-    },
-    {
-      "date": "2026-06-12",
-      "code": 53,
-      "high": 22.9,
-      "low": 16.7,
-      "precip": 2.4
-    },
-    {
-      "date": "2026-06-13",
-      "code": 63,
-      "high": 25.3,
-      "low": 15.8,
-      "precip": 7.0
-    },
-    {
-      "date": "2026-06-14",
-      "code": 53,
-      "high": 26.8,
-      "low": 14.9,
-      "precip": 2.1
-    },
-    {
-      "date": "2026-06-15",
-      "code": 51,
-      "high": 27.5,
-      "low": 15.6,
-      "precip": 1.5
-    },
-    {
-      "date": "2026-06-16",
-      "code": 51,
-      "high": 25.7,
-      "low": 16.2,
-      "precip": 3.0
-    }
-  ],
+  "forecast_error": "HTTP Error 401: Unauthorized",
+  "forecast": [],
   "history_1y": {
     "year": 2025,
     "temp_avg": 23.8,
@@ -79,5 +30,5 @@
     "temp_low": 17.3,
     "precip": 0.0
   },
-  "generated": "2026-06-10T03:12:18.457797+00:00"
+  "generated": "2026-06-10T03:13:29.417071+00:00"
 }
