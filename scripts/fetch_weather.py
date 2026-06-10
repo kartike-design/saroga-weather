@@ -69,15 +69,19 @@ def wu_forecast():
         f"?geocode={LAT},{LON}&format=json&units=m&language=en-IN&apiKey={API_KEY}"
     )
     data = fetch(url)
-    highs   = data.get("temperatureMax") or data.get("calendarDayTemperatureMax") or []
-    lows    = data.get("temperatureMin") or data.get("calendarDayTemperatureMin") or []
+
+    # Use calendarDayTemperatureMax/Min for consistency with WU dashboard
+    highs   = data.get("calendarDayTemperatureMax") or data.get("temperatureMax") or []
+    lows    = data.get("calendarDayTemperatureMin") or data.get("temperatureMin") or []
     dow     = data.get("dayOfWeek", [])
     valid   = data.get("validTimeLocal", [])
-    precip  = data.get("qpf", [])
+    # Use qpfRain for liquid precip only, matching WU dashboard display
+    precip  = data.get("qpfRain") or data.get("qpf") or []
     daypart = data.get("daypart", [{}])
     dp      = daypart[0] if daypart else {}
     icons   = dp.get("iconCode") or []
     phrases = dp.get("wxPhraseLong") or dp.get("wxPhraseShort") or []
+
     days = []
     for i in range(min(5, len(highs))):
         date_str  = valid[i][:10] if valid and i < len(valid) else ""
@@ -85,6 +89,10 @@ def wu_forecast():
         icon_idx  = i * 2
         icon_code = icons[icon_idx] if icons and icon_idx < len(icons) else None
         phrase    = phrases[icon_idx] if phrases and icon_idx < len(phrases) else ""
+        # precipiation: sum day + night parts
+        day_precip  = precip[icon_idx]   if precip and icon_idx   < len(precip) else 0
+        night_precip= precip[icon_idx+1] if precip and icon_idx+1 < len(precip) else 0
+        total_precip= (day_precip or 0) + (night_precip or 0)
         days.append({
             "date":    date_str,
             "dow":     dow_str,
@@ -92,15 +100,21 @@ def wu_forecast():
             "low":     lows[i],
             "desc":    phrase or "",
             "icon_wu": icon_code,
-            "precip":  precip[i] if precip and i < len(precip) else 0
+            "precip":  round(total_precip, 1)
         })
+        print(f"  Day {i} ({dow_str}): high={highs[i]}, low={lows[i]}, precip={total_precip:.1f}mm, icon={icon_code}, desc={phrase}")
     return days
 
 def wu_history_week(year_offset):
+    # Use the exact same week window as WU dashboard (Mon-Sun of current week, shifted 1 year)
     today  = datetime.now(timezone(timedelta(hours=5, minutes=30)))
     target = today.replace(year=today.year - year_offset)
-    start  = (target - timedelta(days=3)).strftime("%Y%m%d")
-    end    = (target + timedelta(days=3)).strftime("%Y%m%d")
+    # Find Monday of that week
+    monday = target - timedelta(days=target.weekday())
+    sunday = monday + timedelta(days=6)
+    start  = monday.strftime("%Y%m%d")
+    end    = sunday.strftime("%Y%m%d")
+    print(f"History {year_offset}y: fetching {start} to {end}")
     url = (
         f"https://api.weather.com/v2/pws/history/daily"
         f"?stationId={STATION_ID}&format=json&units=m&apiKey={API_KEY}"
@@ -108,15 +122,15 @@ def wu_history_week(year_offset):
     )
     try:
         data = fetch(url)
-        print(f"PWS history {year_offset}y keys: {list(data.keys())}")
         obs = data.get("observations", [])
-        print(f"PWS history {year_offset}y entries: {len(obs)}")
         if not obs:
             return None
         temps_high = [o["metric"]["tempHigh"]    for o in obs if o.get("metric", {}).get("tempHigh")    is not None]
         temps_low  = [o["metric"]["tempLow"]     for o in obs if o.get("metric", {}).get("tempLow")     is not None]
         temps_avg  = [o["metric"]["tempAvg"]     for o in obs if o.get("metric", {}).get("tempAvg")     is not None]
+        # precipTotal is the daily total for each day, safe to sum
         precips    = [o["metric"]["precipTotal"] for o in obs if o.get("metric", {}).get("precipTotal") is not None]
+        print(f"History {year_offset}y: {len(obs)} days, highs={temps_high}, precips={precips}")
         return {
             "year":      today.year - year_offset,
             "temp_avg":  round(sum(temps_avg)/len(temps_avg), 1) if temps_avg  else None,
