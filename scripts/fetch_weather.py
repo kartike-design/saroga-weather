@@ -43,27 +43,36 @@ def wu_current():
     }
 
 def wu_today_minmax():
-    today = datetime.now(timezone(timedelta(hours=5, minutes=30))).strftime("%Y%m%d")
+    # v2 daily summary endpoint - correct for PWS contributors
     url = (
-        f"https://api.weather.com/v1/pwshistory/daily/7day"
+        f"https://api.weather.com/v2/pws/dailysummary/7day"
         f"?stationId={STATION_ID}&format=json&units=m&apiKey={API_KEY}"
-        f"&startDate={today}&endDate={today}"
     )
     try:
         data = fetch(url)
-        obs  = data.get("observations", [])
-        if not obs:
-            print("Today minmax: no observations returned")
+        print(f"Daily summary keys: {list(data.keys())}")
+        summaries = data.get("summaries", [])
+        if not summaries:
+            print("No summaries returned")
             return None, None
-        m = obs[0].get("metric", {})
+        # Most recent entry is today
+        today_str = datetime.now(timezone(timedelta(hours=5, minutes=30))).strftime("%Y-%m-%d")
+        for s in summaries:
+            if s.get("obsTimeLocal", "").startswith(today_str):
+                m = s.get("metric", {})
+                print(f"Today summary: {m}")
+                return m.get("tempLow"), m.get("tempHigh")
+        # Fall back to last entry
+        m = summaries[-1].get("metric", {})
         return m.get("tempLow"), m.get("tempHigh")
     except Exception as e:
         print(f"Today minmax error: {e}")
         return None, None
 
 def wu_forecast():
+    # 5day is what PWS contributor keys have access to
     url = (
-        f"https://api.weather.com/v3/wx/forecast/daily/7day"
+        f"https://api.weather.com/v3/wx/forecast/daily/5day"
         f"?geocode={LAT},{LON}&format=json&units=m&language=en-IN&apiKey={API_KEY}"
     )
     data = fetch(url)
@@ -79,14 +88,13 @@ def wu_forecast():
     icons   = dp.get("iconCode") or []
     phrases = dp.get("wxPhraseLong") or dp.get("wxPhraseShort") or []
 
-    print(f"WU highs: {highs[:4]}")
-    print(f"WU lows:  {lows[:4]}")
-    print(f"WU dow:   {dow[:4]}")
+    print(f"WU highs: {highs}")
+    print(f"WU lows:  {lows}")
     print(f"WU icons (first 8): {icons[:8]}")
     print(f"WU phrases (first 4): {phrases[:4]}")
 
     days = []
-    for i in range(min(7, len(highs))):
+    for i in range(min(5, len(highs))):
         date_str  = valid[i][:10] if valid and i < len(valid) else ""
         dow_str   = dow[i] if dow and i < len(dow) else ""
         icon_idx  = i * 2
