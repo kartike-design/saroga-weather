@@ -32,6 +32,7 @@
   .temp-unit{font-size:26px;font-weight:400;color:#6a8a6a;}
   .temp-feels{font-size:12px;color:#7a8a7a;margin-top:3px;font-style:italic;}
   .hilo{display:flex;gap:10px;margin-top:8px;}
+  .hilo-lbl{font-size:10px;color:#8a9a8a;margin-bottom:4px;}
   .hilo-item{font-size:14px;color:#3a4a3a;}
   .hilo-item .arrow{font-size:12px;margin-right:2px;}
   .hilo-item .hi-arrow{color:#a05050;}
@@ -94,21 +95,20 @@
 <script>
 const CDN='https://cdn.jsdelivr.net/gh/basmilius/weather-icons@dev/production/fill/svg/';
 
-// Map WU icon codes to Meteocons names
 const WU_ICON={
   0:'clear-day',1:'clear-day',2:'clear-day',
   3:'partly-cloudy-day',4:'partly-cloudy-day',
   5:'haze',6:'partly-cloudy-day',
-  7:'cloudy',8:'cloudy',9:'overcast',10:'overcast',11:'fog',
-  12:'drizzle',13:'rain',14:'rain',
+  7:'cloudy',8:'cloudy',9:'overcast',10:'overcast',
+  11:'fog',12:'drizzle',13:'rain',14:'rain',
   15:'snow',16:'snow',17:'snow',
   18:'rain',19:'thunderstorms-rain',
   20:'snow',21:'snow',22:'snow',23:'snow',24:'snow',25:'snow',
   26:'rain',27:'thunderstorms-rain',28:'thunderstorms-rain',
   29:'thunderstorms-rain',30:'thunderstorms-rain',
   31:'clear-night',32:'clear-night',
-  33:'partly-cloudy-night',34:'partly-cloudy-night',
-  35:'partly-cloudy-night',36:'clear-day',
+  33:'partly-cloudy-night',34:'clear-day',
+  35:'partly-cloudy-day',36:'clear-day',
   37:'thunderstorms-day',38:'thunderstorms-day',
   39:'rain',40:'rain',41:'snow',42:'snow',
   43:'snow',44:'not-available',
@@ -159,6 +159,7 @@ function render(data){
   html+=`<div>`;
   html+=`<div class="temp-big">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
   if(c.feels_like!=null) html+=`<div class="temp-feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
+  html+=`<div class="hilo-lbl">Recorded today</div>`;
   html+=`<div class="hilo">`;
   html+=`<div class="hilo-item"><span class="arrow hi-arrow">↑</span>${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</div>`;
   html+=`<div class="hilo-item"><span class="arrow lo-arrow">↓</span>${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</div>`;
@@ -173,19 +174,16 @@ function render(data){
   /* ── Forecast ── */
   if(fc.length){
     html+=`<div class="forecast-section">`;
-    html+=`<div class="section-label">7-day forecast</div>`;
+    html+=`<div class="section-label">5-day forecast</div>`;
     html+=`<div class="fc-list">`;
     fc.forEach((day,i)=>{
-      const rain = day.precip>0.2 ? fmt(day.precip,' mm',1) : '';
+      const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
       html+=`<div class="fc-row${i===0?' today':''}">`;
       html+=`<div class="fc-day">${shortDow(day.dow, i)}</div>`;
       html+=`<div class="fc-icon">${icon(day.icon_wu, 30)}</div>`;
       html+=`<div><div class="fc-desc">${day.desc||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
-      html+=`<div class="fc-hilo">`;
-      html+=`<span class="hi">↑${day.high!=null?Math.round(day.high)+'°':'—'}</span>`;
-      html+=`<span class="sep">·</span>`;
-      html+=`<span class="lo">↓${day.low!=null?Math.round(day.low)+'°':'—'}</span>`;
-      html+=`</div></div>`;
+      html+=`<div class="fc-hilo"><span class="hi">↑${day.high!=null?Math.round(day.high)+'°':'—'}</span><span class="sep">·</span><span class="lo">↓${day.low!=null?Math.round(day.low)+'°':'—'}</span></div>`;
+      html+=`</div>`;
     });
     html+=`</div></div>`;
   }
