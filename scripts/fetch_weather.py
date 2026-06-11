@@ -83,7 +83,6 @@ def wu_forecast():
         date_str  = valid[i][:10] if valid and i < len(valid) else ""
         dow_str   = dow[i] if dow and i < len(dow) else ""
         icon_idx  = i * 2
-        # Try daytime icon first, fall back to night
         icon_code = None
         if icons:
             if icon_idx < len(icons) and icons[icon_idx] is not None:
@@ -105,7 +104,7 @@ def wu_forecast():
             "low":     lows[i],
             "desc":    phrase,
             "icon_wu": icon_code,
-            "precip":  round(day_p + night_p, 1)
+            "precip":  round((day_p or 0) + (night_p or 0), 1)
         })
     return days
 
@@ -142,16 +141,13 @@ def wu_history_week(year_offset):
         return None
 
 def wu_month_facts(month):
-    """Fetch daily history for a month across last 3 years, find coldest day and wettest day."""
     ist = timezone(timedelta(hours=5, minutes=30))
     current_year = datetime.now(ist).year
     coldest_temp = None
     coldest_date = None
     wettest_mm   = None
     wettest_date = None
-
     for yr in [current_year, current_year - 1, current_year - 2]:
-        # Last day of month
         if month == 12:
             last_day = 31
         else:
@@ -179,7 +175,6 @@ def wu_month_facts(month):
                     wettest_date = date
         except Exception as e:
             print(f"Month facts {yr}-{month:02d} error: {e}")
-
     return {
         "month":        month,
         "coldest_temp": coldest_temp,
@@ -217,7 +212,6 @@ def main():
     result["history_2y"] = wu_history_week(2)
     print(f"History 2y: {result['history_2y']}")
 
-    # Month facts for current month and next month
     ist = timezone(timedelta(hours=5, minutes=30))
     now = datetime.now(ist)
     current_month = now.month
@@ -237,26 +231,24 @@ def main():
 
     result["generated"] = datetime.now(timezone.utc).isoformat()
 
+    # Write main weather.json
     with open(OUT_FILE, "w") as f:
         json.dump(result, f, indent=2)
 
-    # Write version file to force GitHub Pages cache bust
-    with open(OUT_FILE, "w") as f:
-        json.dump(result, f, indent=2)
-
-    # Write a timestamped copy for cache busting
+    # Write timestamped copy for cache busting
     ts = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")
-    ts_file = f"docs/data_{ts}.json"
-    with open(ts_file, "w") as f:
+    with open(f"docs/data_{ts}.json", "w") as f:
         json.dump(result, f)
 
-    # Write pointer file so dashboard knows which timestamped file to fetch
+    # Write pointer file
     with open("docs/latest.txt", "w") as f:
         f.write(ts)
 
     # Write version file
     with open("docs/version.txt", "w") as f:
         f.write(result["generated"])
+
+    print(f"Done — {OUT_FILE} written at {result['generated']}")
 
 if __name__ == "__main__":
     main()
