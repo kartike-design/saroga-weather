@@ -133,6 +133,8 @@ const WU_ICON={
 };
 
 const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTH_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 function icon(wu_code,size=30){
   const name=WU_ICON[wu_code]??'partly-cloudy-day';
@@ -153,6 +155,10 @@ function fmtDate(iso){
   if(!iso)return'';
   const d=new Date(iso+'T00:00:00');
   return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+function todayLabel(){
+  const now=new Date();
+  return `Today, ${DAY_NAMES[now.getDay()]}, ${now.getDate()} ${MONTH_SHORT[now.getMonth()]}`;
 }
 
 let lastDataTime=null;
@@ -186,7 +192,8 @@ function render(data){
   html+=`<div class="temp-row"><div class="wx-icon-large">${icon(todayIcon,64)}</div><div>`;
   html+=`<div class="temp-big">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
   if(c.feels_like!=null)html+=`<div class="temp-feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
-  html+=`<div class="hilo-lbl">Recorded today</div><div class="hilo">`;
+  html+=`<div class="hilo-lbl">${todayLabel()}</div>`;
+  html+=`<div class="hilo">`;
   html+=`<div class="hilo-item"><span class="arrow hi-arrow">↑</span>${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</div>`;
   html+=`<div class="hilo-item"><span class="arrow lo-arrow">↓</span>${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</div>`;
   html+=`</div></div></div>`;
@@ -239,11 +246,9 @@ function render(data){
 async function fetchData(){
   const t=Date.now();
   try{
-    // Step 1: fetch latest.txt to get current timestamp — this tiny file changes every run
     const lt=await fetch(`${PAGES_BASE}latest.txt?t=${t}`,{cache:'no-store'});
     if(lt.ok){
       const ts=(await lt.text()).trim();
-      // Step 2: fetch the uniquely-named data file — never cached
       const r=await fetch(`${PAGES_BASE}data_${ts}.json`,{cache:'no-store'});
       if(r.ok){
         const data=await r.json();
@@ -252,7 +257,6 @@ async function fetchData(){
       }
     }
   }catch(e){}
-  // Fallback: GitHub API
   try{
     const r=await fetch(`${API_URL}&t=${t}`);
     if(r.ok){
