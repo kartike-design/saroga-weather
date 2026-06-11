@@ -5,82 +5,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>Saroga Woods — Live Weather</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#2a2a2a;font-size:13px;line-height:1.4;}
+  body{font-family:'Playfair Display',serif;background:#fff;color:#000;font-size:14px;line-height:1.5;}
 
-  .header{background:#2d4a2d;color:#f0ede4;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  .header-title{font-size:14px;font-weight:400;letter-spacing:0.03em;font-family:'Georgia',serif;font-style:italic;}
+  .header{background:#2d4a2d;color:#ffffff;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .header-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;font-style:normal;letter-spacing:0.01em;color:#ffffff;}
   .header-right{display:flex;align-items:center;gap:10px;}
-  .pws-badge{background:#3d6b3d;color:#c8e6c8;font-size:10px;padding:2px 10px;border-radius:20px;letter-spacing:0.04em;display:flex;align-items:center;gap:5px;}
+  .pws-badge{background:#3d6b3d;color:#c8e6c8;font-size:11px;padding:2px 10px;border-radius:20px;letter-spacing:0.03em;display:flex;align-items:center;gap:5px;font-family:'Playfair Display',serif;font-weight:400;}
   .live-dot{width:6px;height:6px;background:#7fc97f;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-  .header-updated{font-size:10px;color:#a8c5a8;}
+  .header-updated{font-size:11px;color:#a8c5a8;font-family:'Playfair Display',serif;font-weight:400;}
 
-  .body-grid{display:grid;grid-template-columns:1fr;gap:0;}
+  .body-grid{display:grid;grid-template-columns:1fr;}
   @media(min-width:560px){
     .body-grid{grid-template-columns:1fr 1fr;}
     .history-section,.facts-section,.footer{grid-column:1/-1;}
   }
 
-  .current-section{padding:16px 18px 14px;border-bottom:1px solid #eceae4;}
-  @media(min-width:560px){.current-section{border-bottom:none;border-right:1px solid #eceae4;}}
+  .current-section{padding:12px 14px 10px;border-bottom:1px solid #eceae4;}
+  @media(min-width:560px){.current-section{padding:16px 18px 14px;border-bottom:none;border-right:1px solid #eceae4;}}
 
-  .temp-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
-  .wx-icon-large img{width:64px;height:64px;display:block;}
-  .temp-big{font-size:58px;font-weight:700;line-height:1;color:#1a2e1a;letter-spacing:-1px;}
-  .temp-unit{font-size:26px;font-weight:400;color:#6a8a6a;}
-  .temp-feels{font-size:12px;color:#7a8a7a;margin-top:3px;font-style:italic;}
-  .hilo-lbl{font-size:10px;color:#8a9a8a;margin-bottom:4px;}
-  .hilo{display:flex;gap:10px;margin-top:2px;}
-  .hilo-item{font-size:14px;color:#3a4a3a;}
+  .temp-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  @media(min-width:560px){.temp-row{gap:14px;margin-bottom:14px;}}
+  .wx-icon-large img{width:52px;height:52px;display:block;}
+  @media(min-width:560px){.wx-icon-large img{width:64px;height:64px;}}
+  .temp-big{font-size:56px;font-weight:700;line-height:1;color:#1a2e1a;letter-spacing:-1px;font-family:'Playfair Display',serif;}
+  @media(min-width:560px){.temp-big{font-size:64px;}}
+  .temp-unit{font-size:24px;font-weight:400;color:#3a3a3a;}
+  .temp-feels{font-size:13px;color:#3a3a3a;margin-top:2px;font-style:italic;font-weight:400;}
+  .hilo-lbl{font-size:11px;color:#555;margin-bottom:3px;font-weight:400;}
+  .hilo{display:flex;gap:8px;margin-top:2px;}
+  .hilo-item{font-size:14px;color:#000;font-weight:400;}
   .hilo-item .arrow{font-size:12px;margin-right:2px;}
   .hilo-item .hi-arrow{color:#a05050;}
   .hilo-item .lo-arrow{color:#5080a0;}
 
-  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
-  .stat{background:#f7f5f0;border:1px solid #eceae4;border-radius:7px;padding:8px 10px;}
-  .stat-lbl{font-size:9px;color:#8a9a8a;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;}
-  .stat-val{font-size:15px;font-weight:600;color:#1a2e1a;}
-  .stat-sub{font-size:10px;color:#8a9a8a;margin-top:1px;}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
+  .stat{background:#f7f5f0;border:1px solid #eceae4;border-radius:6px;padding:7px 8px;}
+  .stat-lbl{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;font-weight:400;}
+  .stat-val{font-size:15px;font-weight:700;color:#000;}
+  .stat-sub{font-size:11px;color:#555;margin-top:1px;font-weight:400;}
 
-  .forecast-section{padding:16px 18px 14px;border-bottom:1px solid #eceae4;}
-  .section-label{font-size:10px;letter-spacing:0.08em;color:#8a9a8a;text-transform:uppercase;margin-bottom:8px;font-weight:500;}
-  .fc-list{display:flex;flex-direction:column;gap:5px;}
-  .fc-row{display:grid;grid-template-columns:36px 32px 1fr auto;align-items:center;gap:8px;padding:5px 8px;background:#f7f5f0;border-radius:7px;border:1px solid #eceae4;}
+  .forecast-section{padding:12px 14px 10px;border-bottom:1px solid #eceae4;}
+  @media(min-width:560px){.forecast-section{padding:16px 18px 14px;}}
+  .section-label{font-size:11px;letter-spacing:0.06em;color:#555;text-transform:uppercase;margin-bottom:7px;font-weight:700;}
+  .fc-list{display:flex;flex-direction:column;gap:4px;}
+  .fc-row{display:grid;grid-template-columns:34px 28px 1fr auto;align-items:center;gap:6px;padding:5px 7px;background:#f7f5f0;border-radius:6px;border:1px solid #eceae4;}
   .fc-row.today{background:#2d4a2d;border-color:#2d4a2d;}
-  .fc-row.today .fc-day,.fc-row.today .fc-hilo,.fc-row.today .fc-desc{color:#c8e6c8;}
-  .fc-day{font-size:11px;font-weight:500;color:#5a6a5a;letter-spacing:0.04em;}
-  .fc-icon img{width:30px;height:30px;display:block;}
-  .fc-desc{font-size:11px;color:#6a7a6a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .fc-hilo{font-size:12px;color:#2a3a2a;white-space:nowrap;text-align:right;}
+  .fc-row.today .fc-day,.fc-row.today .fc-hilo,.fc-row.today .fc-desc{color:#ffffff;}
+  .fc-day{font-size:11px;font-weight:700;color:#000;letter-spacing:0.03em;}
+  .fc-icon img{width:26px;height:26px;display:block;}
+  .fc-desc{font-size:12px;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;}
+  .fc-hilo{font-size:13px;white-space:nowrap;text-align:right;font-weight:400;}
   .fc-hilo .hi{color:#a05050;}
   .fc-hilo .lo{color:#5080a0;}
-  .fc-hilo .sep{color:#c0c8c0;margin:0 3px;}
-  .fc-rain{font-size:10px;color:#4a8a6a;margin-top:1px;}
+  .fc-hilo .sep{color:#bbb;margin:0 2px;}
+  .fc-rain{font-size:10px;color:#4a8a6a;margin-top:1px;font-weight:400;}
 
-  .history-section{padding:14px 18px 16px;border-bottom:1px solid #eceae4;}
+  .history-section{padding:12px 14px 12px;border-bottom:1px solid #eceae4;}
+  @media(min-width:560px){.history-section{padding:14px 18px 16px;}}
   .hist-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
-  .hc{background:#f7f5f0;border-radius:7px;padding:10px 13px;border:1px solid #eceae4;}
-  .hc-yr{font-size:10px;color:#8a9a8a;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;font-weight:500;}
-  .hc-temp{font-size:21px;font-weight:700;color:#1a2e1a;line-height:1;}
-  .hc-avg{font-size:11px;font-weight:400;color:#8a9a8a;}
-  .hc-sub{font-size:11px;color:#6a7a6a;margin-top:4px;}
-  .hc-rain{font-size:11px;color:#4a8a6a;margin-top:2px;}
+  .hc{background:#f7f5f0;border-radius:6px;padding:9px 11px;border:1px solid #eceae4;}
+  .hc-yr{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;font-weight:700;}
+  .hc-temp{font-size:22px;font-weight:700;color:#000;line-height:1;}
+  .hc-avg{font-size:12px;font-weight:400;color:#555;}
+  .hc-sub{font-size:12px;color:#000;margin-top:3px;font-weight:400;}
+  .hc-rain{font-size:12px;color:#4a8a6a;margin-top:2px;font-weight:400;}
 
-  /* Facts section */
-  .facts-section{padding:14px 18px 16px;border-bottom:1px solid #eceae4;background:#f7f5f0;}
-  .facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
-  @media(max-width:420px){.facts-grid{grid-template-columns:1fr;}}
-  .fact-card{background:#fff;border-radius:7px;padding:10px 13px;border:1px solid #eceae4;}
-  .fact-month{font-size:10px;color:#8a9a8a;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;font-weight:500;}
-  .fact-item{font-size:12px;color:#3a4a3a;margin-bottom:4px;line-height:1.5;}
-  .fact-item .fact-icon{margin-right:4px;}
-  .fact-highlight{font-weight:600;color:#1a2e1a;}
+  .facts-section{padding:12px 14px 14px;border-bottom:1px solid #eceae4;background:#f7f5f0;}
+  @media(min-width:560px){.facts-section{padding:14px 18px 16px;}}
+  .facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+  @media(max-width:400px){.facts-grid{grid-template-columns:1fr;}}
+  .fact-card{background:#fff;border-radius:6px;padding:9px 12px;border:1px solid #eceae4;}
+  .fact-month{font-size:11px;color:#2d4a2d;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;font-weight:700;}
+  .fact-item{font-size:13px;color:#000;margin-bottom:4px;line-height:1.5;font-weight:400;}
+  .fact-highlight{font-weight:700;color:#000;}
 
-  .footer{font-size:10px;color:#b0ad9c;text-align:center;padding:8px 18px 10px;border-top:1px solid #eceae4;}
+  .footer{font-size:11px;color:#888;text-align:center;padding:8px 14px 10px;border-top:1px solid #eceae4;font-weight:400;}
   .footer a{color:#4a7a4a;text-decoration:none;}
-  .error-msg{padding:20px;color:#8b6a6a;font-size:12px;text-align:center;grid-column:1/-1;}
+  .error-msg{padding:20px;color:#8b6a6a;font-size:13px;text-align:center;grid-column:1/-1;}
 </style>
 </head>
 <body>
@@ -131,7 +136,7 @@ const MONTH_NAMES=['January','February','March','April','May','June','July','Aug
 
 function icon(wu_code,size=30){
   const name=WU_ICON[wu_code]??'partly-cloudy-day';
-  return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="" onerror="this.outerHTML='<img src=\'${CDN}partly-cloudy-day.svg\' width=\'${size}\' height=\'${size}\'>'" >`;
+  return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="" onerror="this.src='${CDN}partly-cloudy-day.svg'">`;
 }
 function fmt(v,u,d=0){return v==null?'—':Number(v).toFixed(d)+u;}
 function shortDow(dow,i){if(i===0)return'TODAY';if(!dow)return'';return dow.substring(0,3).toUpperCase();}
@@ -152,35 +157,32 @@ function fmtDate(iso){
 
 let lastDataTime=null;
 function tickClock(){
-  if(lastDataTime) document.getElementById('updated').textContent=formatAge(lastDataTime);
+  if(lastDataTime)document.getElementById('updated').textContent=formatAge(lastDataTime);
 }
 
 function renderFact(f){
-  if(!f) return '';
+  if(!f)return'';
   const mName=MONTH_NAMES[(f.month||1)-1];
   let html=`<div class="fact-card">`;
   html+=`<div class="fact-month">${mName}: Weather Records</div>`;
-  if(f.coldest_temp!=null&&f.coldest_date){
-    html+=`<div class="fact-item"><span class="fact-icon">🥶</span>Coldest day: <span class="fact-highlight">${f.coldest_temp}°C</span> on ${fmtDate(f.coldest_date)}</div>`;
-  }
-  if(f.wettest_mm!=null&&f.wettest_date){
-    html+=`<div class="fact-item"><span class="fact-icon">🌧️</span>Wettest day: <span class="fact-highlight">${f.wettest_mm} mm</span> on ${fmtDate(f.wettest_date)}</div>`;
-  }
+  if(f.coldest_temp!=null&&f.coldest_date)
+    html+=`<div class="fact-item">🥶 Coldest day: <span class="fact-highlight">${f.coldest_temp}°C</span> on ${fmtDate(f.coldest_date)}</div>`;
+  if(f.wettest_mm!=null&&f.wettest_date)
+    html+=`<div class="fact-item">🌧️ Wettest day: <span class="fact-highlight">${f.wettest_mm} mm</span> on ${fmtDate(f.wettest_date)}</div>`;
   html+=`</div>`;
   return html;
 }
 
 function render(data){
   const c=data.current||{},fc=data.forecast||[],h1=data.history_1y,h2=data.history_2y;
-  const fm=data.facts_current_month, fn=data.facts_next_month;
+  const fm=data.facts_current_month,fn=data.facts_next_month;
   lastDataTime=data.generated;
   tickClock();
   document.getElementById('footer').style.display='block';
-
   const todayIcon=fc.length&&fc[0].icon_wu!=null?fc[0].icon_wu:2;
   let html='';
 
-  /* ── Current ── */
+  /* Current */
   html+=`<div class="current-section">`;
   html+=`<div class="temp-row">`;
   html+=`<div class="wx-icon-large">${icon(todayIcon,64)}</div>`;
@@ -198,9 +200,9 @@ function render(data){
   html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
   html+=`</div></div>`;
 
-  /* ── Forecast ── */
+  /* Forecast */
   if(fc.length){
-    html+=`<div class="forecast-section"><div class="section-label">5-day forecast</div><div class="fc-list">`;
+    html+=`<div class="forecast-section"><div class="section-label">5-Day Forecast</div><div class="fc-list">`;
     fc.forEach((day,i)=>{
       const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
       const dispHigh=(i===0&&c.today_high!=null)?Math.round(c.today_high):(day.high!=null?Math.round(day.high):'—');
@@ -208,7 +210,7 @@ function render(data){
       const rowIcon=day.icon_wu!=null?day.icon_wu:2;
       html+=`<div class="fc-row${i===0?' today':''}">`;
       html+=`<div class="fc-day">${shortDow(day.dow,i)}</div>`;
-      html+=`<div class="fc-icon">${icon(rowIcon,30)}</div>`;
+      html+=`<div class="fc-icon">${icon(rowIcon,26)}</div>`;
       html+=`<div><div class="fc-desc">${day.desc||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
       html+=`<div class="fc-hilo"><span class="hi">↑${dispHigh}°</span><span class="sep">·</span><span class="lo">↓${dispLow}°</span></div>`;
       html+=`</div>`;
@@ -216,9 +218,9 @@ function render(data){
     html+=`</div></div>`;
   }
 
-  /* ── History ── */
+  /* History */
   if(h1||h2){
-    html+=`<div class="history-section"><div class="section-label">Same week in past years</div><div class="hist-grid">`;
+    html+=`<div class="history-section"><div class="section-label">Same Week in Past Years</div><div class="hist-grid">`;
     [h1,h2].forEach(h=>{
       if(!h)return;
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
@@ -230,10 +232,10 @@ function render(data){
     html+=`</div></div>`;
   }
 
-  /* ── Month facts ── */
+  /* Facts */
   if(fm||fn){
     html+=`<div class="facts-section">`;
-    html+=`<div class="section-label">Did you know? · Weather records at Saroga Woods</div>`;
+    html+=`<div class="section-label">Did You Know? · Weather Records at Saroga Woods</div>`;
     html+=`<div class="facts-grid">`;
     html+=renderFact(fm);
     html+=renderFact(fn);
