@@ -20,8 +20,7 @@
   .body-grid{display:grid;grid-template-columns:1fr;gap:0;}
   @media(min-width:560px){
     .body-grid{grid-template-columns:1fr 1fr;}
-    .history-section{grid-column:1/-1;}
-    .footer{grid-column:1/-1;}
+    .history-section,.facts-section,.footer{grid-column:1/-1;}
   }
 
   .current-section{padding:16px 18px 14px;border-bottom:1px solid #eceae4;}
@@ -68,6 +67,16 @@
   .hc-avg{font-size:11px;font-weight:400;color:#8a9a8a;}
   .hc-sub{font-size:11px;color:#6a7a6a;margin-top:4px;}
   .hc-rain{font-size:11px;color:#4a8a6a;margin-top:2px;}
+
+  /* Facts section */
+  .facts-section{padding:14px 18px 16px;border-bottom:1px solid #eceae4;background:#f7f5f0;}
+  .facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  @media(max-width:420px){.facts-grid{grid-template-columns:1fr;}}
+  .fact-card{background:#fff;border-radius:7px;padding:10px 13px;border:1px solid #eceae4;}
+  .fact-month{font-size:10px;color:#8a9a8a;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;font-weight:500;}
+  .fact-item{font-size:12px;color:#3a4a3a;margin-bottom:4px;line-height:1.5;}
+  .fact-item .fact-icon{margin-right:4px;}
+  .fact-highlight{font-weight:600;color:#1a2e1a;}
 
   .footer{font-size:10px;color:#b0ad9c;text-align:center;padding:8px 18px 10px;border-top:1px solid #eceae4;}
   .footer a{color:#4a7a4a;text-decoration:none;}
@@ -118,9 +127,11 @@ const WU_ICON={
   45:'thunderstorms-day',46:'rain',47:'snow'
 };
 
+const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
 function icon(wu_code,size=30){
-  const name=WU_ICON[wu_code]||'not-available';
-  return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="" onerror="this.style.display='none'">`;
+  const name=WU_ICON[wu_code]??'partly-cloudy-day';
+  return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="" onerror="this.outerHTML='<img src=\'${CDN}partly-cloudy-day.svg\' width=\'${size}\' height=\'${size}\'>'" >`;
 }
 function fmt(v,u,d=0){return v==null?'—':Number(v).toFixed(d)+u;}
 function shortDow(dow,i){if(i===0)return'TODAY';if(!dow)return'';return dow.substring(0,3).toUpperCase();}
@@ -133,20 +144,43 @@ function formatAge(iso){
   if(h<24)return h+'h ago';
   return Math.floor(h/24)+'d ago';
 }
+function fmtDate(iso){
+  if(!iso)return'';
+  const d=new Date(iso+'T00:00:00');
+  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
 
 let lastDataTime=null;
 function tickClock(){
   if(lastDataTime) document.getElementById('updated').textContent=formatAge(lastDataTime);
 }
 
+function renderFact(f){
+  if(!f) return '';
+  const mName=MONTH_NAMES[(f.month||1)-1];
+  let html=`<div class="fact-card">`;
+  html+=`<div class="fact-month">📅 ${mName} — from your station</div>`;
+  if(f.coldest_temp!=null&&f.coldest_date){
+    html+=`<div class="fact-item"><span class="fact-icon">🥶</span>Coldest day: <span class="fact-highlight">${f.coldest_temp}°C</span> on ${fmtDate(f.coldest_date)}</div>`;
+  }
+  if(f.wettest_mm!=null&&f.wettest_date){
+    html+=`<div class="fact-item"><span class="fact-icon">🌧️</span>Wettest day: <span class="fact-highlight">${f.wettest_mm} mm</span> on ${fmtDate(f.wettest_date)}</div>`;
+  }
+  html+=`</div>`;
+  return html;
+}
+
 function render(data){
   const c=data.current||{},fc=data.forecast||[],h1=data.history_1y,h2=data.history_2y;
+  const fm=data.facts_current_month, fn=data.facts_next_month;
   lastDataTime=data.generated;
   tickClock();
   document.getElementById('footer').style.display='block';
-  const todayIcon=fc.length?fc[0].icon_wu:null;
+
+  const todayIcon=fc.length&&fc[0].icon_wu!=null?fc[0].icon_wu:2;
   let html='';
 
+  /* ── Current ── */
   html+=`<div class="current-section">`;
   html+=`<div class="temp-row">`;
   html+=`<div class="wx-icon-large">${icon(todayIcon,64)}</div>`;
@@ -164,15 +198,17 @@ function render(data){
   html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
   html+=`</div></div>`;
 
+  /* ── Forecast ── */
   if(fc.length){
     html+=`<div class="forecast-section"><div class="section-label">5-day forecast</div><div class="fc-list">`;
     fc.forEach((day,i)=>{
       const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
       const dispHigh=(i===0&&c.today_high!=null)?Math.round(c.today_high):(day.high!=null?Math.round(day.high):'—');
       const dispLow=(i===0&&c.today_low!=null)?Math.round(c.today_low):(day.low!=null?Math.round(day.low):'—');
+      const rowIcon=day.icon_wu!=null?day.icon_wu:2;
       html+=`<div class="fc-row${i===0?' today':''}">`;
       html+=`<div class="fc-day">${shortDow(day.dow,i)}</div>`;
-      html+=`<div class="fc-icon">${icon(day.icon_wu,30)}</div>`;
+      html+=`<div class="fc-icon">${icon(rowIcon,30)}</div>`;
       html+=`<div><div class="fc-desc">${day.desc||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
       html+=`<div class="fc-hilo"><span class="hi">↑${dispHigh}°</span><span class="sep">·</span><span class="lo">↓${dispLow}°</span></div>`;
       html+=`</div>`;
@@ -180,6 +216,7 @@ function render(data){
     html+=`</div></div>`;
   }
 
+  /* ── History ── */
   if(h1||h2){
     html+=`<div class="history-section"><div class="section-label">Same week in past years</div><div class="hist-grid">`;
     [h1,h2].forEach(h=>{
@@ -193,32 +230,36 @@ function render(data){
     html+=`</div></div>`;
   }
 
+  /* ── Month facts ── */
+  if(fm||fn){
+    html+=`<div class="facts-section">`;
+    html+=`<div class="section-label">Did you know? · Weather records from this station</div>`;
+    html+=`<div class="facts-grid">`;
+    html+=renderFact(fm);
+    html+=renderFact(fn);
+    html+=`</div></div>`;
+  }
+
   document.getElementById('main-content').innerHTML=html;
 }
 
 async function fetchData(){
   const t=Date.now();
-  // Try Pages URL first — fast, no rate limit
-  // If Pages data is stale (>20 min), fall back to GitHub API
-  try {
+  try{
     const r=await fetch(`${PAGES_URL}?t=${t}`,{cache:'no-store'});
     if(r.ok){
       const data=await r.json();
       const ageMin=Math.round((new Date()-new Date(data.generated))/60000);
-      if(ageMin<=20) return data;
-      // Pages is stale, try API
+      if(ageMin<=25)return data;
     }
-  } catch(e){}
-
-  // Fallback: GitHub API (live but rate limited)
-  try {
+  }catch(e){}
+  try{
     const r=await fetch(`${API_URL}&t=${t}`);
     if(r.ok){
       const meta=await r.json();
       return JSON.parse(atob(meta.content));
     }
-  } catch(e){}
-
+  }catch(e){}
   return null;
 }
 
@@ -226,7 +267,7 @@ async function load(){
   const data=await fetchData();
   if(data){
     render(data);
-  } else {
+  }else{
     document.getElementById('main-content').innerHTML=
       `<div class="error-msg">Weather data temporarily unavailable · <a href="https://www.wunderground.com/dashboard/pws/IKUMHA3">View on Weather Underground →</a></div>`;
     document.getElementById('updated').textContent='';
