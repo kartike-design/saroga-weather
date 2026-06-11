@@ -241,10 +241,22 @@ def main():
         json.dump(result, f, indent=2)
 
     # Write version file to force GitHub Pages cache bust
+    with open(OUT_FILE, "w") as f:
+        json.dump(result, f, indent=2)
+
+    # Write a timestamped copy for cache busting
+    ts = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")
+    ts_file = f"docs/data_{ts}.json"
+    with open(ts_file, "w") as f:
+        json.dump(result, f)
+
+    # Write pointer file so dashboard knows which timestamped file to fetch
+    with open("docs/latest.txt", "w") as f:
+        f.write(ts)
+
+    # Write version file
     with open("docs/version.txt", "w") as f:
         f.write(result["generated"])
-
-    print(f"Done — {OUT_FILE} written at {result['generated']}")
 
 if __name__ == "__main__":
     main()
