@@ -159,7 +159,7 @@ function renderFact(f){
   if(!f) return '';
   const mName=MONTH_NAMES[(f.month||1)-1];
   let html=`<div class="fact-card">`;
-  html+=`<div class="fact-month">📅 ${mName} — from your station</div>`;
+  html+=`<div class="fact-month">${mName}: Weather Records</div>`;
   if(f.coldest_temp!=null&&f.coldest_date){
     html+=`<div class="fact-item"><span class="fact-icon">🥶</span>Coldest day: <span class="fact-highlight">${f.coldest_temp}°C</span> on ${fmtDate(f.coldest_date)}</div>`;
   }
@@ -233,7 +233,7 @@ function render(data){
   /* ── Month facts ── */
   if(fm||fn){
     html+=`<div class="facts-section">`;
-    html+=`<div class="section-label">Did you know? · Weather records from this station</div>`;
+    html+=`<div class="section-label">Did you know? · Weather records at Saroga Woods</div>`;
     html+=`<div class="facts-grid">`;
     html+=renderFact(fm);
     html+=renderFact(fn);
