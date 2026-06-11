@@ -231,23 +231,20 @@ def main():
 
     result["generated"] = datetime.now(timezone.utc).isoformat()
 
-    # Write main weather.json
     with open(OUT_FILE, "w") as f:
         json.dump(result, f, indent=2)
 
-    # Write timestamped copy for cache busting
     ts = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")
     with open(f"docs/data_{ts}.json", "w") as f:
         json.dump(result, f)
 
-    # Write pointer file
     with open("docs/latest.txt", "w") as f:
         f.write(ts)
 
-    # Write version file
     with open("docs/version.txt", "w") as f:
         f.write(result["generated"])
 
+    print(f"Wrote latest.txt: {ts}")
     print(f"Done — {OUT_FILE} written at {result['generated']}")
 
 if __name__ == "__main__":
