@@ -11,12 +11,12 @@
   body{font-family:'Playfair Display',serif;background:#fff;color:#000;font-size:14px;line-height:1.5;}
 
   .header{background:#2d4a2d;color:#ffffff;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  .header-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;font-style:normal;letter-spacing:0.01em;color:#ffffff;}
+  .header-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#ffffff;}
   .header-right{display:flex;align-items:center;gap:10px;}
-  .pws-badge{background:#3d6b3d;color:#c8e6c8;font-size:11px;padding:2px 10px;border-radius:20px;letter-spacing:0.03em;display:flex;align-items:center;gap:5px;font-family:'Playfair Display',serif;font-weight:400;}
+  .pws-badge{background:#3d6b3d;color:#c8e6c8;font-size:11px;padding:2px 10px;border-radius:20px;letter-spacing:0.03em;display:flex;align-items:center;gap:5px;}
   .live-dot{width:6px;height:6px;background:#7fc97f;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-  .header-updated{font-size:11px;color:#a8c5a8;font-family:'Playfair Display',serif;font-weight:400;}
+  .header-updated{font-size:11px;color:#a8c5a8;}
 
   .body-grid{display:grid;grid-template-columns:1fr;}
   @media(min-width:560px){
@@ -31,22 +31,22 @@
   @media(min-width:560px){.temp-row{gap:14px;margin-bottom:14px;}}
   .wx-icon-large img{width:52px;height:52px;display:block;}
   @media(min-width:560px){.wx-icon-large img{width:64px;height:64px;}}
-  .temp-big{font-size:56px;font-weight:700;line-height:1;color:#1a2e1a;letter-spacing:-1px;font-family:'Playfair Display',serif;}
+  .temp-big{font-size:56px;font-weight:700;line-height:1;color:#1a2e1a;letter-spacing:-1px;}
   @media(min-width:560px){.temp-big{font-size:64px;}}
   .temp-unit{font-size:24px;font-weight:400;color:#3a3a3a;}
-  .temp-feels{font-size:13px;color:#3a3a3a;margin-top:2px;font-style:italic;font-weight:400;}
-  .hilo-lbl{font-size:11px;color:#555;margin-bottom:3px;font-weight:400;}
+  .temp-feels{font-size:13px;color:#3a3a3a;margin-top:2px;font-style:italic;}
+  .hilo-lbl{font-size:11px;color:#555;margin-bottom:3px;}
   .hilo{display:flex;gap:8px;margin-top:2px;}
-  .hilo-item{font-size:14px;color:#000;font-weight:400;}
+  .hilo-item{font-size:14px;color:#000;}
   .hilo-item .arrow{font-size:12px;margin-right:2px;}
   .hilo-item .hi-arrow{color:#a05050;}
   .hilo-item .lo-arrow{color:#5080a0;}
 
   .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
   .stat{background:#f7f5f0;border:1px solid #eceae4;border-radius:6px;padding:7px 8px;}
-  .stat-lbl{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;font-weight:400;}
+  .stat-lbl{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
   .stat-val{font-size:15px;font-weight:700;color:#000;}
-  .stat-sub{font-size:11px;color:#555;margin-top:1px;font-weight:400;}
+  .stat-sub{font-size:11px;color:#555;margin-top:1px;}
 
   .forecast-section{padding:12px 14px 10px;border-bottom:1px solid #eceae4;}
   @media(min-width:560px){.forecast-section{padding:16px 18px 14px;}}
@@ -57,12 +57,12 @@
   .fc-row.today .fc-day,.fc-row.today .fc-hilo,.fc-row.today .fc-desc{color:#ffffff;}
   .fc-day{font-size:11px;font-weight:700;color:#000;letter-spacing:0.03em;}
   .fc-icon img{width:26px;height:26px;display:block;}
-  .fc-desc{font-size:12px;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;}
-  .fc-hilo{font-size:13px;white-space:nowrap;text-align:right;font-weight:400;}
+  .fc-desc{font-size:12px;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .fc-hilo{font-size:13px;white-space:nowrap;text-align:right;}
   .fc-hilo .hi{color:#a05050;}
   .fc-hilo .lo{color:#5080a0;}
   .fc-hilo .sep{color:#bbb;margin:0 2px;}
-  .fc-rain{font-size:10px;color:#4a8a6a;margin-top:1px;font-weight:400;}
+  .fc-rain{font-size:10px;color:#4a8a6a;margin-top:1px;}
 
   .history-section{padding:12px 14px 12px;border-bottom:1px solid #eceae4;}
   @media(min-width:560px){.history-section{padding:14px 18px 16px;}}
@@ -71,8 +71,8 @@
   .hc-yr{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;font-weight:700;}
   .hc-temp{font-size:22px;font-weight:700;color:#000;line-height:1;}
   .hc-avg{font-size:12px;font-weight:400;color:#555;}
-  .hc-sub{font-size:12px;color:#000;margin-top:3px;font-weight:400;}
-  .hc-rain{font-size:12px;color:#4a8a6a;margin-top:2px;font-weight:400;}
+  .hc-sub{font-size:12px;color:#000;}
+  .hc-rain{font-size:12px;color:#4a8a6a;margin-top:2px;}
 
   .facts-section{padding:12px 14px 14px;border-bottom:1px solid #eceae4;background:#f7f5f0;}
   @media(min-width:560px){.facts-section{padding:14px 18px 16px;}}
@@ -80,10 +80,10 @@
   @media(max-width:400px){.facts-grid{grid-template-columns:1fr;}}
   .fact-card{background:#fff;border-radius:6px;padding:9px 12px;border:1px solid #eceae4;}
   .fact-month{font-size:11px;color:#2d4a2d;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;font-weight:700;}
-  .fact-item{font-size:13px;color:#000;margin-bottom:4px;line-height:1.5;font-weight:400;}
+  .fact-item{font-size:13px;color:#000;margin-bottom:4px;line-height:1.5;}
   .fact-highlight{font-weight:700;color:#000;}
 
-  .footer{font-size:11px;color:#888;text-align:center;padding:8px 14px 10px;border-top:1px solid #eceae4;font-weight:400;}
+  .footer{font-size:11px;color:#888;text-align:center;padding:8px 14px 10px;border-top:1px solid #eceae4;}
   .footer a{color:#4a7a4a;text-decoration:none;}
   .error-msg{padding:20px;color:#8b6a6a;font-size:13px;text-align:center;grid-column:1/-1;}
 </style>
@@ -109,7 +109,7 @@
 
 <script>
 const CDN='https://cdn.jsdelivr.net/gh/basmilius/weather-icons@dev/production/fill/svg/';
-const PAGES_URL='https://kartike-design.github.io/saroga-weather/weather.json';
+const PAGES_BASE='https://kartike-design.github.io/saroga-weather/';
 const API_URL='https://api.github.com/repos/kartike-design/saroga-weather/contents/docs/weather.json?ref=data';
 
 const WU_ICON={
@@ -182,15 +182,11 @@ function render(data){
   const todayIcon=fc.length&&fc[0].icon_wu!=null?fc[0].icon_wu:2;
   let html='';
 
-  /* Current */
   html+=`<div class="current-section">`;
-  html+=`<div class="temp-row">`;
-  html+=`<div class="wx-icon-large">${icon(todayIcon,64)}</div>`;
-  html+=`<div>`;
+  html+=`<div class="temp-row"><div class="wx-icon-large">${icon(todayIcon,64)}</div><div>`;
   html+=`<div class="temp-big">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
   if(c.feels_like!=null)html+=`<div class="temp-feels">Feels like ${Math.round(c.feels_like)}°C</div>`;
-  html+=`<div class="hilo-lbl">Recorded today</div>`;
-  html+=`<div class="hilo">`;
+  html+=`<div class="hilo-lbl">Recorded today</div><div class="hilo">`;
   html+=`<div class="hilo-item"><span class="arrow hi-arrow">↑</span>${c.today_high!=null?Math.round(c.today_high)+'°':'—'}</div>`;
   html+=`<div class="hilo-item"><span class="arrow lo-arrow">↓</span>${c.today_low!=null?Math.round(c.today_low)+'°':'—'}</div>`;
   html+=`</div></div></div>`;
@@ -200,7 +196,6 @@ function render(data){
   html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
   html+=`</div></div>`;
 
-  /* Forecast */
   if(fc.length){
     html+=`<div class="forecast-section"><div class="section-label">5-Day Forecast</div><div class="fc-list">`;
     fc.forEach((day,i)=>{
@@ -218,7 +213,6 @@ function render(data){
     html+=`</div></div>`;
   }
 
-  /* History */
   if(h1||h2){
     html+=`<div class="history-section"><div class="section-label">Same Week in Past Years</div><div class="hist-grid">`;
     [h1,h2].forEach(h=>{
@@ -232,11 +226,8 @@ function render(data){
     html+=`</div></div>`;
   }
 
-  /* Facts */
   if(fm||fn){
-    html+=`<div class="facts-section">`;
-    html+=`<div class="section-label">Did You Know? · Weather Records at Saroga Woods</div>`;
-    html+=`<div class="facts-grid">`;
+    html+=`<div class="facts-section"><div class="section-label">Did You Know? · Weather Records at Saroga Woods</div><div class="facts-grid">`;
     html+=renderFact(fm);
     html+=renderFact(fn);
     html+=`</div></div>`;
@@ -248,13 +239,20 @@ function render(data){
 async function fetchData(){
   const t=Date.now();
   try{
-    const r=await fetch(`${PAGES_URL}?t=${t}`,{cache:'no-store'});
-    if(r.ok){
-      const data=await r.json();
-      const ageMin=Math.round((new Date()-new Date(data.generated))/60000);
-      if(ageMin<=25)return data;
+    // Step 1: fetch latest.txt to get current timestamp — this tiny file changes every run
+    const lt=await fetch(`${PAGES_BASE}latest.txt?t=${t}`,{cache:'no-store'});
+    if(lt.ok){
+      const ts=(await lt.text()).trim();
+      // Step 2: fetch the uniquely-named data file — never cached
+      const r=await fetch(`${PAGES_BASE}data_${ts}.json`,{cache:'no-store'});
+      if(r.ok){
+        const data=await r.json();
+        const ageMin=Math.round((new Date()-new Date(data.generated))/60000);
+        if(ageMin<=25)return data;
+      }
     }
   }catch(e){}
+  // Fallback: GitHub API
   try{
     const r=await fetch(`${API_URL}&t=${t}`);
     if(r.ok){
