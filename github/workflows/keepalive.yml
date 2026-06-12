@@ -1,0 +1,23 @@
+name: Keep alive
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Keep alive ping
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "$(date -u)" > .keepalive
+          git add .keepalive
+          git commit -m "Keep alive ping" || echo "Nothing to commit"
+          git push origin main
