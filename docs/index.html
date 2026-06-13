@@ -45,7 +45,7 @@
   .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:10px;}
   .stat{background:#f7f5f0;border:1px solid #eceae4;border-radius:6px;padding:8px 10px;}
   .stat-lbl{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;font-weight:600;}
-  .stat-val{font-size:16px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif;}
+  .stat-val{font-size:16px;font-weight:700;color:#000;}
   .stat-sub{font-size:12px;color:#555;margin-top:1px;}
 
   .forecast-section{padding:12px 14px 10px;border-bottom:1px solid #eceae4;}
@@ -61,7 +61,7 @@
   .fc-row.today .fc-rain,
   .fc-row.today .fc-hilo .hi,
   .fc-row.today .fc-hilo .lo{color:#ffffff;}
-  .fc-day-name{font-size:12px;font-weight:700;color:#000;letter-spacing:0.02em;line-height:1.2;}
+  .fc-day-name{font-size:12px;font-weight:700;color:#000;line-height:1.2;}
   .fc-day-date{font-size:10px;color:#666;line-height:1.2;margin-top:1px;}
   .fc-icon img{width:28px;height:28px;display:block;}
   .fc-desc{font-size:12px;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -139,6 +139,59 @@ const WU_ICON={
   45:'thunderstorms-day',46:'rain',47:'snow'
 };
 
+// Plain English replacements for WU weather phrases
+const WU_PHRASES={
+  'PM T-Storms':        'Afternoon thunderstorms',
+  'AM T-Storms':        'Morning thunderstorms',
+  'Scattered T-Storms': 'Scattered thunderstorms',
+  'Isolated T-Storms':  'Possible thunderstorms',
+  'T-Storms':           'Thunderstorms',
+  'Thunderstorms':      'Thunderstorms',
+  'Rain Late':          'Rain by evening',
+  'Rain Early':         'Rain in the morning',
+  'PM Rain':            'Afternoon rain',
+  'AM Rain':            'Morning rain',
+  'PM Showers':         'Afternoon showers',
+  'AM Showers':         'Morning showers',
+  'Showers':            'Rain showers',
+  'Heavy Rain':         'Heavy rain',
+  'Light Rain':         'Light rain',
+  'Rain':               'Rain',
+  'Drizzle':            'Drizzle',
+  'Wintry Mix':         'Sleet and rain',
+  'Mostly Sunny':       'Mostly sunny',
+  'Partly Sunny':       'Partly sunny',
+  'Sunny':              'Sunny',
+  'Clear':              'Clear',
+  'Mostly Clear':       'Mostly clear',
+  'Partly Cloudy':      'Partly cloudy',
+  'Mostly Cloudy':      'Mostly cloudy',
+  'Cloudy':             'Cloudy',
+  'Overcast':           'Overcast',
+  'Fog':                'Foggy',
+  'Haze':               'Hazy',
+  'Windy':              'Windy',
+  'Snow':               'Snow',
+  'Light Snow':         'Light snow',
+  'Heavy Snow':         'Heavy snow',
+  'Flurries':           'Snow flurries',
+  'Blowing Snow':       'Blowing snow',
+  'Ice':                'Icy conditions',
+  'Freezing Rain':      'Freezing rain',
+  'Sleet':              'Sleet',
+};
+
+function plainEnglish(phrase){
+  if(!phrase) return '';
+  // Try exact match first
+  if(WU_PHRASES[phrase]) return WU_PHRASES[phrase];
+  // Try partial match for phrases not in the table
+  for(const [key,val] of Object.entries(WU_PHRASES)){
+    if(phrase.toLowerCase().includes(key.toLowerCase())) return val;
+  }
+  return phrase;
+}
+
 const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MONTH_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -171,9 +224,9 @@ function todayLabel(){
   return `Today, ${DAY_NAMES[now.getDay()]}, ${now.getDate()} ${MONTH_SHORT[now.getMonth()]}`;
 }
 
-function fcDayLabel(dateStr, i){
-  if(i===0) return {name:'Today', date:''};
-  if(!dateStr) return {name:'—', date:''};
+function fcDayLabel(dateStr,i){
+  if(i===0) return {name:'Today',date:''};
+  if(!dateStr) return {name:'—',date:''};
   const d=new Date(dateStr+'T00:00:00');
   return {
     name: DAY_SHORT[d.getDay()],
@@ -190,7 +243,7 @@ function renderFact(f){
   if(!f)return'';
   const mName=MONTH_NAMES[(f.month||1)-1];
   let html=`<div class="fact-card">`;
-  html+=`<div class="fact-month">${mName}: Weather records</div>`;
+  html+=`<div class="fact-month">${mName}: Weather Records</div>`;
   if(f.coldest_temp!=null&&f.coldest_date)
     html+=`<div class="fact-item">🥶 Coldest day: <span class="fact-highlight">${f.coldest_temp}°C</span> on ${fmtDate(f.coldest_date)}</div>`;
   if(f.wettest_mm!=null&&f.wettest_date)
@@ -221,22 +274,23 @@ function render(data){
   html+=`<div class="stat-grid">`;
   html+=`<div class="stat"><div class="stat-lbl">Humidity</div><div class="stat-val">${fmt(c.humidity,'%')}</div></div>`;
   html+=`<div class="stat"><div class="stat-lbl">Wind</div><div class="stat-val">${c.wind_kph!=null?Math.round(c.wind_kph)+' km/h':'—'}</div>${c.wind_dir_label?`<div class="stat-sub">${c.wind_dir_label}</div>`:''}</div>`;
-  html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
+  html+=`<div class="stat"><div class="stat-lbl">Rain Today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
   html+=`</div></div>`;
 
   /* Forecast */
   if(fc.length){
-    html+=`<div class="forecast-section"><div class="section-label">5-day forecast</div><div class="fc-list">`;
+    html+=`<div class="forecast-section"><div class="section-label">5-Day Forecast</div><div class="fc-list">`;
     fc.forEach((day,i)=>{
       const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
       const dispHigh=(i===0&&c.today_high!=null)?Math.round(c.today_high):(day.high!=null?Math.round(day.high):'—');
       const dispLow=(i===0&&c.today_low!=null)?Math.round(c.today_low):(day.low!=null?Math.round(day.low):'—');
       const rowIcon=day.icon_wu!=null?day.icon_wu:2;
       const dl=fcDayLabel(day.date,i);
+      const desc=plainEnglish(day.desc);
       html+=`<div class="fc-row${i===0?' today':''}">`;
       html+=`<div><div class="fc-day-name">${dl.name}</div>${dl.date?`<div class="fc-day-date">${dl.date}</div>`:''}</div>`;
       html+=`<div class="fc-icon">${icon(rowIcon,28)}</div>`;
-      html+=`<div><div class="fc-desc">${day.desc||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
+      html+=`<div><div class="fc-desc">${desc}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
       html+=`<div class="fc-hilo"><span class="hi">↑${dispHigh}°</span><span class="sep">·</span><span class="lo">↓${dispLow}°</span></div>`;
       html+=`</div>`;
     });
@@ -245,7 +299,7 @@ function render(data){
 
   /* History */
   if(h1||h2){
-    html+=`<div class="history-section"><div class="section-label">Same week in past years</div><div class="hist-grid">`;
+    html+=`<div class="history-section"><div class="section-label">Same Week In Past Years</div><div class="hist-grid">`;
     [h1,h2].forEach(h=>{
       if(!h)return;
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
@@ -259,7 +313,7 @@ function render(data){
 
   /* Facts */
   if(fm||fn){
-    html+=`<div class="facts-section"><div class="section-label">Did you know? · Weather records at Saroga Woods</div><div class="facts-grid">`;
+    html+=`<div class="facts-section"><div class="section-label">Did You Know? · Weather Records At Saroga Woods</div><div class="facts-grid">`;
     html+=renderFact(fm);
     html+=renderFact(fn);
     html+=`</div></div>`;
