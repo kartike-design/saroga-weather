@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>Saroga Woods — Live Weather</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Playfair Display',serif;background:#fff;color:#000;font-size:14px;line-height:1.5;}
+  body{font-family:'Open Sans',sans-serif;background:#fff;color:#000;font-size:14px;line-height:1.5;}
 
-  .header{background:#2d4a2d;color:#ffffff;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  .header-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#ffffff;}
+  .header{background:#2a4a46;color:#ffffff;padding:9px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .header-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#ffffff;}
   .header-right{display:flex;align-items:center;gap:10px;}
-  .pws-badge{background:#3d6b3d;color:#c8e6c8;font-size:11px;padding:2px 10px;border-radius:20px;letter-spacing:0.03em;display:flex;align-items:center;gap:5px;}
-  .live-dot{width:6px;height:6px;background:#7fc97f;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
+  .pws-badge{background:#3d6b67;color:#c8e6e4;font-size:11px;padding:2px 10px;border-radius:20px;letter-spacing:0.03em;display:flex;align-items:center;gap:5px;font-family:'Open Sans',sans-serif;}
+  .live-dot{width:6px;height:6px;background:#7fc9c4;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-  .header-updated{font-size:11px;color:#a8c5a8;}
+  .header-updated{font-size:11px;color:#a8c5c3;font-family:'Open Sans',sans-serif;}
 
   .body-grid{display:grid;grid-template-columns:1fr;}
   @media(min-width:560px){
@@ -31,67 +31,74 @@
   @media(min-width:560px){.temp-row{gap:14px;margin-bottom:14px;}}
   .wx-icon-large img{width:52px;height:52px;display:block;}
   @media(min-width:560px){.wx-icon-large img{width:64px;height:64px;}}
-  .temp-big{font-size:56px;font-weight:700;line-height:1;color:#1a2e1a;letter-spacing:-1px;}
+  .temp-big{font-size:56px;font-weight:700;line-height:1;color:#2a4a46;letter-spacing:-1px;font-family:'Playfair Display',serif;}
   @media(min-width:560px){.temp-big{font-size:64px;}}
-  .temp-unit{font-size:24px;font-weight:400;color:#3a3a3a;}
-  .temp-feels{font-size:13px;color:#3a3a3a;margin-top:2px;font-style:italic;}
-  .hilo-lbl{font-size:11px;color:#555;margin-bottom:3px;}
+  .temp-unit{font-size:24px;font-weight:400;color:#3a3a3a;font-family:'Playfair Display',serif;}
+  .temp-feels{font-size:13px;color:#555;margin-top:2px;font-style:italic;}
+  .hilo-lbl{font-size:12px;color:#555;margin-bottom:3px;}
   .hilo{display:flex;gap:8px;margin-top:2px;}
-  .hilo-item{font-size:14px;color:#000;}
-  .hilo-item .arrow{font-size:12px;margin-right:2px;}
+  .hilo-item{font-size:15px;color:#000;font-weight:600;}
+  .hilo-item .arrow{font-size:13px;margin-right:2px;}
   .hilo-item .hi-arrow{color:#a05050;}
   .hilo-item .lo-arrow{color:#5080a0;}
 
-  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
-  .stat{background:#f7f5f0;border:1px solid #eceae4;border-radius:6px;padding:7px 8px;}
-  .stat-lbl{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
-  .stat-val{font-size:15px;font-weight:700;color:#000;}
-  .stat-sub{font-size:11px;color:#555;margin-top:1px;}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:10px;}
+  .stat{background:#f7f5f0;border:1px solid #eceae4;border-radius:6px;padding:8px 10px;}
+  .stat-lbl{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;font-weight:600;}
+  .stat-val{font-size:16px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif;}
+  .stat-sub{font-size:12px;color:#555;margin-top:1px;}
 
   .forecast-section{padding:12px 14px 10px;border-bottom:1px solid #eceae4;}
   @media(min-width:560px){.forecast-section{padding:16px 18px 14px;}}
-  .section-label{font-size:11px;letter-spacing:0.06em;color:#555;text-transform:uppercase;margin-bottom:7px;font-weight:700;}
-  .fc-list{display:flex;flex-direction:column;gap:4px;}
-  .fc-row{display:grid;grid-template-columns:34px 28px 1fr auto;align-items:center;gap:6px;padding:5px 7px;background:#f7f5f0;border-radius:6px;border:1px solid #eceae4;}
-  .fc-row.today{background:#2d4a2d;border-color:#2d4a2d;}
-  .fc-row.today .fc-day,.fc-row.today .fc-hilo,.fc-row.today .fc-desc{color:#ffffff;}
-  .fc-day{font-size:11px;font-weight:700;color:#000;letter-spacing:0.03em;}
-  .fc-icon img{width:26px;height:26px;display:block;}
+  .section-label{font-family:'Playfair Display',serif;font-size:13px;color:#2a4a46;margin-bottom:8px;font-weight:700;}
+  .fc-list{display:flex;flex-direction:column;gap:5px;}
+  .fc-row{display:grid;grid-template-columns:52px 32px 1fr auto;align-items:center;gap:8px;padding:7px 10px;background:#f7f5f0;border-radius:7px;border:1px solid #eceae4;}
+  .fc-row.today{background:#2a4a46;border-color:#2a4a46;}
+  .fc-row.today .fc-day-name,
+  .fc-row.today .fc-day-date,
+  .fc-row.today .fc-desc,
+  .fc-row.today .fc-hilo,
+  .fc-row.today .fc-rain,
+  .fc-row.today .fc-hilo .hi,
+  .fc-row.today .fc-hilo .lo{color:#ffffff;}
+  .fc-day-name{font-size:12px;font-weight:700;color:#000;letter-spacing:0.02em;line-height:1.2;}
+  .fc-day-date{font-size:10px;color:#666;line-height:1.2;margin-top:1px;}
+  .fc-icon img{width:28px;height:28px;display:block;}
   .fc-desc{font-size:12px;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .fc-hilo{font-size:13px;white-space:nowrap;text-align:right;}
+  .fc-hilo{font-size:13px;white-space:nowrap;text-align:right;font-weight:600;}
   .fc-hilo .hi{color:#a05050;}
   .fc-hilo .lo{color:#5080a0;}
   .fc-hilo .sep{color:#bbb;margin:0 2px;}
-  .fc-rain{font-size:10px;color:#4a8a6a;margin-top:1px;}
+  .fc-rain{font-size:11px;color:#4a8a6a;margin-top:2px;}
 
   .history-section{padding:12px 14px 12px;border-bottom:1px solid #eceae4;}
   @media(min-width:560px){.history-section{padding:14px 18px 16px;}}
-  .hist-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
-  .hc{background:#f7f5f0;border-radius:6px;padding:9px 11px;border:1px solid #eceae4;}
-  .hc-yr{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;font-weight:700;}
-  .hc-temp{font-size:22px;font-weight:700;color:#000;line-height:1;}
-  .hc-avg{font-size:12px;font-weight:400;color:#555;}
-  .hc-sub{font-size:12px;color:#000;}
-  .hc-rain{font-size:12px;color:#4a8a6a;margin-top:2px;}
+  .hist-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+  .hc{background:#f7f5f0;border-radius:6px;padding:10px 12px;border:1px solid #eceae4;}
+  .hc-yr{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;font-weight:600;}
+  .hc-temp{font-size:22px;font-weight:700;color:#000;line-height:1;font-family:'Playfair Display',serif;}
+  .hc-avg{font-size:12px;font-weight:400;color:#555;font-family:'Open Sans',sans-serif;}
+  .hc-sub{font-size:13px;color:#000;margin-top:4px;}
+  .hc-rain{font-size:13px;color:#4a8a6a;margin-top:2px;}
 
   .facts-section{padding:12px 14px 14px;border-bottom:1px solid #eceae4;background:#f7f5f0;}
   @media(min-width:560px){.facts-section{padding:14px 18px 16px;}}
   .facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
   @media(max-width:400px){.facts-grid{grid-template-columns:1fr;}}
-  .fact-card{background:#fff;border-radius:6px;padding:9px 12px;border:1px solid #eceae4;}
-  .fact-month{font-size:11px;color:#2d4a2d;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;font-weight:700;}
+  .fact-card{background:#fff;border-radius:6px;padding:10px 13px;border:1px solid #eceae4;}
+  .fact-month{font-family:'Playfair Display',serif;font-size:13px;color:#2a4a46;margin-bottom:6px;font-weight:700;}
   .fact-item{font-size:13px;color:#000;margin-bottom:4px;line-height:1.5;}
   .fact-highlight{font-weight:700;color:#000;}
 
   .footer{font-size:11px;color:#888;text-align:center;padding:8px 14px 10px;border-top:1px solid #eceae4;}
-  .footer a{color:#4a7a4a;text-decoration:none;}
+  .footer a{color:#2a4a46;text-decoration:none;}
   .error-msg{padding:20px;color:#8b6a6a;font-size:13px;text-align:center;grid-column:1/-1;}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <span class="header-title">Saroga Woods · Weather</span>
+  <span class="header-title">Weather</span>
   <div class="header-right">
     <span class="pws-badge"><span class="live-dot"></span>Live · Personal Station</span>
     <span class="header-updated" id="updated">Loading…</span>
@@ -133,15 +140,16 @@ const WU_ICON={
 };
 
 const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTH_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const DAY_SHORT=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
 function icon(wu_code,size=30){
   const name=WU_ICON[wu_code]??'partly-cloudy-day';
   return `<img src="${CDN}${name}.svg" width="${size}" height="${size}" alt="" onerror="this.src='${CDN}partly-cloudy-day.svg'">`;
 }
 function fmt(v,u,d=0){return v==null?'—':Number(v).toFixed(d)+u;}
-function shortDow(dow,i){if(i===0)return'TODAY';if(!dow)return'';return dow.substring(0,3).toUpperCase();}
+
 function formatAge(iso){
   if(!iso)return'';
   const m=Math.round((new Date()-new Date(iso))/60000);
@@ -151,14 +159,26 @@ function formatAge(iso){
   if(h<24)return h+'h ago';
   return Math.floor(h/24)+'d ago';
 }
+
 function fmtDate(iso){
   if(!iso)return'';
   const d=new Date(iso+'T00:00:00');
   return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
 }
+
 function todayLabel(){
   const now=new Date();
   return `Today, ${DAY_NAMES[now.getDay()]}, ${now.getDate()} ${MONTH_SHORT[now.getMonth()]}`;
+}
+
+function fcDayLabel(dateStr, i){
+  if(i===0) return {name:'Today', date:''};
+  if(!dateStr) return {name:'—', date:''};
+  const d=new Date(dateStr+'T00:00:00');
+  return {
+    name: DAY_SHORT[d.getDay()],
+    date: `${d.getDate()} ${MONTH_SHORT[d.getMonth()]}`
+  };
 }
 
 let lastDataTime=null;
@@ -170,7 +190,7 @@ function renderFact(f){
   if(!f)return'';
   const mName=MONTH_NAMES[(f.month||1)-1];
   let html=`<div class="fact-card">`;
-  html+=`<div class="fact-month">${mName}: Weather Records</div>`;
+  html+=`<div class="fact-month">${mName}: Weather records</div>`;
   if(f.coldest_temp!=null&&f.coldest_date)
     html+=`<div class="fact-item">🥶 Coldest day: <span class="fact-highlight">${f.coldest_temp}°C</span> on ${fmtDate(f.coldest_date)}</div>`;
   if(f.wettest_mm!=null&&f.wettest_date)
@@ -188,6 +208,7 @@ function render(data){
   const todayIcon=fc.length&&fc[0].icon_wu!=null?fc[0].icon_wu:2;
   let html='';
 
+  /* Current */
   html+=`<div class="current-section">`;
   html+=`<div class="temp-row"><div class="wx-icon-large">${icon(todayIcon,64)}</div><div>`;
   html+=`<div class="temp-big">${c.temp!=null?Math.round(c.temp):'—'}<span class="temp-unit">°C</span></div>`;
@@ -203,16 +224,18 @@ function render(data){
   html+=`<div class="stat"><div class="stat-lbl">Rain today</div><div class="stat-val">${fmt(c.precip_today,' mm',1)}</div></div>`;
   html+=`</div></div>`;
 
+  /* Forecast */
   if(fc.length){
-    html+=`<div class="forecast-section"><div class="section-label">5-Day Forecast</div><div class="fc-list">`;
+    html+=`<div class="forecast-section"><div class="section-label">5-day forecast</div><div class="fc-list">`;
     fc.forEach((day,i)=>{
       const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
       const dispHigh=(i===0&&c.today_high!=null)?Math.round(c.today_high):(day.high!=null?Math.round(day.high):'—');
       const dispLow=(i===0&&c.today_low!=null)?Math.round(c.today_low):(day.low!=null?Math.round(day.low):'—');
       const rowIcon=day.icon_wu!=null?day.icon_wu:2;
+      const dl=fcDayLabel(day.date,i);
       html+=`<div class="fc-row${i===0?' today':''}">`;
-      html+=`<div class="fc-day">${shortDow(day.dow,i)}</div>`;
-      html+=`<div class="fc-icon">${icon(rowIcon,26)}</div>`;
+      html+=`<div><div class="fc-day-name">${dl.name}</div>${dl.date?`<div class="fc-day-date">${dl.date}</div>`:''}</div>`;
+      html+=`<div class="fc-icon">${icon(rowIcon,28)}</div>`;
       html+=`<div><div class="fc-desc">${day.desc||''}</div>${rain?`<div class="fc-rain">💧 ${rain}</div>`:''}</div>`;
       html+=`<div class="fc-hilo"><span class="hi">↑${dispHigh}°</span><span class="sep">·</span><span class="lo">↓${dispLow}°</span></div>`;
       html+=`</div>`;
@@ -220,8 +243,9 @@ function render(data){
     html+=`</div></div>`;
   }
 
+  /* History */
   if(h1||h2){
-    html+=`<div class="history-section"><div class="section-label">Same Week in Past Years</div><div class="hist-grid">`;
+    html+=`<div class="history-section"><div class="section-label">Same week in past years</div><div class="hist-grid">`;
     [h1,h2].forEach(h=>{
       if(!h)return;
       html+=`<div class="hc"><div class="hc-yr">${h.year}</div>`;
@@ -233,8 +257,9 @@ function render(data){
     html+=`</div></div>`;
   }
 
+  /* Facts */
   if(fm||fn){
-    html+=`<div class="facts-section"><div class="section-label">Did You Know? · Weather Records at Saroga Woods</div><div class="facts-grid">`;
+    html+=`<div class="facts-section"><div class="section-label">Did you know? · Weather records at Saroga Woods</div><div class="facts-grid">`;
     html+=renderFact(fm);
     html+=renderFact(fn);
     html+=`</div></div>`;
@@ -253,7 +278,7 @@ async function fetchData(){
       if(r.ok){
         const data=await r.json();
         const ageMin=Math.round((new Date()-new Date(data.generated))/60000);
-        if(ageMin<=25)return data;
+        if(ageMin<=120)return data;
       }
     }
   }catch(e){}
