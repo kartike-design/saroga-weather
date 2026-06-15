@@ -2,60 +2,60 @@
   "current": {
     "temp": 12,
     "feels_like": 12,
-    "humidity": 68,
-    "wind_kph": 0,
-    "wind_dir": 203,
-    "pressure": 1007.45,
-    "precip_today": 0.0,
+    "humidity": 69,
+    "wind_kph": 1,
+    "wind_dir": 210,
+    "pressure": 1009.82,
+    "precip_today": 6.1,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-15 02:20:33",
+    "updated": "2026-06-15 21:57:33",
     "wind_dir_label": "SSW",
     "today_low": 12,
-    "today_high": 13
+    "today_high": 21
   },
   "forecast": [
     {
-      "date": "2026-06-14",
-      "dow": "Sunday",
-      "high": 25,
-      "low": 11,
-      "desc": "Clear",
-      "icon_wu": 31,
-      "precip": 0.8
-    },
-    {
       "date": "2026-06-15",
       "dow": "Monday",
-      "high": 22,
-      "low": 12,
-      "desc": "PM T-Storms",
-      "icon_wu": 38,
-      "precip": 5.9
+      "high": 26,
+      "low": 13,
+      "desc": "Clear",
+      "icon_wu": 31,
+      "precip": 1.7
     },
     {
       "date": "2026-06-16",
       "dow": "Tuesday",
-      "high": 23,
-      "low": 12,
+      "high": 25,
+      "low": 14,
       "desc": "PM T-Storms",
       "icon_wu": 38,
-      "precip": 3.5
+      "precip": 1.3
     },
     {
       "date": "2026-06-17",
       "dow": "Wednesday",
-      "high": 23,
-      "low": 13,
+      "high": 25,
+      "low": 15,
+      "desc": "Isolated T-Storms",
+      "icon_wu": 37,
+      "precip": 3.6
+    },
+    {
+      "date": "2026-06-18",
+      "dow": "Thursday",
+      "high": 25,
+      "low": 16,
       "desc": "PM T-Storms",
       "icon_wu": 38,
       "precip": 0
     },
     {
-      "date": "2026-06-18",
-      "dow": "Thursday",
-      "high": 23,
-      "low": 14,
+      "date": "2026-06-19",
+      "dow": "Friday",
+      "high": 25,
+      "low": 16,
       "desc": "PM T-Storms",
       "icon_wu": 38,
       "precip": 0
@@ -89,5 +89,5 @@
     "wettest_mm": 56.9,
     "wettest_date": "2025-07-21"
   },
-  "generated": "2026-06-14T20:50:42.372813+00:00"
+  "generated": "2026-06-15T16:28:18.306232+00:00"
 }
