@@ -2,6 +2,7 @@ import urllib.request
 import urllib.error
 import json
 import os
+import sys
 from datetime import datetime, timedelta, timezone
 
 API_KEY    = "c481811673aa4a0c81811673aa9a0ccd"
@@ -187,6 +188,8 @@ def main():
     os.makedirs("docs", exist_ok=True)
     result = {}
 
+    run_full_history = "--full" in sys.argv
+
     try:
         current = wu_current()
         current["wind_dir_label"] = wind_direction(current.get("wind_dir"))
@@ -206,28 +209,39 @@ def main():
         print(f"WU Forecast error: {e}")
         result["forecast"] = []
 
-    result["history_1y"] = wu_history_week(1)
-    print(f"History 1y: {result['history_1y']}")
+    if run_full_history:
+        print("Running full historical calculations...")
+        result["history_1y"] = wu_history_week(1)
+        result["history_2y"] = wu_history_week(2)
 
-    result["history_2y"] = wu_history_week(2)
-    print(f"History 2y: {result['history_2y']}")
-
-    ist = timezone(timedelta(hours=5, minutes=30))
-    now = datetime.now(ist)
-    current_month = now.month
-    next_month    = (current_month % 12) + 1
-    try:
-        result["facts_current_month"] = wu_month_facts(current_month)
-        print(f"Facts current month: {result['facts_current_month']}")
-    except Exception as e:
-        print(f"Month facts error: {e}")
-        result["facts_current_month"] = None
-    try:
-        result["facts_next_month"] = wu_month_facts(next_month)
-        print(f"Facts next month: {result['facts_next_month']}")
-    except Exception as e:
-        print(f"Month facts error: {e}")
-        result["facts_next_month"] = None
+        ist = timezone(timedelta(hours=5, minutes=30))
+        now = datetime.now(ist)
+        current_month = now.month
+        next_month    = (current_month % 12) + 1
+        try:
+            result["facts_current_month"] = wu_month_facts(current_month)
+            print(f"Facts current month: {result['facts_current_month']}")
+        except Exception as e:
+            print(f"Month facts error: {e}")
+            result["facts_current_month"] = None
+        try:
+            result["facts_next_month"] = wu_month_facts(next_month)
+            print(f"Facts next month: {result['facts_next_month']}")
+        except Exception as e:
+            print(f"Month facts error: {e}")
+            result["facts_next_month"] = None
+    else:
+        print("Fast run: Preserving existing historical data...")
+        if os.path.exists(OUT_FILE):
+            try:
+                with open(OUT_FILE, "r") as f:
+                    old_data = json.load(f)
+                    result["history_1y"] = old_data.get("history_1y")
+                    result["history_2y"] = old_data.get("history_2y")
+                    result["facts_current_month"] = old_data.get("facts_current_month")
+                    result["facts_next_month"] = old_data.get("facts_next_month")
+            except Exception as e:
+                print(f"Error reading old data: {e}")
 
     result["generated"] = datetime.now(timezone.utc).isoformat()
 
