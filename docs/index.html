@@ -58,6 +58,14 @@
   .hc-sub{font-size:11px;color:#6a7a6a;margin-top:4px;}
   .hc-rain{font-size:11px;color:#4a8a6a;margin-top:2px;}
 
+  /* Monthly Records */
+  .records-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 18px 14px;}
+  .rc{background:#f7f5f0;border-radius:8px;padding:11px 13px;border:1px solid #eceae4;}
+  .rc-title{font-size:10px;font-weight:600;color:#2d4a2d;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:7px;border-bottom:1px dashed #d0ccc4;padding-bottom:4px;}
+  .rc-stat{font-size:12px;color:#1a2e1a;margin-bottom:3px;display:flex;justify-content:space-between;}
+  .rc-stat span{font-weight:600;color:#1a2e1a;}
+  .rc-date{font-size:9px;color:#8a9a8a;text-align:right;margin-bottom:6px;line-height:1.2;}
+
   .footer{font-size:10px;color:#b0ad9c;text-align:center;padding:8px 18px 10px;border-top:1px solid #eceae4;}
   .footer a{color:#4a7a4a;text-decoration:none;}
   .error-msg{padding:20px;color:#8b6a6a;font-size:12px;text-align:center;}
@@ -81,25 +89,18 @@
 </div>
 
 <script>
-const WMO_ICON={
-  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',
-  45:'🌫️',48:'🌫️',
-  51:'🌦️',53:'🌦️',55:'🌧️',
-  61:'🌧️',63:'🌧️',65:'🌧️',
-  71:'🌨️',73:'❄️',75:'❄️',77:'❄️',
-  80:'🌦️',81:'🌧️',82:'⛈️',
-  85:'🌨️',86:'🌨️',
-  95:'⛈️',96:'⛈️',99:'⛈️'
-};
-const WMO={
-  0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',
-  45:'Foggy',48:'Icy fog',
-  51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
-  61:'Light rain',63:'Rain',65:'Heavy rain',
-  71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',
-  80:'Rain showers',81:'Rain showers',82:'Violent showers',
-  85:'Snow showers',86:'Heavy snow showers',
-  95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'
+// Weather Underground Custom Icon Code Mapping
+const WU_ICON={
+  0:'⛈️',1:'⛈️',2:'🌀',3:'⛈️',4:'⛈️',
+  5:'🌧️❄️',6:'🌧️',7:'❄️',8:'🌧️',9:'🌦️',
+  10:'🌧️',11:'🌧️',12:'🌧️',13:'❄️',14:'❄️',
+  15:'❄️',16:'❄️',17:'🌨️',18:'🌧️',19:'🌫️',
+  20:'🌫️',21:'🌫️',22:'🌫️',23:'💨',24:'💨',
+  25:'🥶',26:'☁️',27:'☁️',28:'⛅',29:'⛅',
+  30:'⛅',31:'🌙',32:'☀️',33:'🌙',34:'☀️',
+  35:'🌧️',36:'🥵',37:'⛈️',38:'⛈️',39:'🌧️',
+  40:'🌧️',41:'❄️',42:'❄️',43:'❄️',44:'🌡️',
+  45:'🌧️',46:'❄️',47:'⛈️'
 };
 
 let lastDataTime=null;
@@ -110,6 +111,18 @@ function dayLabel(ds,i){
   if(i===0)return'TODAY';
   const d=new Date(ds+'T00:00:00');
   return d.toLocaleDateString('en-GB',{weekday:'short'}).toUpperCase();
+}
+
+function getMonthName(m){
+  const names=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return names[m-1]||"";
+}
+
+function formatDate(dStr){
+  if(!dStr)return"—";
+  const cleanStr=dStr.substring(0,10);
+  const d=new Date(cleanStr+'T00:00:00');
+  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
 }
 
 function formatAge(iso){
@@ -128,13 +141,15 @@ function tickClock(){
 
 function render(data){
   const c=data.current||{},fc=data.forecast||[],h1=data.history_1y,h2=data.history_2y;
+  const m1=data.facts_current_month,m2=data.facts_next_month;
+  
   lastDataTime=c.updated||data.generated;
   tickClock();
 
-  // Pick icon from today's forecast code if available
-  const todayCode=fc.length?fc[0].code:null;
-  const wxIcon=WMO_ICON[todayCode]||'🌡️';
-  const wxDesc=WMO[todayCode]||'';
+  // Pick matching icon and descriptive phrasing directly from Weather Underground
+  const todayIconCode=fc.length?fc[0].icon_wu:null;
+  const wxIcon=WU_ICON[todayIconCode]||'🌡️';
+  const wxDesc=fc.length?fc[0].desc:'';
 
   let html='';
 
@@ -163,12 +178,13 @@ function render(data){
 
   /* ── Forecast ── */
   if(fc.length){
-    html+=`<div class="section-label">7-day forecast</div><div class="forecast-row">`;
+    html+=`<div class="section-label">${fc.length}-day forecast</div><div class="forecast-row">`;
     fc.forEach((day,i)=>{
       const rain=day.precip>0.2?fmt(day.precip,' mm',1):'';
+      const icon=WU_ICON[day.icon_wu]||'🌡️';
       html+=`<div class="fc${i===0?' today':''}">`;
       html+=`<div class="fc-day">${dayLabel(day.date,i)}</div>`;
-      html+=`<div class="fc-icon" title="${WMO[day.code]||''}">${WMO_ICON[day.code]||'🌡️'}</div>`;
+      html+=`<div class="fc-icon" title="${day.desc||''}">${icon}</div>`;
       html+=`<div class="fc-hi">${Math.round(day.high)}°</div>`;
       html+=`<div class="fc-lo">${Math.round(day.low)}°</div>`;
       if(rain)html+=`<div class="fc-rain">${rain}</div>`;
@@ -187,6 +203,25 @@ function render(data){
       html+=`<div class="hc-temp">${h.temp_avg!=null?h.temp_avg:'—'}<span class="hc-avg">°C avg</span></div>`;
       html+=`<div class="hc-sub">↑ ${h.temp_high!=null?h.temp_high+'°':'—'} · ↓ ${h.temp_low!=null?h.temp_low+'°':'—'}</div>`;
       if(h.precip!=null)html+=`<div class="hc-rain">💧 ${h.precip} mm total rain</div>`;
+      html+=`</div>`;
+    });
+    html+=`</div>`;
+  }
+
+  /* ── Monthly Records ── */
+  if(m1||m2){
+    html+=`<div class="section-label">Historical Monthly Records (Past 3 Years)</div><div class="records-row">`;
+    [m1,m2].forEach(m=>{
+      if(!m)return;
+      html+=`<div class="rc">`;
+      html+=`<div class="rc-title">${getMonthName(m.month)} Records</div>`;
+      
+      html+=`<div class="rc-stat">🥶 Coldest Temp <span>${m.coldest_temp!=null?m.coldest_temp+'°C':'—'}</span></div>`;
+      if(m.coldest_date) html+=`<div class="rc-date">on ${formatDate(m.coldest_date)}</div>`;
+      
+      html+=`<div class="rc-stat">💧 Wettest Day <span>${m.wettest_mm!=null?m.wettest_mm+' mm':'—'}</span></div>`;
+      if(m.wettest_date) html+=`<div class="rc-date">on ${formatDate(m.wettest_date)}</div>`;
+      
       html+=`</div>`;
     });
     html+=`</div>`;
