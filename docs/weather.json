@@ -3,14 +3,14 @@
     "temp": 15,
     "feels_like": 15,
     "humidity": 58,
-    "wind_kph": 10,
-    "wind_dir": 265,
+    "wind_kph": 13,
+    "wind_dir": 246,
     "pressure": 1009.48,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-17 19:49:30",
-    "wind_dir_label": "W",
+    "updated": "2026-06-17 19:59:30",
+    "wind_dir_label": "WSW",
     "today_low": 12,
     "today_high": 21
   },
@@ -31,24 +31,24 @@
       "low": 15,
       "desc": "Isolated T-Storms",
       "icon_wu": 37,
-      "precip": 0
+      "precip": 0.4
     },
     {
       "date": "2026-06-19",
       "dow": "Friday",
-      "high": 25,
+      "high": 26,
       "low": 15,
       "desc": "Mostly Sunny",
       "icon_wu": 34,
-      "precip": 2.4
+      "precip": 2.8
     },
     {
       "date": "2026-06-20",
       "dow": "Saturday",
       "high": 26,
       "low": 16,
-      "desc": "Mostly Sunny",
-      "icon_wu": 34,
+      "desc": "Isolated T-Storms",
+      "icon_wu": 37,
       "precip": 0
     },
     {
@@ -89,5 +89,5 @@
     "wettest_mm": 56.9,
     "wettest_date": "2025-07-21"
   },
-  "generated": "2026-06-17T14:20:30.600320+00:00"
+  "generated": "2026-06-17T14:30:35.468943+00:00"
 }
