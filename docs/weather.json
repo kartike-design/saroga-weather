@@ -1,34 +1,34 @@
 {
   "current": {
-    "temp": 16,
-    "feels_like": 16,
+    "temp": 17,
+    "feels_like": 17,
     "humidity": 69,
-    "wind_kph": 2,
-    "wind_dir": 105,
-    "pressure": 1009.82,
+    "wind_kph": 0,
+    "wind_dir": 95,
+    "pressure": 1010.16,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-19 08:19:29",
-    "wind_dir_label": "ESE",
+    "updated": "2026-06-19 08:30:29",
+    "wind_dir_label": "E",
     "today_low": 12,
-    "today_high": 16
+    "today_high": 17
   },
   "forecast": [
     {
       "date": "2026-06-19",
       "dow": "Friday",
-      "high": 26,
-      "low": 15,
-      "desc": "Partly Cloudy",
-      "icon_wu": 30,
+      "high": 27,
+      "low": 16,
+      "desc": "AM Drizzle",
+      "icon_wu": 9,
       "precip": 0
     },
     {
       "date": "2026-06-20",
       "dow": "Saturday",
-      "high": 26,
-      "low": 16,
+      "high": 28,
+      "low": 17,
       "desc": "Partly Cloudy",
       "icon_wu": 30,
       "precip": 0
@@ -36,17 +36,17 @@
     {
       "date": "2026-06-21",
       "dow": "Sunday",
-      "high": 26,
-      "low": 16,
+      "high": 27,
+      "low": 17,
       "desc": "Partly Cloudy",
       "icon_wu": 30,
-      "precip": 5.0
+      "precip": 4.9
     },
     {
       "date": "2026-06-22",
       "dow": "Monday",
-      "high": 24,
-      "low": 16,
+      "high": 26,
+      "low": 17,
       "desc": "Partly Cloudy",
       "icon_wu": 30,
       "precip": 0
@@ -54,8 +54,8 @@
     {
       "date": "2026-06-23",
       "dow": "Tuesday",
-      "high": 25,
-      "low": 15,
+      "high": 26,
+      "low": 17,
       "desc": "PM T-Storms",
       "icon_wu": 38,
       "precip": 0
@@ -77,10 +77,10 @@
   },
   "facts_current_month": {
     "month": 6,
-    "coldest_temp": 9,
-    "coldest_date": "2026-06-01",
-    "wettest_mm": 32.77,
-    "wettest_date": "2024-06-26"
+    "coldest_temp": 7,
+    "coldest_date": "2025-06-04",
+    "wettest_mm": 36.83,
+    "wettest_date": "2025-06-30"
   },
   "facts_next_month": {
     "month": 7,
@@ -89,5 +89,5 @@
     "wettest_mm": 56.9,
     "wettest_date": "2025-07-21"
   },
-  "generated": "2026-06-19T02:50:27.378746+00:00"
+  "generated": "2026-06-19T03:00:33.403162+00:00"
 }
