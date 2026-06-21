@@ -3,13 +3,13 @@
     "temp": 16,
     "feels_like": 16,
     "humidity": 56,
-    "wind_kph": 1,
-    "wind_dir": 203,
-    "pressure": 1008.47,
+    "wind_kph": 0,
+    "wind_dir": 208,
+    "pressure": 1008.81,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-06-21 20:59:27",
+    "updated": "2026-06-21 21:09:27",
     "wind_dir_label": "SSW",
     "today_low": 13,
     "today_high": 23
@@ -27,7 +27,7 @@
     {
       "date": "2026-06-22",
       "dow": "Monday",
-      "high": 23,
+      "high": 24,
       "low": 15,
       "desc": "PM T-Storms",
       "icon_wu": 38,
@@ -89,5 +89,5 @@
     "wettest_mm": 56.9,
     "wettest_date": "2025-07-21"
   },
-  "generated": "2026-06-21T15:30:27.353798+00:00"
+  "generated": "2026-06-21T15:40:21.383797+00:00"
 }
