@@ -4,12 +4,12 @@
     "feels_like": null,
     "humidity": null,
     "wind_kph": 0,
-    "wind_dir": 199,
+    "wind_dir": 192,
     "pressure": 1008.47,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-07-12 08:10:08",
+    "updated": "2026-07-12 08:20:08",
     "wind_dir_label": "SSW",
     "today_low": null,
     "today_high": null
@@ -18,8 +18,8 @@
     {
       "date": "2026-07-12",
       "dow": "Sunday",
-      "high": 24,
-      "low": 15,
+      "high": 25,
+      "low": 17,
       "desc": "Partly Cloudy",
       "icon_wu": 30,
       "precip": 0
@@ -27,26 +27,26 @@
     {
       "date": "2026-07-13",
       "dow": "Monday",
-      "high": 24,
-      "low": 15,
+      "high": 26,
+      "low": 17,
       "desc": "Mostly Sunny",
       "icon_wu": 34,
-      "precip": 4.6
+      "precip": 4.5
     },
     {
       "date": "2026-07-14",
       "dow": "Tuesday",
-      "high": 24,
-      "low": 15,
+      "high": 25,
+      "low": 17,
       "desc": "PM Showers",
       "icon_wu": 39,
-      "precip": 6.9
+      "precip": 7.4
     },
     {
       "date": "2026-07-15",
       "dow": "Wednesday",
-      "high": 23,
-      "low": 16,
+      "high": 25,
+      "low": 17,
       "desc": "PM Light Rain",
       "icon_wu": 11,
       "precip": 0
@@ -54,8 +54,8 @@
     {
       "date": "2026-07-16",
       "dow": "Thursday",
-      "high": 23,
-      "low": 15,
+      "high": 24,
+      "low": 17,
       "desc": "PM Showers",
       "icon_wu": 39,
       "precip": 0
@@ -89,5 +89,5 @@
     "wettest_mm": 45.97,
     "wettest_date": "2024-08-07"
   },
-  "generated": "2026-07-12T02:40:38.448495+00:00"
+  "generated": "2026-07-12T02:50:32.419483+00:00"
 }
