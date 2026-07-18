@@ -3,14 +3,14 @@
     "temp": null,
     "feels_like": null,
     "humidity": null,
-    "wind_kph": 5,
-    "wind_dir": 277,
+    "wind_kph": 2,
+    "wind_dir": 356,
     "pressure": 1012.87,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-07-19 02:20:06",
-    "wind_dir_label": "W",
+    "updated": "2026-07-19 02:30:06",
+    "wind_dir_label": "N",
     "today_low": null,
     "today_high": null
   },
@@ -89,5 +89,5 @@
     "wettest_mm": 45.97,
     "wettest_date": "2024-08-07"
   },
-  "generated": "2026-07-18T20:50:25.496794+00:00"
+  "generated": "2026-07-18T21:00:36.717872+00:00"
 }
