@@ -3,14 +3,14 @@
     "temp": null,
     "feels_like": null,
     "humidity": null,
-    "wind_kph": 11,
-    "wind_dir": 266,
+    "wind_kph": 12,
+    "wind_dir": 257,
     "pressure": 1012.53,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-07-20 01:20:06",
-    "wind_dir_label": "W",
+    "updated": "2026-07-20 01:30:06",
+    "wind_dir_label": "WSW",
     "today_low": null,
     "today_high": null
   },
@@ -20,9 +20,9 @@
       "dow": "Sunday",
       "high": 23,
       "low": 19,
-      "desc": "Scattered T-Storms",
+      "desc": "Isolated T-Storms",
       "icon_wu": 47,
-      "precip": 28.0
+      "precip": 27.1
     },
     {
       "date": "2026-07-20",
@@ -89,5 +89,5 @@
     "wettest_mm": 45.97,
     "wettest_date": "2024-08-07"
   },
-  "generated": "2026-07-19T19:50:24.758037+00:00"
+  "generated": "2026-07-19T20:00:34.184368+00:00"
 }
