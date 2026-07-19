@@ -18,35 +18,35 @@
     {
       "date": "2026-07-19",
       "dow": "Sunday",
-      "high": 23,
-      "low": 19,
-      "desc": "Cloudy",
-      "icon_wu": 26,
-      "precip": 92.0
+      "high": 25,
+      "low": 21,
+      "desc": "PM T-Storms",
+      "icon_wu": 38,
+      "precip": 95.1
     },
     {
       "date": "2026-07-20",
       "dow": "Monday",
-      "high": 20,
-      "low": 18,
+      "high": 23,
+      "low": 20,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 60.3
+      "precip": 62.5
     },
     {
       "date": "2026-07-21",
       "dow": "Tuesday",
-      "high": 20,
-      "low": 17,
+      "high": 23,
+      "low": 20,
       "desc": "Rain / Thunder",
       "icon_wu": 12,
-      "precip": 23.7
+      "precip": 23.5
     },
     {
       "date": "2026-07-22",
       "dow": "Wednesday",
-      "high": 21,
-      "low": 18,
+      "high": 24,
+      "low": 20,
       "desc": "Rain / Thunder",
       "icon_wu": 12,
       "precip": 0
@@ -54,8 +54,8 @@
     {
       "date": "2026-07-23",
       "dow": "Thursday",
-      "high": 22,
-      "low": 17,
+      "high": 24,
+      "low": 20,
       "desc": "T-Storms",
       "icon_wu": 4,
       "precip": 0
@@ -89,5 +89,5 @@
     "wettest_mm": 45.97,
     "wettest_date": "2024-08-07"
   },
-  "generated": "2026-07-19T05:00:38.411463+00:00"
+  "generated": "2026-07-19T05:10:22.453482+00:00"
 }
