@@ -2,7 +2,6 @@ import urllib.request
 import urllib.error
 import json
 import os
-import sys
 from datetime import datetime, timedelta, timezone
 
 API_KEY    = "c481811673aa4a0c81811673aa9a0ccd"
@@ -74,30 +73,40 @@ def wu_forecast():
     lows    = data.get("calendarDayTemperatureMin") or data.get("temperatureMin") or []
     dow     = data.get("dayOfWeek", [])
     valid   = data.get("validTimeLocal", [])
-    precip  = data.get("qpfRain") or data.get("qpf") or []
+    # qpf is a top-level array with one value per day — not inside daypart
+    precip  = data.get("qpf") or []
     daypart = data.get("daypart", [{}])
     dp      = daypart[0] if daypart else {}
     icons   = dp.get("iconCode") or []
     phrases = dp.get("wxPhraseLong") or dp.get("wxPhraseShort") or []
+
     days = []
     for i in range(min(5, len(highs))):
         date_str  = valid[i][:10] if valid and i < len(valid) else ""
         dow_str   = dow[i] if dow and i < len(dow) else ""
-        icon_idx  = i * 2
+        # daypart array has 2 entries per day: [day0, night0, day1, night1, ...]
+        day_idx   = i * 2
+        night_idx = i * 2 + 1
+
+        # Icon: prefer daytime, fall back to night
         icon_code = None
         if icons:
-            if icon_idx < len(icons) and icons[icon_idx] is not None:
-                icon_code = icons[icon_idx]
-            elif icon_idx+1 < len(icons) and icons[icon_idx+1] is not None:
-                icon_code = icons[icon_idx+1]
+            if day_idx < len(icons) and icons[day_idx] is not None:
+                icon_code = icons[day_idx]
+            elif night_idx < len(icons) and icons[night_idx] is not None:
+                icon_code = icons[night_idx]
+
+        # Phrase: prefer daytime, fall back to night
         phrase = ""
         if phrases:
-            if icon_idx < len(phrases) and phrases[icon_idx]:
-                phrase = phrases[icon_idx]
-            elif icon_idx+1 < len(phrases) and phrases[icon_idx+1]:
-                phrase = phrases[icon_idx+1]
-        day_p   = precip[icon_idx]   if precip and icon_idx   < len(precip) and precip[icon_idx]   else 0
-        night_p = precip[icon_idx+1] if precip and icon_idx+1 < len(precip) and precip[icon_idx+1] else 0
+            if day_idx < len(phrases) and phrases[day_idx]:
+                phrase = phrases[day_idx]
+            elif night_idx < len(phrases) and phrases[night_idx]:
+                phrase = phrases[night_idx]
+
+        # qpf is top-level per day, not per daypart
+        day_precip = precip[i] if precip and i < len(precip) and precip[i] is not None else 0
+
         days.append({
             "date":    date_str,
             "dow":     dow_str,
@@ -105,8 +114,9 @@ def wu_forecast():
             "low":     lows[i],
             "desc":    phrase,
             "icon_wu": icon_code,
-            "precip":  round((day_p or 0) + (night_p or 0), 1)
+            "precip":  round(day_precip, 1)
         })
+        print(f"  Day {i} ({dow_str}): high={highs[i]}, low={lows[i]}, precip={day_precip}mm, icon={icon_code}, desc={phrase}")
     return days
 
 def wu_history_week(year_offset):
@@ -188,8 +198,6 @@ def main():
     os.makedirs("docs", exist_ok=True)
     result = {}
 
-    run_full_history = "--full" in sys.argv
-
     try:
         current = wu_current()
         current["wind_dir_label"] = wind_direction(current.get("wind_dir"))
@@ -199,67 +207,4 @@ def main():
         result["current"] = current
         print(f"Current: {current['temp']}°C, low {t_low}, high {t_high}")
     except Exception as e:
-        print(f"Current error: {e}")
-        result["current_error"] = str(e)
-
-    try:
-        result["forecast"] = wu_forecast()
-        print(f"Forecast: {len(result['forecast'])} days from WU")
-    except Exception as e:
-        print(f"WU Forecast error: {e}")
-        result["forecast"] = []
-
-    if run_full_history:
-        print("Running full historical calculations...")
-        result["history_1y"] = wu_history_week(1)
-        result["history_2y"] = wu_history_week(2)
-
-        ist = timezone(timedelta(hours=5, minutes=30))
-        now = datetime.now(ist)
-        current_month = now.month
-        next_month    = (current_month % 12) + 1
-        try:
-            result["facts_current_month"] = wu_month_facts(current_month)
-            print(f"Facts current month: {result['facts_current_month']}")
-        except Exception as e:
-            print(f"Month facts error: {e}")
-            result["facts_current_month"] = None
-        try:
-            result["facts_next_month"] = wu_month_facts(next_month)
-            print(f"Facts next month: {result['facts_next_month']}")
-        except Exception as e:
-            print(f"Month facts error: {e}")
-            result["facts_next_month"] = None
-    else:
-        print("Fast run: Preserving existing historical data...")
-        if os.path.exists(OUT_FILE):
-            try:
-                with open(OUT_FILE, "r") as f:
-                    old_data = json.load(f)
-                    result["history_1y"] = old_data.get("history_1y")
-                    result["history_2y"] = old_data.get("history_2y")
-                    result["facts_current_month"] = old_data.get("facts_current_month")
-                    result["facts_next_month"] = old_data.get("facts_next_month")
-            except Exception as e:
-                print(f"Error reading old data: {e}")
-
-    result["generated"] = datetime.now(timezone.utc).isoformat()
-
-    with open(OUT_FILE, "w") as f:
-        json.dump(result, f, indent=2)
-
-    ts = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")
-    with open(f"docs/data_{ts}.json", "w") as f:
-        json.dump(result, f)
-
-    with open("docs/latest.txt", "w") as f:
-        f.write(ts)
-
-    with open("docs/version.txt", "w") as f:
-        f.write(result["generated"])
-
-    print(f"Wrote latest.txt: {ts}")
-    print(f"Done — {OUT_FILE} written at {result['generated']}")
-
-if __name__ == "__main__":
-    main()
+        print(f"Current
