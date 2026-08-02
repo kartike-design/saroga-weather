@@ -1,19 +1,5 @@
 {
-  "current": {
-    "temp": 18,
-    "feels_like": 18,
-    "humidity": 91,
-    "wind_kph": 2,
-    "wind_dir": 291,
-    "pressure": 1012.87,
-    "precip_today": 0.0,
-    "uv": null,
-    "condition": "",
-    "updated": "2026-08-02 09:15:59",
-    "wind_dir_label": "WNW",
-    "today_low": 16,
-    "today_high": 19
-  },
+  "current_error": "Expecting value: line 1 column 1 (char 0)",
   "forecast": [
     {
       "date": "2026-08-02",
@@ -89,5 +75,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-02T04:40:24.100247+00:00"
+  "generated": "2026-08-02T04:50:24.420387+00:00"
 }
