@@ -4,47 +4,47 @@
     {
       "date": "2026-08-02",
       "dow": "Sunday",
-      "high": 26,
-      "low": 19,
+      "high": 24,
+      "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 4.2
+      "precip": 4.9
     },
     {
       "date": "2026-08-03",
       "dow": "Monday",
-      "high": 25,
-      "low": 20,
+      "high": 24,
+      "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 5.7
+      "precip": 7.3
     },
     {
       "date": "2026-08-04",
       "dow": "Tuesday",
-      "high": 24,
-      "low": 20,
+      "high": 23,
+      "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 12.9
+      "precip": 12.7
     },
     {
       "date": "2026-08-05",
       "dow": "Wednesday",
-      "high": 25,
-      "low": 20,
+      "high": 23,
+      "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 10.9
+      "precip": 10.8
     },
     {
       "date": "2026-08-06",
       "dow": "Thursday",
-      "high": 24,
-      "low": 20,
+      "high": 22,
+      "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 14.0
+      "precip": 15.3
     }
   ],
   "history_1y": {
@@ -75,5 +75,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-02T05:40:25.128846+00:00"
+  "generated": "2026-08-02T05:50:27.380619+00:00"
 }
