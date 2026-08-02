@@ -8,7 +8,7 @@
       "low": 18,
       "desc": "T-Storms Early",
       "icon_wu": 47,
-      "precip": 0.2
+      "precip": 0.0
     },
     {
       "date": "2026-08-03",
@@ -17,7 +17,7 @@
       "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 8.9
+      "precip": 7.7
     },
     {
       "date": "2026-08-04",
@@ -26,7 +26,7 @@
       "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 10.0
+      "precip": 11.2
     },
     {
       "date": "2026-08-05",
@@ -35,7 +35,7 @@
       "low": 18,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 10.1
+      "precip": 9.8
     },
     {
       "date": "2026-08-06",
@@ -75,5 +75,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-02T12:40:33.332802+00:00"
+  "generated": "2026-08-02T12:50:28.853129+00:00"
 }
