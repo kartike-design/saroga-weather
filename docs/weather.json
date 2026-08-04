@@ -9,7 +9,7 @@
     "precip_today": 2.29,
     "uv": null,
     "condition": "",
-    "updated": "2026-08-04 23:49:59",
+    "updated": "2026-08-04 23:59:59",
     "wind_dir_label": "SW",
     "today_low": 16,
     "today_high": 22
@@ -70,10 +70,10 @@
   },
   "history_2y": {
     "year": 2024,
-    "temp_avg": 19.4,
-    "temp_high": 27,
-    "temp_low": 15,
-    "precip": 59.2
+    "temp_avg": 18.3,
+    "temp_high": 23,
+    "temp_low": 16,
+    "precip": 68.3
   },
   "facts_current_month": {
     "month": 8,
@@ -89,5 +89,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-04T18:20:25.646155+00:00"
+  "generated": "2026-08-04T18:30:32.254921+00:00"
 }
