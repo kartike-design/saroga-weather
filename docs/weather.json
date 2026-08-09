@@ -20,8 +20,8 @@
       "dow": "Sunday",
       "high": 26,
       "low": 17,
-      "desc": "Scattered T-Storms",
-      "icon_wu": 47,
+      "desc": "Showers",
+      "icon_wu": 11,
       "precip": 1.2
     },
     {
@@ -40,7 +40,7 @@
       "low": 19,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 29.2
+      "precip": 29.3
     },
     {
       "date": "2026-08-12",
@@ -89,5 +89,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-09T10:50:24.999399+00:00"
+  "generated": "2026-08-09T10:50:44.911289+00:00"
 }
