@@ -1,16 +1,16 @@
 {
   "current": {
-    "temp": 22,
-    "feels_like": 22,
-    "humidity": 78,
-    "wind_kph": 8,
-    "wind_dir": 306,
+    "temp": 21,
+    "feels_like": 21,
+    "humidity": 80,
+    "wind_kph": 13,
+    "wind_dir": 223,
     "pressure": 1010.84,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-08-16 15:40:00",
-    "wind_dir_label": "NW",
+    "updated": "2026-08-16 15:50:00",
+    "wind_dir_label": "SW",
     "today_low": 16,
     "today_high": 24
   },
@@ -18,8 +18,8 @@
     {
       "date": "2026-08-16",
       "dow": "Sunday",
-      "high": 26,
-      "low": 18,
+      "high": 28,
+      "low": 20,
       "desc": "Showers Early",
       "icon_wu": 45,
       "precip": 0.0
@@ -27,38 +27,38 @@
     {
       "date": "2026-08-17",
       "dow": "Monday",
-      "high": 23,
-      "low": 17,
-      "desc": "T-Storms",
-      "icon_wu": 4,
-      "precip": 5.3
+      "high": 26,
+      "low": 20,
+      "desc": "PM T-Storms",
+      "icon_wu": 38,
+      "precip": 5.0
     },
     {
       "date": "2026-08-18",
       "dow": "Tuesday",
-      "high": 23,
-      "low": 18,
+      "high": 25,
+      "low": 20,
+      "desc": "T-Storms",
+      "icon_wu": 4,
+      "precip": 11.1
+    },
+    {
+      "date": "2026-08-19",
+      "dow": "Wednesday",
+      "high": 26,
+      "low": 20,
       "desc": "T-Storms",
       "icon_wu": 4,
       "precip": 11.3
     },
     {
-      "date": "2026-08-19",
-      "dow": "Wednesday",
-      "high": 24,
-      "low": 18,
-      "desc": "T-Storms",
-      "icon_wu": 4,
-      "precip": 11.0
-    },
-    {
       "date": "2026-08-20",
       "dow": "Thursday",
-      "high": 24,
-      "low": 18,
+      "high": 26,
+      "low": 20,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 13.1
+      "precip": 12.7
     }
   ],
   "history_1y": {
@@ -89,5 +89,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-16T10:10:26.517193+00:00"
+  "generated": "2026-08-16T10:20:25.576225+00:00"
 }
