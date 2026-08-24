@@ -20,8 +20,8 @@
       "dow": "Monday",
       "high": 27,
       "low": 16,
-      "desc": "Showers Early",
-      "icon_wu": 45,
+      "desc": "Partly Cloudy",
+      "icon_wu": 29,
       "precip": 0.0
     },
     {
@@ -89,5 +89,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-24T13:10:29.670011+00:00"
+  "generated": "2026-08-24T13:11:01.892684+00:00"
 }
