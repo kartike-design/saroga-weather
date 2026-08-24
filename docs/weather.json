@@ -4,13 +4,13 @@
     "feels_like": 15,
     "humidity": 92,
     "wind_kph": 0,
-    "wind_dir": 126,
-    "pressure": 1013.55,
+    "wind_dir": 199,
+    "pressure": 1013.88,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-08-24 06:00:03",
-    "wind_dir_label": "SE",
+    "updated": "2026-08-24 06:10:00",
+    "wind_dir_label": "SSW",
     "today_low": 14,
     "today_high": 16
   },
@@ -18,47 +18,47 @@
     {
       "date": "2026-08-24",
       "dow": "Monday",
-      "high": 25,
-      "low": 16,
+      "high": 26,
+      "low": 17,
       "desc": "PM T-Storms",
       "icon_wu": 38,
-      "precip": 1.5
+      "precip": 1.2
     },
     {
       "date": "2026-08-25",
       "dow": "Tuesday",
-      "high": 24,
-      "low": 17,
-      "desc": "PM T-Storms",
-      "icon_wu": 38,
-      "precip": 2.4
-    },
-    {
-      "date": "2026-08-26",
-      "dow": "Wednesday",
-      "high": 25,
-      "low": 17,
-      "desc": "PM T-Storms",
-      "icon_wu": 38,
-      "precip": 1.8
-    },
-    {
-      "date": "2026-08-27",
-      "dow": "Thursday",
-      "high": 25,
-      "low": 17,
-      "desc": "PM Showers",
-      "icon_wu": 39,
-      "precip": 1.0
-    },
-    {
-      "date": "2026-08-28",
-      "dow": "Friday",
       "high": 25,
       "low": 18,
       "desc": "PM T-Storms",
       "icon_wu": 38,
-      "precip": 1.8
+      "precip": 3.1
+    },
+    {
+      "date": "2026-08-26",
+      "dow": "Wednesday",
+      "high": 26,
+      "low": 18,
+      "desc": "PM Showers",
+      "icon_wu": 39,
+      "precip": 1.5
+    },
+    {
+      "date": "2026-08-27",
+      "dow": "Thursday",
+      "high": 26,
+      "low": 18,
+      "desc": "PM Showers",
+      "icon_wu": 39,
+      "precip": 0.6
+    },
+    {
+      "date": "2026-08-28",
+      "dow": "Friday",
+      "high": 26,
+      "low": 19,
+      "desc": "PM T-Storms",
+      "icon_wu": 38,
+      "precip": 2.2
     }
   ],
   "history_1y": {
@@ -89,5 +89,5 @@
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
-  "generated": "2026-08-24T00:30:29.361600+00:00"
+  "generated": "2026-08-24T00:40:27.220270+00:00"
 }
