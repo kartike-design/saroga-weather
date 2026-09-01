@@ -3,14 +3,14 @@
     "temp": 15,
     "feels_like": 15,
     "humidity": 92,
-    "wind_kph": 2,
-    "wind_dir": 262,
+    "wind_kph": 0,
+    "wind_dir": 221,
     "pressure": 1015.58,
     "precip_today": 7.62,
     "uv": null,
     "condition": "",
-    "updated": "2026-09-01 23:52:58",
-    "wind_dir_label": "W",
+    "updated": "2026-09-01 23:59:58",
+    "wind_dir_label": "SW",
     "today_low": 15,
     "today_high": 21
   },
@@ -22,7 +22,7 @@
       "low": 17,
       "desc": "Showers",
       "icon_wu": 11,
-      "precip": 0.6
+      "precip": 0.5
     },
     {
       "date": "2026-09-02",
@@ -31,7 +31,7 @@
       "low": 17,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 8.9
+      "precip": 9.0
     },
     {
       "date": "2026-09-03",
@@ -70,10 +70,10 @@
   },
   "history_2y": {
     "year": 2024,
-    "temp_avg": 17.9,
-    "temp_high": 24,
-    "temp_low": 13,
-    "precip": 37.9
+    "temp_avg": 16.7,
+    "temp_high": 22,
+    "temp_low": 14,
+    "precip": 47.0
   },
   "facts_current_month": {
     "month": 9,
@@ -89,5 +89,5 @@
     "wettest_mm": 17.53,
     "wettest_date": "2025-10-07"
   },
-  "generated": "2026-09-01T18:23:37.207101+00:00"
+  "generated": "2026-09-01T18:30:33.485897+00:00"
 }
