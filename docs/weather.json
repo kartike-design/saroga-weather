@@ -1,16 +1,16 @@
 {
   "current": {
-    "temp": 20,
-    "feels_like": 20,
-    "humidity": 80,
-    "wind_kph": 13,
-    "wind_dir": 295,
+    "temp": 19,
+    "feels_like": 19,
+    "humidity": 84,
+    "wind_kph": 12,
+    "wind_dir": 316,
     "pressure": 1012.87,
     "precip_today": 1.02,
     "uv": null,
     "condition": "",
-    "updated": "2026-09-03 16:39:58",
-    "wind_dir_label": "WNW",
+    "updated": "2026-09-03 16:49:58",
+    "wind_dir_label": "NW",
     "today_low": 16,
     "today_high": 23
   },
@@ -18,8 +18,8 @@
     {
       "date": "2026-09-03",
       "dow": "Thursday",
-      "high": 26,
-      "low": 18,
+      "high": 25,
+      "low": 16,
       "desc": "T-Storms Early",
       "icon_wu": 47,
       "precip": 0.0
@@ -27,35 +27,35 @@
     {
       "date": "2026-09-04",
       "dow": "Friday",
-      "high": 24,
-      "low": 18,
+      "high": 22,
+      "low": 17,
       "desc": "T-Storms",
       "icon_wu": 4,
-      "precip": 5.9
+      "precip": 6.8
     },
     {
       "date": "2026-09-05",
       "dow": "Saturday",
-      "high": 23,
-      "low": 17,
+      "high": 21,
+      "low": 16,
       "desc": "Scattered T-Storms",
       "icon_wu": 38,
-      "precip": 3.2
+      "precip": 3.4
     },
     {
       "date": "2026-09-06",
       "dow": "Sunday",
-      "high": 24,
-      "low": 17,
+      "high": 23,
+      "low": 15,
       "desc": "PM T-Storms",
       "icon_wu": 38,
-      "precip": 2.3
+      "precip": 2.5
     },
     {
       "date": "2026-09-07",
       "dow": "Monday",
-      "high": 26,
-      "low": 17,
+      "high": 24,
+      "low": 15,
       "desc": "Isolated T-Storms",
       "icon_wu": 37,
       "precip": 1.1
@@ -89,5 +89,5 @@
     "wettest_mm": 17.53,
     "wettest_date": "2025-10-07"
   },
-  "generated": "2026-09-03T11:10:26.365840+00:00"
+  "generated": "2026-09-03T11:20:34.910256+00:00"
 }
