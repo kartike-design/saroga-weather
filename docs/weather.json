@@ -4,14 +4,14 @@
     "feels_like": 15,
     "humidity": 90,
     "wind_kph": 0,
-    "wind_dir": 210,
-    "pressure": 1018.63,
+    "wind_dir": 230,
+    "pressure": 1018.29,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-09-15 02:18:56",
-    "wind_dir_label": "SSW",
-    "today_low": 15,
+    "updated": "2026-09-15 02:29:56",
+    "wind_dir_label": "SW",
+    "today_low": 14,
     "today_high": 15
   },
   "forecast": [
@@ -89,5 +89,5 @@
     "wettest_mm": 17.53,
     "wettest_date": "2025-10-07"
   },
-  "generated": "2026-09-14T20:50:29.209061+00:00"
+  "generated": "2026-09-14T21:00:40.660221+00:00"
 }
