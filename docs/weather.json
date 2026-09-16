@@ -29,9 +29,9 @@
       "dow": "Thursday",
       "high": 21,
       "low": 13,
-      "desc": "Isolated T-Storms",
-      "icon_wu": 37,
-      "precip": 0.5
+      "desc": "PM T-Storms",
+      "icon_wu": 38,
+      "precip": 0.7
     },
     {
       "date": "2026-09-18",
@@ -89,5 +89,5 @@
     "wettest_mm": 17.53,
     "wettest_date": "2025-10-07"
   },
-  "generated": "2026-09-16T00:30:13.392635+00:00"
+  "generated": "2026-09-16T00:30:32.719075+00:00"
 }
