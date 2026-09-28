@@ -1,16 +1,16 @@
 {
   "current": {
-    "temp": 12,
-    "feels_like": 12,
+    "temp": 13,
+    "feels_like": 13,
     "humidity": 83,
     "wind_kph": 0,
-    "wind_dir": 201,
+    "wind_dir": 258,
     "pressure": 1015.58,
     "precip_today": 4.57,
     "uv": null,
     "condition": "",
-    "updated": "2026-09-28 08:49:53",
-    "wind_dir_label": "SSW",
+    "updated": "2026-09-28 08:59:53",
+    "wind_dir_label": "WSW",
     "today_low": 8,
     "today_high": 13
   },
@@ -18,17 +18,17 @@
     {
       "date": "2026-09-28",
       "dow": "Monday",
-      "high": 18,
-      "low": 12,
-      "desc": "Scattered T-Storms",
+      "high": 19,
+      "low": 13,
+      "desc": "PM T-Storms",
       "icon_wu": 38,
-      "precip": 2.1
+      "precip": 2.5
     },
     {
       "date": "2026-09-29",
       "dow": "Tuesday",
       "high": 23,
-      "low": 12,
+      "low": 13,
       "desc": "Mostly Sunny",
       "icon_wu": 34,
       "precip": 0.0
@@ -36,8 +36,8 @@
     {
       "date": "2026-09-30",
       "dow": "Wednesday",
-      "high": 23,
-      "low": 12,
+      "high": 24,
+      "low": 13,
       "desc": "Sunny",
       "icon_wu": 32,
       "precip": 0.0
@@ -45,8 +45,8 @@
     {
       "date": "2026-10-01",
       "dow": "Thursday",
-      "high": 23,
-      "low": 12,
+      "high": 24,
+      "low": 13,
       "desc": "Sunny",
       "icon_wu": 32,
       "precip": 0.0
@@ -54,8 +54,8 @@
     {
       "date": "2026-10-02",
       "dow": "Friday",
-      "high": 23,
-      "low": 12,
+      "high": 24,
+      "low": 13,
       "desc": "Sunny",
       "icon_wu": 32,
       "precip": 0.0
@@ -77,8 +77,8 @@
   },
   "facts_current_month": {
     "month": 9,
-    "coldest_temp": 10,
-    "coldest_date": "2026-09-17",
+    "coldest_temp": 9,
+    "coldest_date": "2026-09-27",
     "wettest_mm": 36.83,
     "wettest_date": "2025-09-01"
   },
@@ -89,5 +89,5 @@
     "wettest_mm": 17.53,
     "wettest_date": "2025-10-07"
   },
-  "generated": "2026-09-28T03:20:26.998072+00:00"
+  "generated": "2026-09-28T03:30:31.106661+00:00"
 }
