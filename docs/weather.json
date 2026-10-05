@@ -1,5 +1,19 @@
 {
-  "current_error": "Expecting value: line 1 column 1 (char 0)",
+  "current": {
+    "temp": 17,
+    "feels_like": 17,
+    "humidity": 85,
+    "wind_kph": 2,
+    "wind_dir": 266,
+    "pressure": 1018.29,
+    "precip_today": 0.0,
+    "uv": null,
+    "condition": "",
+    "updated": "2026-10-05 11:59:52",
+    "wind_dir_label": "W",
+    "today_low": 13,
+    "today_high": 17
+  },
   "forecast": [
     {
       "date": "2026-10-05",
@@ -75,5 +89,5 @@
     "wettest_mm": null,
     "wettest_date": null
   },
-  "generated": "2026-10-05T06:20:26.391780+00:00"
+  "generated": "2026-10-05T06:30:37.060823+00:00"
 }
