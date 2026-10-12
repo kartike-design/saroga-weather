@@ -4,13 +4,13 @@
     "feels_like": 10,
     "humidity": 87,
     "wind_kph": 0,
-    "wind_dir": 140,
+    "wind_dir": 164,
     "pressure": 1021.67,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-10-12 23:49:52",
-    "wind_dir_label": "SE",
+    "updated": "2026-10-12 23:59:52",
+    "wind_dir_label": "SSE",
     "today_low": 8,
     "today_high": 17
   },
@@ -63,10 +63,10 @@
   ],
   "history_1y": {
     "year": 2025,
-    "temp_avg": 9.5,
-    "temp_high": 19,
-    "temp_low": 5,
-    "precip": 34.3
+    "temp_avg": 11.8,
+    "temp_high": 17,
+    "temp_low": 8,
+    "precip": 0.0
   },
   "history_2y": {
     "year": 2024,
@@ -89,5 +89,5 @@
     "wettest_mm": null,
     "wettest_date": null
   },
-  "generated": "2026-10-12T18:20:24.584063+00:00"
+  "generated": "2026-10-12T18:30:29.219981+00:00"
 }
