@@ -2,15 +2,15 @@
   "current": {
     "temp": 14,
     "feels_like": 14,
-    "humidity": 67,
-    "wind_kph": 3,
-    "wind_dir": 82,
+    "humidity": 64,
+    "wind_kph": 0,
+    "wind_dir": 132,
     "pressure": 1023.03,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-10-13 10:39:52",
-    "wind_dir_label": "E",
+    "updated": "2026-10-13 10:49:52",
+    "wind_dir_label": "SE",
     "today_low": 9,
     "today_high": 15
   },
@@ -22,7 +22,7 @@
       "low": 10,
       "desc": "PM T-Storms",
       "icon_wu": 38,
-      "precip": 0.7
+      "precip": 0.9
     },
     {
       "date": "2026-10-14",
@@ -89,5 +89,5 @@
     "wettest_mm": null,
     "wettest_date": null
   },
-  "generated": "2026-10-13T05:10:22.679578+00:00"
+  "generated": "2026-10-13T05:20:25.092378+00:00"
 }
