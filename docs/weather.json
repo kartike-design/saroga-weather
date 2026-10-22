@@ -9,7 +9,7 @@
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-10-22 23:49:51",
+    "updated": "2026-10-22 23:59:51",
     "wind_dir_label": "SSE",
     "today_low": 8,
     "today_high": 16
@@ -89,5 +89,5 @@
     "wettest_mm": null,
     "wettest_date": null
   },
-  "generated": "2026-10-22T18:20:26.107167+00:00"
+  "generated": "2026-10-22T18:30:33.606587+00:00"
 }
