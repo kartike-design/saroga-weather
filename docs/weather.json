@@ -9,7 +9,7 @@
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-10-28 19:59:57",
+    "updated": "2026-10-28 20:09:51",
     "wind_dir_label": "",
     "today_low": 8,
     "today_high": 20
@@ -36,7 +36,7 @@
     {
       "date": "2026-10-30",
       "dow": "Friday",
-      "high": 17,
+      "high": 18,
       "low": 8,
       "desc": "AM Clouds / PM Sun",
       "icon_wu": 30,
@@ -89,5 +89,5 @@
     "wettest_mm": null,
     "wettest_date": null
   },
-  "generated": "2026-10-28T14:30:34.837148+00:00"
+  "generated": "2026-10-28T14:40:28.494004+00:00"
 }
