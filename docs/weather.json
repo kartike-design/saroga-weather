@@ -3,13 +3,13 @@
     "temp": 10,
     "feels_like": 10,
     "humidity": 76,
-    "wind_kph": 3,
-    "wind_dir": 220,
+    "wind_kph": 2,
+    "wind_dir": 222,
     "pressure": 1012.53,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-10-30 17:39:35",
+    "updated": "2026-10-30 17:49:35",
     "wind_dir_label": "SW",
     "today_low": 8,
     "today_high": 13
@@ -89,5 +89,5 @@
     "wettest_mm": null,
     "wettest_date": null
   },
-  "generated": "2026-10-30T12:10:27.395656+00:00"
+  "generated": "2026-10-30T12:20:26.562762+00:00"
 }
