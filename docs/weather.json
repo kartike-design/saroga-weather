@@ -18,7 +18,7 @@
     {
       "date": "2026-11-02",
       "dow": "Monday",
-      "high": 23,
+      "high": 24,
       "low": 9,
       "desc": "Clear",
       "icon_wu": 31,
@@ -27,7 +27,7 @@
     {
       "date": "2026-11-03",
       "dow": "Tuesday",
-      "high": 21,
+      "high": 22,
       "low": 8,
       "desc": "Sunny",
       "icon_wu": 32,
@@ -89,5 +89,5 @@
     "wettest_mm": 17.02,
     "wettest_date": "2024-12-28"
   },
-  "generated": "2026-11-02T13:50:26.779284+00:00"
+  "generated": "2026-11-02T14:00:52.760147+00:00"
 }
