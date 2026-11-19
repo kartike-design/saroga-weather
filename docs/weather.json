@@ -2,15 +2,15 @@
   "current": {
     "temp": 8,
     "feels_like": 8,
-    "humidity": 43,
-    "wind_kph": 2,
-    "wind_dir": 93,
+    "humidity": 42,
+    "wind_kph": 3,
+    "wind_dir": 35,
     "pressure": 1012.87,
     "precip_today": 0.0,
     "uv": null,
     "condition": "",
-    "updated": "2026-11-20 03:29:32",
-    "wind_dir_label": "E",
+    "updated": "2026-11-20 03:39:32",
+    "wind_dir_label": "NE",
     "today_low": 8,
     "today_high": 10
   },
@@ -18,33 +18,6 @@
     {
       "date": "2026-11-20",
       "dow": "Friday",
-      "high": 21,
-      "low": 6,
-      "desc": "Sunny",
-      "icon_wu": 32,
-      "precip": 0.0
-    },
-    {
-      "date": "2026-11-21",
-      "dow": "Saturday",
-      "high": 19,
-      "low": 6,
-      "desc": "Mostly Cloudy",
-      "icon_wu": 28,
-      "precip": 0.0
-    },
-    {
-      "date": "2026-11-22",
-      "dow": "Sunday",
-      "high": 19,
-      "low": 5,
-      "desc": "Sunny",
-      "icon_wu": 32,
-      "precip": 0.0
-    },
-    {
-      "date": "2026-11-23",
-      "dow": "Monday",
       "high": 20,
       "low": 5,
       "desc": "Sunny",
@@ -52,10 +25,37 @@
       "precip": 0.0
     },
     {
+      "date": "2026-11-21",
+      "dow": "Saturday",
+      "high": 18,
+      "low": 4,
+      "desc": "Mostly Cloudy",
+      "icon_wu": 28,
+      "precip": 0.0
+    },
+    {
+      "date": "2026-11-22",
+      "dow": "Sunday",
+      "high": 17,
+      "low": 4,
+      "desc": "Sunny",
+      "icon_wu": 32,
+      "precip": 0.0
+    },
+    {
+      "date": "2026-11-23",
+      "dow": "Monday",
+      "high": 18,
+      "low": 4,
+      "desc": "Sunny",
+      "icon_wu": 32,
+      "precip": 0.0
+    },
+    {
       "date": "2026-11-24",
       "dow": "Tuesday",
-      "high": 21,
-      "low": 6,
+      "high": 20,
+      "low": 5,
       "desc": "Sunny",
       "icon_wu": 32,
       "precip": 0.0
@@ -89,5 +89,5 @@
     "wettest_mm": 17.02,
     "wettest_date": "2024-12-28"
   },
-  "generated": "2026-11-19T22:00:33.415353+00:00"
+  "generated": "2026-11-19T22:10:25.344338+00:00"
 }
